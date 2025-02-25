@@ -429,7 +429,7 @@ void handle_float(va_list factor, char *str, int *l, flags *f) {
 void handle_hex(va_list factor, char *str, int *l, flags *f, int uppercase) {
   unsigned long int num = 0;
   if (f->long_) {
-    num = va_arg(factor, unsigned long int);
+    num = va_arg(factor, unsigned long long int);
   } else if (f->short_) {
     num = (unsigned short int)va_arg(factor, int);
   } else {
@@ -451,8 +451,8 @@ void handle_hex(va_list factor, char *str, int *l, flags *f, int uppercase) {
   int temp_len = 0;
   temp = num;
   if (num == 0) {
-    if (f->precision < 1) {
-      temp_str[temp_len++] = ' ';
+    if (f->precision < 1 && f->precision != -1) {
+      temp_str[temp_len] = ' ';
     } else {
       temp_str[temp_len++] = '0';
     }
@@ -544,8 +544,8 @@ void handle_o(va_list factor, char *str, int *l, flags *f) {
   int temp_len = 0;
   temp = num;
   if (num == 0) {
-    if (f->precision < 1) {
-      temp_str[temp_len++] = ' ';
+    if (f->precision < 1 && f->precision != -1) {
+      temp_str[temp_len] = ' ';
     } else {
       temp_str[temp_len++] = '0';
     }
@@ -603,7 +603,6 @@ void handle_o(va_list factor, char *str, int *l, flags *f) {
     }
   }
 }
-
 
 void handle_p(va_list factor, char *str, int *l, flags *f) {
   void *ptr = va_arg(factor, void *);

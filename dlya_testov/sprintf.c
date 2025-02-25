@@ -1020,6 +1020,51 @@ int main() {
   // printf("Привет, число: %10.5lf", 123.456);
   // printf("\n%s\n", buffer);
 
+  // Базовый тест
+  s21_sprintf(buffer, "Hex: %x", 255);
+  printf("Hex: %x\n", 255);
+  printf("%s\n", buffer);
+
+  // С шириной
+  s21_sprintf(buffer, "Hex with width: %5x", 255);
+  printf("Hex with width: %5x\n", 255);
+  printf("%s\n", buffer);
+
+  // С заполнением нулями
+  s21_sprintf(buffer, "Hex with zero padding: %05x", 255);
+  printf("Hex with zero padding: %05x\n", 255);
+  printf("%s\n", buffer);
+
+  // С выравниванием влево
+  s21_sprintf(buffer, "Hex with left alignment: %-5x", 255);
+  printf("Hex with left alignment: %-5x\n", 255);
+  printf("%s\n", buffer);
+
+  // С динамической шириной
+  s21_sprintf(buffer, "Hex with dynamic width: %*x", 5, 255);
+  printf("Hex with dynamic width: %*x\n", 5, 255);
+  printf("%s\n", buffer);
+
+  // Максимальное значение
+  s21_sprintf(buffer, "Hex max: %x", UINT_MAX);
+  printf("Hex max: %x\n", UINT_MAX);
+  printf("%s\n", buffer);
+
+  // Короткое целое
+  s21_sprintf(buffer, "Hex short: %hx", (unsigned short)65535);
+  printf("Hex short: %hx\n", (unsigned short)65535);
+  printf("%s\n", buffer);
+
+  // С точностью
+  s21_sprintf(buffer, "Hex with precision: %.8x", 255);
+  printf("Hex with precision: %.8x\n", 255);
+  printf("%s\n", buffer);
+
+  // С шириной и точностью
+  s21_sprintf(buffer, "Hex with width and precision: %10.8x", 255);
+  printf("Hex with width and precision: %10.8x\n", 255);
+  printf("%s\n", buffer);
+
   s21_sprintf(buffer, "Привет, число: %10.15lf", -123.456);
   printf("Привет, число: %10.15lf", -123.456);
   printf("\n%s\n", buffer);
@@ -1028,6 +1073,197 @@ int main() {
   s21_sprintf(buffer, "%#10.5X\n", num);
   printf("%#10.5X\n", num);
   printf("%s", buffer);
+
+
+  // // С длинным целым  ЕСЛИ БУДУ ПЕРЕДЕЛЫВАТЬ ТУТ ПЕРЕДЕЛАТЬ!
+  // s21_sprintf(buffer, "Hex with long: %lx", LONG_MAX);
+  // printf("Hex with long: %lx\n", LONG_MAX);
+  // printf("%s\n", buffer);
+
+  // Ноль
+  s21_sprintf(buffer, "Hex zero: %x", 0);
+  printf("Hex zero: %x\n", 0);
+  printf("%s\n", buffer);
+
+    // С нулевым значением и точностью
+  s21_sprintf(buffer, "Hex with zero value and precision: %.0x", 0);
+  printf("Hex with zero value and precision: %.0x\n", 0);
+  printf("%s\n", buffer);
+
+    // С нулевым значением и точностью
+  s21_sprintf(buffer, "Hex with zero value and precision: %.1x", 0);
+  printf("Hex with zero value and precision: %.1x\n", 0);
+  printf("%s\n", buffer);
+
+    // С нулевым значением и точностью
+  s21_sprintf(buffer, "Hex with zero value and precision: %.2x", 0);
+  printf("Hex with zero value and precision: %.2x\n", 0);
+  printf("%s\n", buffer);
+
+    // С нулевым значением и точностью
+  s21_sprintf(buffer, "Hex with zero value and precision: %.3x", 0);
+  printf("Hex with zero value and precision: %.3x\n", 0);
+  printf("%s\n", buffer);
+
+
+
+
+
+
+
+  // Базовый тест
+  s21_sprintf(buffer, "Hex: %X", 255);
+  printf("Hex: %X\n", 255);
+  printf("%s\n", buffer);
+
+  // С шириной
+  s21_sprintf(buffer, "Hex with width: %5X", 255);
+  printf("Hex with width: %5X\n", 255);
+  printf("%s\n", buffer);
+
+  // С заполнением нулями
+  s21_sprintf(buffer, "Hex with zero padding: %05X", 255);
+  printf("Hex with zero padding: %05X\n", 255);
+  printf("%s\n", buffer);
+
+  // С выравниванием влево
+  s21_sprintf(buffer, "Hex with left alignment: %-5X", 255);
+  printf("Hex with left alignment: %-5X\n", 255);
+  printf("%s\n", buffer);
+
+  // С динамической шириной
+  s21_sprintf(buffer, "Hex with dynamic width: %*X", 5, 255);
+  printf("Hex with dynamic width: %*X\n", 5, 255);
+  printf("%s\n", buffer);
+
+  // // С длинным целым  // // Максимальное значение ЕСЛИ БУДУ ПЕРЕДЕЛЫВАТЬ ТУТ ПЕРЕДЕЛАТЬ!
+  // s21_sprintf(buffer, "Hex with long: %lX", LONG_MAX);
+  // printf("Hex with long: %lX\n", LONG_MAX);
+  // printf("%s\n", buffer);
+
+  // Ноль
+  s21_sprintf(buffer, "Hex zero: %X", 0);
+  printf("Hex zero: %X\n", 0);
+  printf("%s\n", buffer);
+
+  // Максимальное значение 
+  s21_sprintf(buffer, "Hex max: %X", UINT_MAX);
+  printf("Hex max: %X\n", UINT_MAX);
+  printf("%s\n", buffer);
+
+  // Короткое целое
+  s21_sprintf(buffer, "Hex short: %hX", (unsigned short)65535);
+  printf("Hex short: %hX\n", (unsigned short)65535);
+  printf("%s\n", buffer);
+
+  // С точностью
+  s21_sprintf(buffer, "Hex with precision: %.8X", 255);
+  printf("Hex with precision: %.8X\n", 255);
+  printf("%s\n", buffer);
+
+  // С нулевым значением и точностью
+  s21_sprintf(buffer, "Hex with zero value and precision: %.0X", 0);
+  printf("Hex with zero value and precision: %.0X\n", 0);
+  printf("%s\n", buffer);
+
+  // С шириной и точностью
+  s21_sprintf(buffer, "Hex with width and precision: %10.8X", 255);
+  printf("Hex with width and precision: %10.8X\n", 255);
+  printf("%s\n", buffer);
+
+
+
+
+
+
+
+
+
+  // Базовый тест
+  s21_sprintf(buffer, "Octal: %o", 255);
+  printf("Octal: %o\n", 255);
+  printf("%s\n", buffer);
+
+  // С шириной
+  s21_sprintf(buffer, "Octal with width: %5o", 255);
+  printf("Octal with width: %5o\n", 255);
+  printf("%s\n", buffer);
+
+  // С заполнением нулями
+  s21_sprintf(buffer, "Octal with zero padding: %05o", 255);
+  printf("Octal with zero padding: %05o\n", 255);
+  printf("%s\n", buffer);
+
+  // С выравниванием влево
+  s21_sprintf(buffer, "Octal with left alignment: %-5o", 255);
+  printf("Octal with left alignment: %-5o\n", 255);
+  printf("%s\n", buffer);
+
+  // С динамической шириной
+  s21_sprintf(buffer, "Octal with dynamic width: %*o", 5, 255);
+  printf("Octal with dynamic width: %*o\n", 5, 255);
+  printf("%s\n", buffer);
+
+  // // Максимальное значение ЕСЛИ БУДУ ПЕРЕДЕЛЫВАТЬ ТУТ ПЕРЕДЕЛАТЬ!
+  // s21_sprintf(buffer, "Octal with long: %lo", LONG_MAX);
+  // printf("Octal with long: %lo\n", LONG_MAX);
+  // printf("%s\n", buffer);
+
+  // Ноль
+  s21_sprintf(buffer, "Octal zero: %o", 0);
+  printf("Octal zero: %o\n", 0);
+  printf("%s\n", buffer);
+
+
+  s21_sprintf(buffer, "Octal max: %o", UINT_MAX);
+  printf("Octal max: %o\n", UINT_MAX);
+  printf("%s\n", buffer);
+
+  // Короткое целое
+  s21_sprintf(buffer, "Octal short: %ho", (unsigned short)65535);
+  printf("Octal short: %ho\n", (unsigned short)65535);
+  printf("%s\n", buffer);
+
+  // С точностью
+  s21_sprintf(buffer, "Octal with precision: %.8o", 255);
+  printf("Octal with precision: %.8o\n", 255);
+  printf("%s\n", buffer);
+
+  // С нулевым значением и точностью
+  s21_sprintf(buffer, "Octal with zero value and precision: %.0o", 0);
+  printf("Octal with zero value and precision: %.0o\n", 0);
+  printf("%s\n", buffer);
+
+  // С шириной и точностью
+  s21_sprintf(buffer, "Octal with width and precision: %10.8o", 255);
+  printf("Octal with width and precision: %10.8o\n", 255);
+  printf("%s\n", buffer);
+  
+
+
+
+
+
+int www = 42;
+int *ptr = &www;
+
+// Базовый тест
+s21_sprintf(buffer, "Pointer: %p", (void*)ptr);
+printf("Pointer: %p\n", (void*)ptr);
+printf("%s\n", buffer);
+
+// Нулевой указатель
+s21_sprintf(buffer, "Null pointer: %p", (void*)NULL);
+printf("Null pointer: %p\n", (void*)NULL);
+printf("%s\n", buffer);
+
+// С шириной
+s21_sprintf(buffer, "Pointer with width: %20p", (void*)ptr);
+printf("Pointer with width: %20p\n", (void*)ptr);
+printf("%s\n", buffer);
+
+  
+
   return 0;
 }
 
@@ -1460,7 +1696,7 @@ void handle_float(va_list factor, char *str, int *l, flags *f) {
 void handle_hex(va_list factor, char *str, int *l, flags *f, int uppercase) {
   unsigned long int num = 0;
   if (f->long_) {
-    num = va_arg(factor, unsigned long int);
+    num = va_arg(factor, unsigned long long int);
   } else if (f->short_) {
     num = (unsigned short int)va_arg(factor, int);
   } else {
@@ -1482,8 +1718,8 @@ void handle_hex(va_list factor, char *str, int *l, flags *f, int uppercase) {
   int temp_len = 0;
   temp = num;
   if (num == 0) {
-    if (f->precision < 1) {
-      temp_str[temp_len++] = ' ';
+    if (f->precision < 1 && f->precision != -1) {
+      temp_str[temp_len] = ' ';
     } else {
       temp_str[temp_len++] = '0';
     }
@@ -1575,8 +1811,8 @@ void handle_o(va_list factor, char *str, int *l, flags *f) {
   int temp_len = 0;
   temp = num;
   if (num == 0) {
-    if (f->precision < 1) {
-      temp_str[temp_len++] = ' ';
+    if (f->precision < 1 && f->precision != -1) {
+      temp_str[temp_len] = ' ';
     } else {
       temp_str[temp_len++] = '0';
     }
