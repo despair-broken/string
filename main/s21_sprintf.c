@@ -313,7 +313,8 @@ void handle_unsigned(va_list factor, char *str, int *l, flags *f) {
     }
   }
   int count_zero = 0;
-  if (f->precision > 0 && f->precision > len) count_zero = f->precision - len;
+  if (f->precision > 0 && f->precision > len)
+    count_zero = f->precision - len;
   if (f->minus) {
     for (int i = 0; i < count_zero; i++) {
       str[(*l)++] = '0';
@@ -358,8 +359,65 @@ void handle_float(va_list factor, char *str, int *l, flags *f) {
   } else {
     num = va_arg(factor, double);
   }
+  int flag_inf_nan = 1;
+  if (isnan(num)) {
+    flag_inf_nan = 0;
+    int len = 3;
+    if (f->minus) {
+      for (int i = 0; i < len; i++) {
+        str[(*l)++] = "nan"[i];
+      }
+      for (int i = 0; i < f->width - len; i++) {
+        str[(*l)++] = ' ';
+      }
+    } else {
+      for (int i = 0; i < f->width - len; i++) {
+        str[(*l)++] = ' ';
+      }
+      for (int i = 0; i < len; i++) {
+        str[(*l)++] = "nan"[i];
+      }
+    }
+  } else if (isinf(num)) {
+    flag_inf_nan = 0;
+    int len = 4;
+    if (num < 0) {
+      if (f->minus) {
+        for (int i = 0; i < len; i++) {
+          str[(*l)++] = "-inf"[i];
+        }
+        for (int i = 0; i < f->width - len; i++) {
+          str[(*l)++] = ' ';
+        }
+      } else {
+        for (int i = 0; i < f->width - len; i++) {
+          str[(*l)++] = ' ';
+        }
+        for (int i = 0; i < len; i++) {
+          str[(*l)++] = "-inf"[i];
+        }
+      }
+    } else {
+      if (f->minus) {
+        len = 3;
+        for (int i = 0; i < len; i++) {
+          str[(*l)++] = "inf"[i];
+        }
+        for (int i = 0; i < f->width - len; i++) {
+          str[(*l)++] = ' ';
+        }
+      } else {
+        for (int i = 0; i < f->width - len; i++) {
+          str[(*l)++] = ' ';
+        }
+        for (int i = 0; i < len; i++) {
+          str[(*l)++] = "inf"[i];
+        }
+      }
+    }
+  }
   int sign = 0;
-  if (num < 0) {
+  if (signbit(num)) {
     sign = -1;
     num = -num;
   } else if (f->plus) {
@@ -390,24 +448,8 @@ void handle_float(va_list factor, char *str, int *l, flags *f) {
     frac_len = 6;
   }
   int len = int_len + frac_len + flag_point + (sign != 0);
-  if (f->minus) {
-    if (sign == -1) {
-      str[(*l)++] = '-';
-    } else if (sign == 1) {
-      str[(*l)++] = '+';
-    } else if (sign == 2) {
-      str[(*l)++] = ' ';
-    }
-    print_int_part(str, l, num);
-    if (f->precision != 0) {
-      str[(*l)++] = '.';
-    }
-    print_frac_part(str, l, num, frac_len);
-    for (int i = 0; i < f->width - len; i++) {
-      str[(*l)++] = ' ';
-    }
-  } else {
-    if (f->zero) {
+  if (flag_inf_nan) {
+    if (f->minus) {
       if (sign == -1) {
         str[(*l)++] = '-';
       } else if (sign == 1) {
@@ -415,28 +457,46 @@ void handle_float(va_list factor, char *str, int *l, flags *f) {
       } else if (sign == 2) {
         str[(*l)++] = ' ';
       }
-      for (int i = 0; i < f->width - len; i++) {
-        str[(*l)++] = '0';
-      }
-    } else {
-      for (int i = 0; i < f->width - len; i++) {
-        str[(*l)++] = ' ';
-      }
-      if (sign == -1) {
-        str[(*l)++] = '-';
-      } else if (sign == 1) {
-        str[(*l)++] = '+';
-      } else if (sign == 2) {
-        str[(*l)++] = ' ';
-      }
-    }
-    print_int_part(str, l, num);
-    if (!(isnan(num)) && !(isinf(num))) {
+      print_int_part(str, l, num);
       if (f->precision != 0) {
         str[(*l)++] = '.';
       }
+      print_frac_part(str, l, num, frac_len);
+      for (int i = 0; i < f->width - len; i++) {
+        str[(*l)++] = ' ';
+      }
+    } else {
+      if (f->zero) {
+        if (sign == -1) {
+          str[(*l)++] = '-';
+        } else if (sign == 1) {
+          str[(*l)++] = '+';
+        } else if (sign == 2) {
+          str[(*l)++] = ' ';
+        }
+        for (int i = 0; i < f->width - len; i++) {
+          str[(*l)++] = '0';
+        }
+      } else {
+        for (int i = 0; i < f->width - len; i++) {
+          str[(*l)++] = ' ';
+        }
+        if (sign == -1) {
+          str[(*l)++] = '-';
+        } else if (sign == 1) {
+          str[(*l)++] = '+';
+        } else if (sign == 2) {
+          str[(*l)++] = ' ';
+        }
+      }
+      print_int_part(str, l, num);
+      if (!(isnan(num)) && !(isinf(num))) {
+        if (f->precision != 0) {
+          str[(*l)++] = '.';
+        }
+      }
+      print_frac_part(str, l, num, frac_len);
     }
-    print_frac_part(str, l, num, frac_len);
   }
 }
 
@@ -649,51 +709,31 @@ void handle_p(va_list factor, char *str, int *l, flags *f) {
   }
 }
 
-
-void print_int_part(char *str, int *l, double num) {
-  mpfr_t num_mpfr;
-  mpfr_init2(num_mpfr, 100);
-  mpfr_set_d(num_mpfr, num, MPFR_RNDN);
-  char temp_str[1000];
-  mpfr_sprintf(temp_str, "%Rf", num_mpfr);
-  int dot_pos = -1;
-  for (int i = 0; temp_str[i]; i++) {
-    if (temp_str[i] == '.') {
-      dot_pos = i;
-      break;
-    }
-  }
-  if (dot_pos != -1) {
-    for (int i = 0; i < dot_pos; i++) {
-      str[(*l)++] = temp_str[i];
-    }
+void print_int_part(char *str, int *l, long double num) {
+  int int_part = (int)num;
+  if (int_part == 0) {
+    str[(*l)++] = '0';
   } else {
-    for (int i = 0; temp_str[i]; i++) {
-      str[(*l)++] = temp_str[i];
+    char int_str[50] = {0};
+    int len = 0;
+    while (int_part > 0) {
+      int_str[len++] = int_part % 10 + '0';
+      int_part /= 10;
+    }
+    for (int i = len - 1; i >= 0; i--) {
+      str[(*l)++] = int_str[i];
     }
   }
-  mpfr_clear(num_mpfr);
 }
 
-void print_frac_part(char *str, int *l, double num, int frac_len) {
-  mpfr_t num_mpfr;
-  mpfr_init2(num_mpfr, 100);
-  mpfr_set_d(num_mpfr, num, MPFR_RNDN);
-  char temp_str[1000];
-  mpfr_sprintf(temp_str, "%.*Rf", frac_len, num_mpfr);
-  int dot_pos = -1;
-  for (int i = 0; temp_str[i]; i++) {
-    if (temp_str[i] == '.') {
-      dot_pos = i;
-      break;
-    }
+void print_frac_part(char *str, int *l, long double num, int frac_len) {
+  long double frac = num - (int)num;
+  for (int i = 0; i < frac_len; i++) {
+    frac *= 10;
+    int digit = (int)frac;
+    str[(*l)++] = digit + '0';
+    frac -= digit;
   }
-  if (dot_pos != -1) {
-    for (int i = dot_pos + 1; i < dot_pos + frac_len + 1; i++) {
-      str[(*l)++] = temp_str[i];
-    }
-  }
-  mpfr_clear(num_mpfr);
 }
 
 ///////////////////////

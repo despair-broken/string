@@ -72,8 +72,8 @@ void handle_e(va_list factor, char *str, int *l, flags *f, int uppercase);
 void handle_o(va_list factor, char *str, int *l, flags *f);
 void handle_p(va_list factor, char *str, int *l, flags *f);
 
-void print_frac_part(char *str, int *l, double num, int frac_len);
-void print_int_part(char *str, int *l, double num);
+void print_frac_part(char *str, int *l, long double num, int frac_len);
+void print_int_part(char *str, int *l, long double num);
 
 int s21_sscanf(const char *str, const char *format, ...);
 void read_format(const char *format, format_flags *flags, s21_size_t *pi);
