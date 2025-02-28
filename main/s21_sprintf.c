@@ -39,21 +39,21 @@ void initialize_flags(flags *f) {
 void parse_flags(const char *format, int *i, flags *f) {
   while (strchr(("-+ #0"), format[*i])) {
     switch (format[*i]) {
-      case '-':
-        f->minus = 1;
-        break;
-      case '+':
-        f->plus = 1;
-        break;
-      case ' ':
-        f->space = 1;
-        break;
-      case '#':
-        f->sharp = 1;
-        break;
-      case '0':
-        f->zero = 1;
-        break;
+    case '-':
+      f->minus = 1;
+      break;
+    case '+':
+      f->plus = 1;
+      break;
+    case ' ':
+      f->space = 1;
+      break;
+    case '#':
+      f->sharp = 1;
+      break;
+    case '0':
+      f->zero = 1;
+      break;
     }
     (*i)++;
   }
@@ -114,12 +114,12 @@ void handle_specifier(const char *format, int *i, va_list factor, char *str,
     str[(*l)++] = '%';
   } else if (format[*i] == 'f') {
     handle_float(factor, str, l, f);
-  } else if (format[*i] == 'g' || format[*i] == 'G') {
-    handle_general(factor, str, l, f, format[*i] == 'G');
+    // } else if (format[*i] == 'g' || format[*i] == 'G') {
+    //   handle_general(factor, str, l, f, format[*i] == 'G');
   } else if (format[*i] == 'x' || format[*i] == 'X') {
     handle_hex(factor, str, l, f, format[*i] == 'X');
-  } else if (format[*i] == 'e' || format[*i] == 'E') {
-    handle_e(factor, str, l, f, format[*i] == 'E');
+    // } else if (format[*i] == 'e' || format[*i] == 'E') {
+    //   handle_e(factor, str, l, f, format[*i] == 'E');
   } else if (format[*i] == 'o') {
     handle_o(factor, str, l, f);
   } else if (format[*i] == 'p') {
@@ -130,8 +130,15 @@ void handle_specifier(const char *format, int *i, va_list factor, char *str,
 
 void handle_char(va_list factor, char *str, int *l, flags *f) {
   char c = (char)va_arg(factor, int);
+  int flag_zero = 1;
+  if (c == '\0') {
+    c = ' ';
+    flag_zero = 0;
+  }
   if (f->minus) {
-    str[(*l)++] = c;
+    if (flag_zero) {
+      str[(*l)++] = c;
+    }
     for (int i = 1; i < f->width; i++) {
       str[(*l)++] = ' ';
     }
@@ -139,32 +146,41 @@ void handle_char(va_list factor, char *str, int *l, flags *f) {
     for (int i = 1; i < f->width; i++) {
       str[(*l)++] = ' ';
     }
-    str[(*l)++] = c;
+    if (flag_zero) {
+      str[(*l)++] = c;
+    }
   } else {
-    str[(*l)++] = c;
+    if (flag_zero) {
+      str[(*l)++] = c;
+    }
   }
 }
 
 void handle_string(va_list factor, char *str, int *l, flags *f) {
   char *s = va_arg(factor, char *);
+  if (s == NULL) {
+    s = "(null)";
+  }
   int len = strlen(s);
-  int print_len = len;
-  if (f->precision > -1) {
-    print_len = f->precision;
+  char new_s[len + 1];
+  strcpy(new_s, s);
+  int actual_len = len;
+  if (f->precision > -1 && f->precision < actual_len) {
+    actual_len = f->precision;
   }
   if (f->minus) {
-    for (int i = 0; i < print_len; i++) {
-      str[(*l)++] = s[i];
+    for (int i = 0; i < actual_len; i++) {
+      str[(*l)++] = new_s[i];
     }
-    for (int i = 0; i < f->width - print_len; i++) {
+    for (int i = 0; i < f->width - actual_len; i++) {
       str[(*l)++] = ' ';
     }
   } else {
-    for (int i = 0; i < f->width - print_len; i++) {
+    for (int i = 0; i < f->width - actual_len; i++) {
       str[(*l)++] = ' ';
     }
-    for (int i = 0; i < print_len; i++) {
-      str[(*l)++] = s[i];
+    for (int i = 0; i < actual_len; i++) {
+      str[(*l)++] = new_s[i];
     }
   }
 }
@@ -191,10 +207,7 @@ void handle_int(va_list factor, char *str, int *l, flags *f) {
   } else if (f->space) {
     sign = 2;
   }
-  int flag_sign = 0;
-  if (sign) {
-    flag_sign = 1;
-  }
+  int flag_sign = (sign != 0);
   int flag_lm = 0;
   if (num == LONG_MIN) {
     num = LONG_MAX;
@@ -218,7 +231,8 @@ void handle_int(va_list factor, char *str, int *l, flags *f) {
     }
   }
   int count_zero = 0;
-  if (f->precision > 0 && f->precision > len) count_zero = f->precision - len;
+  if (f->precision > 0 && f->precision > len)
+    count_zero = f->precision - len;
   if (f->minus) {
     if (sign == -1) {
       str[(*l)++] = '-';

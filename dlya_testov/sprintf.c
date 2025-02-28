@@ -1537,10 +1537,7 @@ void handle_int(va_list factor, char *str, int *l, flags *f) {
   } else if (f->space) {
     sign = 2;
   }
-  int flag_sign = 0;
-  if (sign) {
-    flag_sign = 1;
-  }
+  int flag_sign = (sign != 0);
   int flag_lm = 0;
   if (num == LONG_MIN) {
     num = LONG_MAX;
