@@ -490,10 +490,8 @@ void handle_float(va_list factor, char *str, int *l, flags *f) {
         }
       }
       print_int_part(str, l, num);
-      if (!(isnan(num)) && !(isinf(num))) {
-        if (f->precision != 0) {
-          str[(*l)++] = '.';
-        }
+      if (f->precision != 0) {
+        str[(*l)++] = '.';
       }
       print_frac_part(str, l, num, frac_len);
     }
@@ -501,7 +499,7 @@ void handle_float(va_list factor, char *str, int *l, flags *f) {
 }
 
 void handle_hex(va_list factor, char *str, int *l, flags *f, int uppercase) {
-  unsigned long int num = 0;
+  unsigned long long int num = 0;
   if (f->long_) {
     num = va_arg(factor, unsigned long long int);
   } else if (f->short_) {
@@ -520,7 +518,8 @@ void handle_hex(va_list factor, char *str, int *l, flags *f, int uppercase) {
     }
   }
   int count_zero = 0;
-  if (f->precision > 0 && f->precision > len) count_zero = f->precision - len;
+  if (f->precision > 0 && f->precision > len)
+    count_zero = f->precision - len;
   char temp_str[20] = {0};
   int temp_len = 0;
   temp = num;
@@ -613,7 +612,8 @@ void handle_o(va_list factor, char *str, int *l, flags *f) {
     }
   }
   int count_zero = 0;
-  if (f->precision > 0 && f->precision > len) count_zero = f->precision - len;
+  if (f->precision > 0 && f->precision > len)
+    count_zero = f->precision - len;
   char temp_str[20] = {0};
   int temp_len = 0;
   temp = num;
@@ -711,11 +711,12 @@ void handle_p(va_list factor, char *str, int *l, flags *f) {
 
 void print_int_part(char *str, int *l, long double num) {
   int int_part = (int)num;
+  char int_str[50] = {0};
+  int len = 0;
+
   if (int_part == 0) {
     str[(*l)++] = '0';
   } else {
-    char int_str[50] = {0};
-    int len = 0;
     while (int_part > 0) {
       int_str[len++] = int_part % 10 + '0';
       int_part /= 10;
@@ -727,12 +728,38 @@ void print_int_part(char *str, int *l, long double num) {
 }
 
 void print_frac_part(char *str, int *l, long double num, int frac_len) {
-  long double frac = num - (int)num;
-  for (int i = 0; i < frac_len; i++) {
-    frac *= 10;
-    int digit = (int)frac;
-    str[(*l)++] = digit + '0';
-    frac -= digit;
+  int int_part = (int)num;
+  if (int_part > -1 && frac_len != 0) {
+    long double frac = num - (int)num;
+    int buff_digit = 0;
+    int flag_zero = 1;
+    int count_zero = 0;
+    for (int i = 0; i < frac_len; i++) {
+      frac *= 10;
+      int digit = (int)frac;
+      if (digit == 0 && flag_zero) {
+        count_zero++;
+      } else {
+        buff_digit = buff_digit * 10 + digit;
+        frac -= digit;
+        flag_zero = 0;
+      }
+    }
+    for (int i = 0; i < count_zero - flag_zero; i++) {
+      str[(*l)++] = '0';
+    }
+    if ((int)(frac * 10) >= 5) {
+      buff_digit++;
+    }
+    char buff_str[20];
+    sprintf(buff_str, "%d", buff_digit);
+    for (size_t i = 0; i < strlen(buff_str); i++) {
+      str[(*l)++] = buff_str[i];
+    }
+    int len = (int)strlen(buff_str);
+    for (int i = 0; i < frac_len - len - count_zero; i++) {
+      str[(*l)++] = ' ';
+    }
   }
 }
 

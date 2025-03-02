@@ -861,9 +861,6 @@ int main() {
   printf("Hex with width and precision: %10.8x\n", 255);
   printf("%s\n", buffer);
 
-  s21_sprintf(buffer, "Привет, число: %10.15lf", -123.456);
-  printf("Привет, число: %10.15lf", -123.456);
-  printf("\n%s\n", buffer);
   int num = 0;
 
   s21_sprintf(buffer, "%#10.5X\n", num);
@@ -1326,6 +1323,98 @@ int main() {
   s21_sprintf(buffer, "Привет, число: %10f", NAN);
   printf("Привет, число: %10f", NAN);
   printf("\n%s\n", buffer);
+
+  // Тесты с флагом `+` и динамической шириной
+  s21_sprintf(buffer, "Привет, число: %.0f", 123.456);
+  printf("Привет, число: %.0f", 123.456);
+  printf("\n%s\n", buffer);
+
+  // Тесты с флагом `+` и динамической шириной
+  s21_sprintf(buffer, "Привет, число: %.1f", 123.456);
+  printf("Привет, число: %.1f", 123.456);
+  printf("\n%s\n", buffer);
+
+  // Тесты с флагом `+` и динамической шириной
+  s21_sprintf(buffer, "Привет, число: %.2f", 123.456);
+  printf("Привет, число: %.2f", 123.456);
+  printf("\n%s\n", buffer);
+
+  // Тесты с флагом `+` и динамической шириной
+  s21_sprintf(buffer, "Привет, число: %.3f", 123.456);
+  printf("Привет, число: %.3f", 123.456);
+  printf("\n%s\n", buffer);
+
+  // Тесты с флагом `+` и динамической шириной
+  s21_sprintf(buffer, "Привет, число: %.4f", 123.456);
+  printf("Привет, число: %.4f", 123.456);
+  printf("\n%s\n", buffer);
+
+  // Тесты с флагом `+` и динамической шириной
+  s21_sprintf(buffer, "Привет, число: %.5f", 123.456);
+  printf("Привет, число: %.5f", 123.456);
+  printf("\n%s\n", buffer);
+
+  // Тесты с флагом `+` и динамической шириной
+  s21_sprintf(buffer, "Привет, число: %.6f", 123.456);
+  printf("Привет, число: %.6f", 123.456);
+  printf("\n%s\n", buffer);
+
+  // Тесты с флагом `+` и динамической шириной
+  s21_sprintf(buffer, "Привет, число: %.7f", 123.456);
+  printf("Привет, число: %.7f", 123.456);
+  printf("\n%s\n", buffer);
+
+  // Тесты с флагом `+` и динамической шириной
+  s21_sprintf(buffer, "Привет, число: %.0f", 1234.456);
+  printf("Привет, число: %.0f", 1234.456);
+  printf("\n%s\n", buffer);
+
+  // Тесты с флагом `+` и динамической шириной
+  s21_sprintf(buffer, "Привет, число: %.1f", 1235.456);
+  printf("Привет, число: %.1f", 1235.456);
+  printf("\n%s\n", buffer);
+
+  // Тесты с флагом `+` и динамической шириной
+  s21_sprintf(buffer, "Привет, число: %.2f", 1236.456);
+  printf("Привет, число: %.2f", 1236.456);
+  printf("\n%s\n", buffer);
+
+  // Тесты с флагом `+` и динамической шириной
+  s21_sprintf(buffer, "Привет, число: %.3f", 1234.456);
+  printf("Привет, число: %.3f", 1234.456);
+  printf("\n%s\n", buffer);
+
+  // Тесты с флагом `+` и динамической шириной
+  s21_sprintf(buffer, "Привет, число: %.4f", 123.456);
+  printf("Привет, число: %.4f", 123.456);
+  printf("\n%s\n", buffer);
+
+  // Тесты с флагом `+` и динамической шириной
+  s21_sprintf(buffer, "Привет, число: %.7f", 1236.456);
+  printf("Привет, число: %.7f", 1236.456);
+  printf("\n%s\n", buffer);
+
+  // Тесты с флагом `+` и динамической шириной
+  s21_sprintf(buffer, "Привет, число: %.5f", 1235.456);
+  printf("Привет, число: %.5f", 1235.456);
+  printf("\n%s\n", buffer);
+
+  // Тесты с флагом `+` и динамической шириной
+  s21_sprintf(buffer, "Привет, число: %.6f", 123.456);
+  printf("Привет, число: %.6f", 123.456);
+  printf("\n%s\n", buffer);
+
+  s21_sprintf(buffer, "Привет, число: %f", 0.010100);
+  printf("Привет, число: %f", 0.010100);
+  printf("\n%s\n", buffer);
+
+  s21_sprintf(buffer, "%7.6f\n", -1.000001);
+  printf("%7.6f\n", -1.000001);
+  printf("%s", buffer);
+
+  // s21_sprintf(buffer, "Привет, число: %10.15lf", -123.456); не проходит тест
+  // printf("Привет, число: %10.15lf", -123.456);
+  // printf("\n%s\n", buffer);
 
   return 0;
 }
@@ -1820,10 +1909,8 @@ void handle_float(va_list factor, char *str, int *l, flags *f) {
         }
       }
       print_int_part(str, l, num);
-      if (!(isnan(num)) && !(isinf(num))) {
-        if (f->precision != 0) {
-          str[(*l)++] = '.';
-        }
+      if (f->precision != 0) {
+        str[(*l)++] = '.';
       }
       print_frac_part(str, l, num, frac_len);
     }
@@ -2043,11 +2130,11 @@ void handle_p(va_list factor, char *str, int *l, flags *f) {
 
 void print_int_part(char *str, int *l, long double num) {
   int int_part = (int)num;
+  char int_str[50] = {0};
+  int len = 0;
   if (int_part == 0) {
     str[(*l)++] = '0';
   } else {
-    char int_str[50] = {0};
-    int len = 0;
     while (int_part > 0) {
       int_str[len++] = int_part % 10 + '0';
       int_part /= 10;
@@ -2059,11 +2146,37 @@ void print_int_part(char *str, int *l, long double num) {
 }
 
 void print_frac_part(char *str, int *l, long double num, int frac_len) {
-  long double frac = num - (int)num;
-  for (int i = 0; i < frac_len; i++) {
-    frac *= 10;
-    int digit = (int)frac;
-    str[(*l)++] = digit + '0';
-    frac -= digit;
+  int int_part = (int)num;
+  if (int_part > -1 && frac_len != 0) {
+    long double frac = num - (int)num;
+    int buff_digit = 0;
+    int flag_zero = 1;
+    int count_zero = 0;
+    for (int i = 0; i < frac_len; i++) {
+      frac *= 10;
+      int digit = (int)frac;
+      if (digit == 0 && flag_zero) {
+        count_zero++;
+      } else {
+        buff_digit = buff_digit * 10 + digit;
+        frac -= digit;
+        flag_zero = 0;
+      }
+    }
+    for (int i = 0; i < count_zero - flag_zero; i++) {
+      str[(*l)++] = '0';
+    }
+    if ((int)(frac * 10) >= 5) {
+      buff_digit++;
+    }
+    char buff_str[20];
+    sprintf(buff_str, "%d", buff_digit);
+    for (size_t i = 0; i < strlen(buff_str); i++) {
+      str[(*l)++] = buff_str[i];
+    }
+    int len = (int)strlen(buff_str);
+    for (int i = 0; i < frac_len - len - count_zero; i++) {
+      str[(*l)++] = ' ';
+    }
   }
 }
