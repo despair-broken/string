@@ -1788,8 +1788,8 @@ int main() {
   printf("Привет, число: %010.3e", -123.456);
   printf("\n%s\n", buffer);
 
-  s21_sprintf(buffer, "Привет, число: %010e", NAN);
-  printf("Привет, число: %010e", NAN);
+  s21_sprintf(buffer, "Привет, число: %010E", NAN);
+  printf("Привет, число: %010E", NAN);
   printf("\n%s\n", buffer);
 
   s21_sprintf(buffer, "Привет, число: %010e ", NAN);
@@ -1974,8 +1974,8 @@ int main() {
   printf("Привет, число: %010e    qq", -INFINITY);
   printf("\n%s\n", buffer);
 
-  s21_sprintf(buffer, "Привет, число: %e  qq", INFINITY);
-  printf("Привет, число: %e  qq", INFINITY);
+  s21_sprintf(buffer, "Привет, число: %E  qq", INFINITY);
+  printf("Привет, число: %E  qq", INFINITY);
   printf("\n%s\n", buffer);
 
   s21_sprintf(buffer, "Привет, число: %010f  qq", INFINITY);
@@ -1992,6 +1992,10 @@ int main() {
 
   s21_sprintf(buffer, "Привет, число: %010f  qq", INFINITY);
   printf("Привет, число: %010f  qq", INFINITY);
+  printf("\n%s\n", buffer);
+
+  s21_sprintf(buffer, "Привет, число: %E", -0.0);
+  printf("Привет, число: %E", -0.0);
   printf("\n%s\n", buffer);
 
   return 0;
@@ -2356,7 +2360,6 @@ void handle_float(va_list factor, char *str, int *l, flags *f) {
   } else {
     num = va_arg(factor, double);
   }
-  // int flag_zero = f->zero;
   int flag_inf_nan = 1;
   if (isnan(num)) {
     flag_inf_nan = 0;
@@ -2775,11 +2778,12 @@ void handle_e(va_list factor, char *str, int *l, flags *f, int uppercase) {
   }
   int flag_inf_nan = 1;
   if (isnan(num)) {
+    const char *nan_str = uppercase ? "NAN" : "nan";
     flag_inf_nan = 0;
     int len = 3;
     if (f->minus) {
       for (int i = 0; i < len; i++) {
-        str[(*l)++] = "nan"[i];
+        str[(*l)++] = nan_str[i];
       }
       for (int i = 0; i < f->width - len; i++) {
         str[(*l)++] = ' ';
@@ -2789,16 +2793,18 @@ void handle_e(va_list factor, char *str, int *l, flags *f, int uppercase) {
         str[(*l)++] = ' ';
       }
       for (int i = 0; i < len; i++) {
-        str[(*l)++] = "nan"[i];
+        str[(*l)++] = nan_str[i];
       }
     }
   } else if (isinf(num)) {
+    const char *inf_str;
     flag_inf_nan = 0;
     if (num < 0) {
+      inf_str = uppercase ? "-INF" : "-inf";
       int len = 4;
       if (f->minus) {
         for (int i = 0; i < len; i++) {
-          str[(*l)++] = "-inf"[i];
+          str[(*l)++] = inf_str[i];
         }
         for (int i = 0; i < f->width - len; i++) {
           str[(*l)++] = ' ';
@@ -2808,14 +2814,15 @@ void handle_e(va_list factor, char *str, int *l, flags *f, int uppercase) {
           str[(*l)++] = ' ';
         }
         for (int i = 0; i < len; i++) {
-          str[(*l)++] = "-inf"[i];
+          str[(*l)++] = inf_str[i];
         }
       }
     } else {
       int len = 3;
+      inf_str = uppercase ? "INF" : "inf";
       if (f->minus) {
         for (int i = 0; i < len; i++) {
-          str[(*l)++] = "inf"[i];
+          str[(*l)++] = inf_str[i];
         }
         for (int i = 0; i < f->width - len; i++) {
           str[(*l)++] = ' ';
@@ -2825,7 +2832,7 @@ void handle_e(va_list factor, char *str, int *l, flags *f, int uppercase) {
           str[(*l)++] = ' ';
         }
         for (int i = 0; i < len; i++) {
-          str[(*l)++] = "inf"[i];
+          str[(*l)++] = inf_str[i];
         }
       }
     }
