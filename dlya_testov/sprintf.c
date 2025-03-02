@@ -1096,181 +1096,181 @@ int main() {
   printf("Привет, символ: %c\n", '\0');
   printf("%s\n", buffer);
 
-  // // Максимальное значение ЕСЛИ БУДУ ПЕРЕДЕЛЫВАТЬ ТУТ ПЕРЕДЕЛАТЬ!
-  // s21_sprintf(buffer, "Octal with long: %lo", LONG_MAX);
-  // printf("Octal with long: %lo\n", LONG_MAX);
-  // printf("%s\n", buffer);
+  // Максимальное значение ЕСЛИ БУДУ ПЕРЕДЕЛЫВАТЬ ТУТ ПЕРЕДЕЛАТЬ!
+  s21_sprintf(buffer, "Octal with long: %lo", LONG_MAX);
+  printf("Octal with long: %lo\n", LONG_MAX);
+  printf("%s\n", buffer);
 
   // // С длинным целым  // // Максимальное значение ЕСЛИ БУДУ ПЕРЕДЕЛЫВАТЬ ТУТ
-  // ПЕРЕДЕЛАТЬ! s21_sprintf(buffer, "Hex with long: %lX", LONG_MAX);
+  // ПЕРЕДЕЛАТЬ !s21_sprintf(buffer, "Hex with long: %lX", LONG_MAX);
   // printf("Hex with long: %lX\n", LONG_MAX);
   // printf("%s\n", buffer);
 
-  // // С длинным целым  ЕСЛИ БУДУ ПЕРЕДЕЛЫВАТЬ ТУТ ПЕРЕДЕЛАТЬ!
-  // s21_sprintf(buffer, "Hex with long: %lx", LONG_MAX);
-  // printf("Hex with long: %lx\n", LONG_MAX);
-  // printf("%s\n", buffer);
+  // С длинным целым  ЕСЛИ БУДУ ПЕРЕДЕЛЫВАТЬ ТУТ ПЕРЕДЕЛАТЬ!
+  s21_sprintf(buffer, "Hex with long: %lx", LONG_MAX);
+  printf("Hex with long: %lx\n", LONG_MAX);
+  printf("%s\n", buffer);
 
-  // // Тесты с флагом `-` и статической шириной
-  // s21_sprintf(buffer, "Привет, число: %-10.5g", 123.456);
-  // printf("Привет, число: %-10.5g", 123.456);
-  // printf("\n%s\n", buffer);
+  // Тесты с флагом `-` и статической шириной
+  s21_sprintf(buffer, "Привет, число: %-10.5g", 123.456);
+  printf("Привет, число: %-10.5g", 123.456);
+  printf("\n%s\n", buffer);
 
-  // s21_sprintf(buffer, "Привет, число: %-10.5g", -123.456);
-  // printf("Привет, число: %-10.5g", -123.456);
-  // printf("\n%s\n", buffer);
+  s21_sprintf(buffer, "Привет, число: %-10.5g", -123.456);
+  printf("Привет, число: %-10.5g", -123.456);
+  printf("\n%s\n", buffer);
 
-  // s21_sprintf(buffer, "Привет, число: %-10.5G", 123.456);
-  // printf("Привет, число: %-10.5G", 123.456);
-  // printf("\n%s\n", buffer);
+  s21_sprintf(buffer, "Привет, число: %-10.5G", 123.456);
+  printf("Привет, число: %-10.5G", 123.456);
+  printf("\n%s\n", buffer);
 
-  // s21_sprintf(buffer, "Привет, число: %-10.5G", -123.456);
-  // printf("Привет, число: %-10.5G", -123.456);
-  // printf("\n%s\n", buffer);
-  // s21_sprintf(buffer, "Привет, число: % 10.5g", -123.456);
-  // printf("Привет, число: % 10.5g", -123.456);
-  // printf("\n%s\n", buffer);
+  s21_sprintf(buffer, "Привет, число: %-10.5G", -123.456);
+  printf("Привет, число: %-10.5G", -123.456);
+  printf("\n%s\n", buffer);
+  s21_sprintf(buffer, "Привет, число: % 10.5g", -123.456);
+  printf("Привет, число: % 10.5g", -123.456);
+  printf("\n%s\n", buffer);
 
-  // s21_sprintf(buffer, "Привет, число: % 10.5G", 123.456);
-  // printf("Привет, число: % 10.5G", 123.456);
-  // printf("\n%s\n", buffer);
+  s21_sprintf(buffer, "Привет, число: % 10.5G", 123.456);
+  printf("Привет, число: % 10.5G", 123.456);
+  printf("\n%s\n", buffer);
 
-  // s21_sprintf(buffer, "Привет, число: % 10.5G", -123.456);
-  // printf("Привет, число: % 10.5G", -123.456);
-  // printf("\n%s\n", buffer);
+  s21_sprintf(buffer, "Привет, число: % 10.5G", -123.456);
+  printf("Привет, число: % 10.5G", -123.456);
+  printf("\n%s\n", buffer);
 
-  // // Тесты с флагом `#` и статической шириной
-  // s21_sprintf(buffer, "Привет, число: %#10.5g", 123.456);
-  // printf("Привет, число: %#10.5g", 123.456);
-  // printf("\n%s\n", buffer);
+  // Тесты с флагом `#` и статической шириной
+  s21_sprintf(buffer, "Привет, число: %#10.5g", 123.456);
+  printf("Привет, число: %#10.5g", 123.456);
+  printf("\n%s\n", buffer);
 
-  // s21_sprintf(buffer, "Привет, число: %#10.5g", -123.456);
-  // printf("Привет, число: %#10.5g", -123.456);
-  // printf("\n%s\n", buffer);
+  s21_sprintf(buffer, "Привет, число: %#10.5g", -123.456);
+  printf("Привет, число: %#10.5g", -123.456);
+  printf("\n%s\n", buffer);
 
-  // s21_sprintf(buffer, "Привет, число: %#10.5G", 123.456);
-  // printf("Привет, число: %#10.5G", 123.456);
-  // printf("\n%s\n", buffer);
+  s21_sprintf(buffer, "Привет, число: %#10.5G", 123.456);
+  printf("Привет, число: %#10.5G", 123.456);
+  printf("\n%s\n", buffer);
 
-  // s21_sprintf(buffer, "Привет, число: %#10.5G", -123.456);
-  // printf("Привет, число: %#10.5G", -123.456);
-  // printf("\n%s\n", buffer);
+  s21_sprintf(buffer, "Привет, число: %#10.5G", -123.456);
+  printf("Привет, число: %#10.5G", -123.456);
+  printf("\n%s\n", buffer);
 
-  // // Тесты с динамической шириной
-  // s21_sprintf(buffer, "Привет, число: %*.*g", 20, 5, 123.456);
-  // printf("Привет, число: %*.*g", 20, 5, 123.456);
-  // printf("\n%s\n", buffer);
+  // Тесты с динамической шириной
+  s21_sprintf(buffer, "Привет, число: %*.*g", 20, 5, 123.456);
+  printf("Привет, число: %*.*g", 20, 5, 123.456);
+  printf("\n%s\n", buffer);
 
-  // s21_sprintf(buffer, "Привет, число: %*.*g", 20, 5, -123.456);
-  // printf("Привет, число: %*.*g", 20, 5, -123.456);
-  // printf("\n%s\n", buffer);
+  s21_sprintf(buffer, "Привет, число: %*.*g", 20, 5, -123.456);
+  printf("Привет, число: %*.*g", 20, 5, -123.456);
+  printf("\n%s\n", buffer);
 
-  // s21_sprintf(buffer, "Привет, число: %*.*G", 20, 5, 123.456);
-  // printf("Привет, число: %*.*G", 20, 5, 123.456);
-  // printf("\n%s\n", buffer);
+  s21_sprintf(buffer, "Привет, число: %*.*G", 20, 5, 123.456);
+  printf("Привет, число: %*.*G", 20, 5, 123.456);
+  printf("\n%s\n", buffer);
 
-  // s21_sprintf(buffer, "Привет, число: %*.*G", 20, 5, -123.456);
-  // printf("Привет, число: %*.*G", 20, 5, -123.456);
-  // printf("\n%s\n", buffer);
+  s21_sprintf(buffer, "Привет, число: %*.*G", 20, 5, -123.456);
+  printf("Привет, число: %*.*G", 20, 5, -123.456);
+  printf("\n%s\n", buffer);
 
-  // // Тесты с флагом `-` и динамической шириной
-  // s21_sprintf(buffer, "Привет, число: %-*.*g", 20, 5, 123.456);
-  // printf("Привет, число: %-*.*g", 20, 5, 123.456);
-  // printf("\n%s\n", buffer);
+  // Тесты с флагом `-` и динамической шириной
+  s21_sprintf(buffer, "Привет, число: %-*.*g", 20, 5, 123.456);
+  printf("Привет, число: %-*.*g", 20, 5, 123.456);
+  printf("\n%s\n", buffer);
 
-  // s21_sprintf(buffer, "Привет, число: %-*.*g", 20, 5, -123.456);
-  // printf("Привет, число: %-*.*g", 20, 5, -123.456);
-  // printf("\n%s\n", buffer);
+  s21_sprintf(buffer, "Привет, число: %-*.*g", 20, 5, -123.456);
+  printf("Привет, число: %-*.*g", 20, 5, -123.456);
+  printf("\n%s\n", buffer);
 
-  // s21_sprintf(buffer, "Привет, число: %-*.*G", 20, 5, 123.456);
-  // printf("Привет, число: %-*.*G", 20, 5, 123.456);
-  // printf("\n%s\n", buffer);
+  s21_sprintf(buffer, "Привет, число: %-*.*G", 20, 5, 123.456);
+  printf("Привет, число: %-*.*G", 20, 5, 123.456);
+  printf("\n%s\n", buffer);
 
-  // s21_sprintf(buffer, "Привет, число: %-*.*G", 20, 5, -123.456);
-  // printf("Привет, число: %-*.*G", 20, 5, -123.456);
-  // printf("\n%s\n", buffer);
+  s21_sprintf(buffer, "Привет, число: %-*.*G", 20, 5, -123.456);
+  printf("Привет, число: %-*.*G", 20, 5, -123.456);
+  printf("\n%s\n", buffer);
 
-  // // Тесты с флагом `+` и динамической шириной
-  // s21_sprintf(buffer, "Привет, число: %+*.*g", 20, 5, 123.456);
-  // printf("Привет, число: %+*.*g", 20, 5, 123.456);
-  // printf("\n%s\n", buffer);
+  // Тесты с флагом `+` и динамической шириной
+  s21_sprintf(buffer, "Привет, число: %+*.*g", 20, 5, 123.456);
+  printf("Привет, число: %+*.*g", 20, 5, 123.456);
+  printf("\n%s\n", buffer);
 
-  // s21_sprintf(buffer, "Привет, число: %+*.*g", 20, 5, -123.456);
-  // printf("Привет, число: %+*.*g", 20, 5, -123.456);
-  // printf("\n%s\n", buffer);
+  s21_sprintf(buffer, "Привет, число: %+*.*g", 20, 5, -123.456);
+  printf("Привет, число: %+*.*g", 20, 5, -123.456);
+  printf("\n%s\n", buffer);
 
-  // s21_sprintf(buffer, "Привет, число: %+*.*G", 20, 5, 123.456);
-  // printf("Привет, число: %+*.*G", 20, 5, 123.456);
-  // printf("\n%s\n", buffer);
+  s21_sprintf(buffer, "Привет, число: %+*.*G", 20, 5, 123.456);
+  printf("Привет, число: %+*.*G", 20, 5, 123.456);
+  printf("\n%s\n", buffer);
 
-  // s21_sprintf(buffer, "Привет, число: %+*.*G", 20, 5, -123.456);
-  // printf("Привет, число: %+*.*G", 20, 5, -123.456);
-  // printf("\n%s\n", buffer);
+  s21_sprintf(buffer, "Привет, число: %+*.*G", 20, 5, -123.456);
+  printf("Привет, число: %+*.*G", 20, 5, -123.456);
+  printf("\n%s\n", buffer);
 
-  // // Тесты с флагом `#` и динамической шириной
-  // s21_sprintf(buffer, "Привет, число: %#*.*g", 20, 5, 123.456);
-  // printf("Привет, число: %#*.*g", 20, 5, 123.456);
-  // printf("\n%s\n", buffer);
+  // Тесты с флагом `#` и динамической шириной
+  s21_sprintf(buffer, "Привет, число: %#*.*g", 20, 5, 123.456);
+  printf("Привет, число: %#*.*g", 20, 5, 123.456);
+  printf("\n%s\n", buffer);
 
-  // s21_sprintf(buffer, "Привет, число: % *.*G", 20, 5, 123.456);
-  // printf("Привет, число: % *.*G", 20, 5, 123.456);
-  // printf("\n%s\n", buffer);
+  s21_sprintf(buffer, "Привет, число: % *.*G", 20, 5, 123.456);
+  printf("Привет, число: % *.*G", 20, 5, 123.456);
+  printf("\n%s\n", buffer);
 
-  // s21_sprintf(buffer, "Привет, число: %#*.*g", 20, 5, -123.456);
-  // printf("Привет, число: %#*.*g", 20, 5, -123.456);
-  // printf("\n%s\n", buffer);
+  s21_sprintf(buffer, "Привет, число: %#*.*g", 20, 5, -123.456);
+  printf("Привет, число: %#*.*g", 20, 5, -123.456);
+  printf("\n%s\n", buffer);
 
-  // // Тесты с флагом пробел и динамической шириной
-  // s21_sprintf(buffer, "Привет, число: % *.*g", 20, 5, 123.456);
-  // printf("Привет, число: % *.*g", 20, 5, 123.456);
-  // printf("\n%s\n", buffer);
+  // Тесты с флагом пробел и динамической шириной
+  s21_sprintf(buffer, "Привет, число: % *.*g", 20, 5, 123.456);
+  printf("Привет, число: % *.*g", 20, 5, 123.456);
+  printf("\n%s\n", buffer);
 
-  // s21_sprintf(buffer, "Привет, число: % *.*g", 20, 5, -123.456);
-  // printf("Привет, число: % *.*g", 20, 5, -123.456);
-  // printf("\n%s\n", buffer);
+  s21_sprintf(buffer, "Привет, число: % *.*g", 20, 5, -123.456);
+  printf("Привет, число: % *.*g", 20, 5, -123.456);
+  printf("\n%s\n", buffer);
 
-  // s21_sprintf(buffer, "Привет, число: % *.*G", 20, 5, -123.456);
-  // printf("Привет, число: % *.*G", 20, 5, -123.456);
-  // printf("\n%s\n", buffer);
+  s21_sprintf(buffer, "Привет, число: % *.*G", 20, 5, -123.456);
+  printf("Привет, число: % *.*G", 20, 5, -123.456);
+  printf("\n%s\n", buffer);
 
-  // // Тесты с флагом `+` и статической шириной
-  // s21_sprintf(buffer, "Привет, число: %+10.5g", 123.456);
-  // printf("Привет, число: %+10.5g", 123.456);
-  // printf("\n%s\n", buffer);
+  // Тесты с флагом `+` и статической шириной
+  s21_sprintf(buffer, "Привет, число: %+10.5g", 123.456);
+  printf("Привет, число: %+10.5g", 123.456);
+  printf("\n%s\n", buffer);
 
-  // s21_sprintf(buffer, "Привет, число: %+10.5G", 123.456);
-  // printf("Привет, число: %+10.5G", 123.456);
-  // printf("\n%s\n", buffer);
+  s21_sprintf(buffer, "Привет, число: %+10.5G", 123.456);
+  printf("Привет, число: %+10.5G", 123.456);
+  printf("\n%s\n", buffer);
 
-  // // Тесты с флагом пробел и статической шириной
-  // s21_sprintf(buffer, "Привет, число: % 10.5g", 123.456);
-  // printf("Привет, число: % 10.5g", 123.456);
-  // printf("\n%s\n", buffer);
+  // Тесты с флагом пробел и статической шириной
+  s21_sprintf(buffer, "Привет, число: % 10.5g", 123.456);
+  printf("Привет, число: % 10.5g", 123.456);
+  printf("\n%s\n", buffer);
 
-  // // Тесты с флагом `0` и статической шириной
-  // s21_sprintf(buffer, "Привет, число: %010.5g", 123.456);
-  // printf("Привет, число: %010.5g", 123.456);
-  // printf("\n%s\n", buffer);
+  // Тесты с флагом `0` и статической шириной
+  s21_sprintf(buffer, "Привет, число: %010.5g", 123.456);
+  printf("Привет, число: %010.5g", 123.456);
+  printf("\n%s\n", buffer);
 
-  // s21_sprintf(buffer, "Привет, число: %010.5G", 123.456);
-  // printf("Привет, число: %010.5G", 123.456);
-  // printf("\n%s\n", buffer);
+  s21_sprintf(buffer, "Привет, число: %010.5G", 123.456);
+  printf("Привет, число: %010.5G", 123.456);
+  printf("\n%s\n", buffer);
 
-  // s21_sprintf(buffer, "Привет, число: %010.5G", -123.456);
-  // printf("Привет, число: %010.5G", -123.456);
-  // printf("\n%s\n", buffer);
+  s21_sprintf(buffer, "Привет, число: %010.5G", -123.456);
+  printf("Привет, число: %010.5G", -123.456);
+  printf("\n%s\n", buffer);
 
-  // s21_sprintf(buffer, "Привет, число: %010.5g", -123.456);
-  // printf("Привет, число: %010.5g", -123.456);
-  // printf("\n%s\n", buffer);
+  s21_sprintf(buffer, "Привет, число: %010.5g", -123.456);
+  printf("Привет, число: %010.5g", -123.456);
+  printf("\n%s\n", buffer);
 
-  // s21_sprintf(buffer, "Привет, число: %+10.5g", -123.456);
-  // printf("Привет, число: %+10.5g", -123.456);
-  // printf("\n%s\n", buffer);
+  s21_sprintf(buffer, "Привет, число: %+10.5g", -123.456);
+  printf("Привет, число: %+10.5g", -123.456);
+  printf("\n%s\n", buffer);
 
-  // s21_sprintf(buffer, "Привет, число: %+10.5G", -123.456);
-  // printf("Привет, число: %+10.5G", -123.456);
-  // printf("\n%s\n", buffer);
+  s21_sprintf(buffer, "Привет, число: %+10.5G", -123.456);
+  printf("Привет, число: %+10.5G", -123.456);
+  printf("\n%s\n", buffer);
 
   // Без флага, динамическая ширина и точность
   s21_sprintf(buffer, "Привет, строка: %*.*s", 10, 5, "He\0lloWorld");
@@ -1998,6 +1998,248 @@ int main() {
   printf("Привет, число: %E", -0.0);
   printf("\n%s\n", buffer);
 
+  // // С длинным целым  ЕСЛИ БУДУ ПЕРЕДЕЛЫВАТЬ ТУТ ПЕРЕДЕЛАТЬ!
+  // s21_sprintf(buffer, "Hex with long: %lx", LONG_MAX);
+  // printf("Hex with long: %lx\n", LONG_MAX);
+  // printf("%s\n", buffer);
+
+  // Тесты с флагом `-` и статической шириной
+  s21_sprintf(buffer, "Привет, число: %-10.5g", 123.456);
+  printf("Привет, число: %-10.5g", 123.456);
+  printf("\n%s\n", buffer);
+
+  s21_sprintf(buffer, "Привет, число: %-10.5g", -123.456);
+  printf("Привет, число: %-10.5g", -123.456);
+  printf("\n%s\n", buffer);
+
+  s21_sprintf(buffer, "Привет, число: %-10.5G", 123.456);
+  printf("Привет, число: %-10.5G", 123.456);
+  printf("\n%s\n", buffer);
+
+  s21_sprintf(buffer, "Привет, число: %-10.5G", -123.456);
+  printf("Привет, число: %-10.5G", -123.456);
+  printf("\n%s\n", buffer);
+  s21_sprintf(buffer, "Привет, число: % 10.5g", -123.456);
+  printf("Привет, число: % 10.5g", -123.456);
+  printf("\n%s\n", buffer);
+
+  s21_sprintf(buffer, "Привет, число: % 10.5G", 123.456);
+  printf("Привет, число: % 10.5G", 123.456);
+  printf("\n%s\n", buffer);
+
+  s21_sprintf(buffer, "Привет, число: % 10.5G", -123.456);
+  printf("Привет, число: % 10.5G", -123.456);
+  printf("\n%s\n", buffer);
+
+  // Тесты с флагом `#` и статической шириной
+  s21_sprintf(buffer, "Привет, число: %#10.5g", 123.456);
+  printf("Привет, число: %#10.5g", 123.456);
+  printf("\n%s\n", buffer);
+
+  s21_sprintf(buffer, "Привет, число: %#10.5g", -123.456);
+  printf("Привет, число: %#10.5g", -123.456);
+  printf("\n%s\n", buffer);
+
+  s21_sprintf(buffer, "Привет, число: %#10.5G", 123.456);
+  printf("Привет, число: %#10.5G", 123.456);
+  printf("\n%s\n", buffer);
+
+  s21_sprintf(buffer, "Привет, число: %#10.5G", -123.456);
+  printf("Привет, число: %#10.5G", -123.456);
+  printf("\n%s\n", buffer);
+
+  // Тесты с динамической шириной
+  s21_sprintf(buffer, "Привет, число: %*.*g", 20, 5, 123.456);
+  printf("Привет, число: %*.*g", 20, 5, 123.456);
+  printf("\n%s\n", buffer);
+
+  s21_sprintf(buffer, "Привет, число: %*.*g", 20, 5, -123.456);
+  printf("Привет, число: %*.*g", 20, 5, -123.456);
+  printf("\n%s\n", buffer);
+
+  s21_sprintf(buffer, "Привет, число: %*.*G", 20, 5, 123.456);
+  printf("Привет, число: %*.*G", 20, 5, 123.456);
+  printf("\n%s\n", buffer);
+
+  s21_sprintf(buffer, "Привет, число: %*.*G", 20, 5, -123.456);
+  printf("Привет, число: %*.*G", 20, 5, -123.456);
+  printf("\n%s\n", buffer);
+
+  // Тесты с флагом `-` и динамической шириной
+  s21_sprintf(buffer, "Привет, число: %-*.*g", 20, 5, 123.456);
+  printf("Привет, число: %-*.*g", 20, 5, 123.456);
+  printf("\n%s\n", buffer);
+
+  s21_sprintf(buffer, "Привет, число: %-*.*g", 20, 5, -123.456);
+  printf("Привет, число: %-*.*g", 20, 5, -123.456);
+  printf("\n%s\n", buffer);
+
+  s21_sprintf(buffer, "Привет, число: %-*.*G", 20, 5, 123.456);
+  printf("Привет, число: %-*.*G", 20, 5, 123.456);
+  printf("\n%s\n", buffer);
+
+  s21_sprintf(buffer, "Привет, число: %-*.*G", 20, 5, -123.456);
+  printf("Привет, число: %-*.*G", 20, 5, -123.456);
+  printf("\n%s\n", buffer);
+
+  // Тесты с флагом `+` и динамической шириной
+  s21_sprintf(buffer, "Привет, число: %+*.*g", 20, 5, 123.456);
+  printf("Привет, число: %+*.*g", 20, 5, 123.456);
+  printf("\n%s\n", buffer);
+
+  s21_sprintf(buffer, "Привет, число: %+*.*g", 20, 5, -123.456);
+  printf("Привет, число: %+*.*g", 20, 5, -123.456);
+  printf("\n%s\n", buffer);
+
+  s21_sprintf(buffer, "Привет, число: %+*.*G", 20, 5, 123.456);
+  printf("Привет, число: %+*.*G", 20, 5, 123.456);
+  printf("\n%s\n", buffer);
+
+  s21_sprintf(buffer, "Привет, число: %+*.*G", 20, 5, -123.456);
+  printf("Привет, число: %+*.*G", 20, 5, -123.456);
+  printf("\n%s\n", buffer);
+
+  // Тесты с флагом `#` и динамической шириной
+  s21_sprintf(buffer, "Привет, число: %#*.*g", 20, 5, 123.456);
+  printf("Привет, число: %#*.*g", 20, 5, 123.456);
+  printf("\n%s\n", buffer);
+
+  s21_sprintf(buffer, "Привет, число: % *.*G", 20, 5, 123.456);
+  printf("Привет, число: % *.*G", 20, 5, 123.456);
+  printf("\n%s\n", buffer);
+
+  s21_sprintf(buffer, "Привет, число: %#*.*g", 20, 5, -123.456);
+  printf("Привет, число: %#*.*g", 20, 5, -123.456);
+  printf("\n%s\n", buffer);
+
+  // Тесты с флагом пробел и динамической шириной
+  s21_sprintf(buffer, "Привет, число: % *.*g", 20, 5, 123.456);
+  printf("Привет, число: % *.*g", 20, 5, 123.456);
+  printf("\n%s\n", buffer);
+
+  s21_sprintf(buffer, "Привет, число: % *.*g", 20, 5, -123.456);
+  printf("Привет, число: % *.*g", 20, 5, -123.456);
+  printf("\n%s\n", buffer);
+
+  s21_sprintf(buffer, "Привет, число: % *.*G", 20, 5, -123.456);
+  printf("Привет, число: % *.*G", 20, 5, -123.456);
+  printf("\n%s\n", buffer);
+
+  // Тесты с флагом `+` и статической шириной
+  s21_sprintf(buffer, "Привет, число: %+10.5g", 123.456);
+  printf("Привет, число: %+10.5g", 123.456);
+  printf("\n%s\n", buffer);
+
+  s21_sprintf(buffer, "Привет, число: %+10.5G", 123.456);
+  printf("Привет, число: %+10.5G", 123.456);
+  printf("\n%s\n", buffer);
+
+  // Тесты с флагом пробел и статической шириной
+  s21_sprintf(buffer, "Привет, число: % 10.5g", 123.456);
+  printf("Привет, число: % 10.5g", 123.456);
+  printf("\n%s\n", buffer);
+
+  // Тесты с флагом `0` и статической шириной
+  s21_sprintf(buffer, "Привет, число: %010.5g", 123.456);
+  printf("Привет, число: %010.5g", 123.456);
+  printf("\n%s\n", buffer);
+
+  s21_sprintf(buffer, "Привет, число: %010.5G", 123.456);
+  printf("Привет, число: %010.5G", 123.456);
+  printf("\n%s\n", buffer);
+
+  s21_sprintf(buffer, "Привет, число: %010.5G", -123.456);
+  printf("Привет, число: %010.5G", -123.456);
+  printf("\n%s\n", buffer);
+
+  s21_sprintf(buffer, "Привет, число: %010.5g", -123.456);
+  printf("Привет, число: %010.5g", -123.456);
+  printf("\n%s\n", buffer);
+
+  s21_sprintf(buffer, "Привет, число: %+10.5g", -123.456);
+  printf("Привет, число: %+10.5g", -123.456);
+  printf("\n%s\n", buffer);
+
+  s21_sprintf(buffer, "Привет, число: %+10.5G", -123.456);
+  printf("Привет, число: %+10.5G", -123.456);
+  printf("\n%s\n", buffer);
+
+  // Тесты с флагом `+` и статической шириной
+  s21_sprintf(buffer, "Привет, число: %+10.5g", 12345.6789);
+  printf("Привет, число: %+10.5g", 12345.6789);
+  printf("\n%s\n", buffer);
+
+  s21_sprintf(buffer, "Привет, число: %+10.5G", 12345.6789);
+  printf("Привет, число: %+10.5G", 12345.6789);
+  printf("\n%s\n", buffer);
+
+  // Тесты с флагом пробел и статической шириной
+  s21_sprintf(buffer, "Привет, число: % 10.5g", 12345.6789);
+  printf("Привет, число: % 10.5g", 12345.6789);
+  printf("\n%s\n", buffer);
+
+  // Тесты с флагом `0` и статической шириной
+  s21_sprintf(buffer, "Привет, число: %010.5g", 12345.6789);
+  printf("Привет, число: %010.5g", 12345.6789);
+  printf("\n%s\n", buffer);
+
+  s21_sprintf(buffer, "Привет, число: %010.5G", 12345.6789);
+  printf("Привет, число: %010.5G", 12345.6789);
+  printf("\n%s\n", buffer);
+
+  s21_sprintf(buffer, "Привет, число: %010.5G", -12345.6789);
+  printf("Привет, число: %010.5G", -12345.6789);
+  printf("\n%s\n", buffer);
+
+  s21_sprintf(buffer, "Привет, число: %010.5g", -12345.6789);
+  printf("Привет, число: %010.5g", -12345.6789);
+  printf("\n%s\n", buffer);
+
+  s21_sprintf(buffer, "Привет, число: %+10.5g", -12345.6789);
+  printf("Привет, число: %+10.5g", -12345.6789);
+  printf("\n%s\n", buffer);
+
+  s21_sprintf(buffer, "Привет, число: %+10.5G", -12345.6789);
+  printf("Привет, число: %+10.5G", -12345.6789);
+  printf("\n%s\n", buffer);
+
+  // Тесты для очень маленьких чисел
+  s21_sprintf(buffer, "Привет, число: %+10.5g", 0.00012345);
+  printf("Привет, число: %+10.5g", 0.00012345);
+  printf("\n%s\n", buffer);
+
+  s21_sprintf(buffer, "Привет, число: %+10.5G", 0.00012345);
+  printf("Привет, число: %+10.5G", 0.00012345);
+  printf("\n%s\n", buffer);
+
+  s21_sprintf(buffer, "Привет, число: % 10.5g", 0.00012345);
+  printf("Привет, число: % 10.5g", 0.00012345);
+  printf("\n%s\n", buffer);
+
+  s21_sprintf(buffer, "Привет, число: %010.5g", 0.00012345);
+  printf("Привет, число: %010.5g", 0.00012345);
+  printf("\n%s\n", buffer);
+
+  s21_sprintf(buffer, "Привет, число: %010.5G", 0.00012345);
+  printf("Привет, число: %010.5G", 0.00012345);
+  printf("\n%s\n", buffer);
+
+  s21_sprintf(buffer, "Привет, число: %010.5G", -0.00012345);
+  printf("Привет, число: %010.5G", -0.00012345);
+  printf("\n%s\n", buffer);
+
+  s21_sprintf(buffer, "Привет, число: %010.5g", -0.00012345);
+  printf("Привет, число: %010.5g", -0.00012345);
+  printf("\n%s\n", buffer);
+
+  s21_sprintf(buffer, "Привет, число: %+10.5g", -0.00012345);
+  printf("Привет, число: %+10.5g", -0.00012345);
+  printf("\n%s\n", buffer);
+
+  s21_sprintf(buffer, "Привет, число: %+10.5G", -0.000000000);
+  printf("Привет, число: %+10.5G", -0.000000000);
+  printf("\n%s\n", buffer);
+
   return 0;
 }
 
@@ -2115,8 +2357,8 @@ void handle_specifier(const char *format, int *i, va_list factor, char *str,
     str[(*l)++] = '%';
   } else if (format[*i] == 'f') {
     handle_float(factor, str, l, f);
-    // } else if (format[*i] == 'g' || format[*i] == 'G') {
-    //   handle_general(factor, str, l, f, format[*i] == 'G');
+  } else if (format[*i] == 'g' || format[*i] == 'G') {
+    handle_general(factor, str, l, f, format[*i] == 'G');
   } else if (format[*i] == 'x' || format[*i] == 'X') {
     handle_hex(factor, str, l, f, format[*i] == 'X');
   } else if (format[*i] == 'e' || format[*i] == 'E') {
@@ -2904,6 +3146,236 @@ void handle_e(va_list factor, char *str, int *l, flags *f, int uppercase) {
       str[(*l)++] = (uppercase ? 'E' : 'e');
       for (int i = 0; exponent_str[i] != '\0'; i++)
         str[(*l)++] = exponent_str[i];
+    }
+  }
+}
+
+void handle_general(va_list factor, char *str, int *l, flags *f,
+                    int uppercase) {
+  long double num = 0.0;
+  if (f->longlong_) {
+    num = va_arg(factor, long double);
+  } else if (f->long_) {
+    num = va_arg(factor, double);
+  } else if (f->short_) {
+    float f_num = (float)va_arg(factor, double);
+    num = (long double)f_num;
+  } else {
+    num = va_arg(factor, double);
+  }
+
+
+
+  int flag_inf_nan = 1;
+  if (isnan(num)) {
+    const char *nan_str = uppercase ? "NAN" : "nan";
+    flag_inf_nan = 0;
+    int len = 3;
+    if (f->minus) {
+      for (int i = 0; i < len; i++) {
+        str[(*l)++] = nan_str[i];
+      }
+      for (int i = 0; i < f->width - len; i++) {
+        str[(*l)++] = ' ';
+      }
+    } else {
+      for (int i = 0; i < f->width - len; i++) {
+        str[(*l)++] = ' ';
+      }
+      for (int i = 0; i < len; i++) {
+        str[(*l)++] = nan_str[i];
+      }
+    }
+  } else if (isinf(num)) {
+    const char *inf_str;
+    flag_inf_nan = 0;
+    if (num < 0) {
+      inf_str = uppercase ? "-INF" : "-inf";
+      int len = 4;
+      if (f->minus) {
+        for (int i = 0; i < len; i++) {
+          str[(*l)++] = inf_str[i];
+        }
+        for (int i = 0; i < f->width - len; i++) {
+          str[(*l)++] = ' ';
+        }
+      } else {
+        for (int i = 0; i < f->width - len; i++) {
+          str[(*l)++] = ' ';
+        }
+        for (int i = 0; i < len; i++) {
+          str[(*l)++] = inf_str[i];
+        }
+      }
+    } else {
+      int len = 3;
+      inf_str = uppercase ? "INF" : "inf";
+      if (f->minus) {
+        for (int i = 0; i < len; i++) {
+          str[(*l)++] = inf_str[i];
+        }
+        for (int i = 0; i < f->width - len; i++) {
+          str[(*l)++] = ' ';
+        }
+      } else {
+        for (int i = 0; i < f->width - len; i++) {
+          str[(*l)++] = ' ';
+        }
+        for (int i = 0; i < len; i++) {
+          str[(*l)++] = inf_str[i];
+        }
+      }
+    }
+  }
+  if (flag_inf_nan) {
+    if ((fabsl(num) < 0.001) || (fabsl(num) > 10000)) {
+      int sign = 0;
+      if (signbit(num)) {
+        sign = -1;
+        num = -num;
+      } else if (f->plus) {
+        sign = 1;
+      } else if (f->space) {
+        sign = 2;
+      }
+      int precision = (f->precision == -1) ? 6 : f->precision;
+      int exponent = 0;
+      if (num != 0.0) {
+        exponent = floorl(log10l(num));
+        num /= powl(10, exponent);
+      }
+      char num_str[50] = {0};
+      snprintf(num_str, sizeof(num_str), "%.*Lf", precision, num);
+      int num_len = strlen(num_str);
+      int exponent_sign = (exponent >= 0) ? '+' : '-';
+      exponent = abs(exponent);
+      char exponent_str[20] = {0};
+      snprintf(exponent_str, sizeof(exponent_str), "%c%02d", exponent_sign,
+               exponent);
+      int total_len = num_len + 1 + 2 + (sign != 0);
+      int count_space = 0;
+      if (f->width > 0 && f->width > total_len)
+        count_space = f->width - total_len;
+      if (f->minus) {
+        if (sign == -1)
+          str[(*l)++] = '-';
+        else if (sign == 1)
+          str[(*l)++] = '+';
+        else if (sign == 2)
+          str[(*l)++] = ' ';
+        for (int i = 0; num_str[i] != '\0'; i++)
+          str[(*l)++] = num_str[i];
+        str[(*l)++] = (uppercase ? 'E' : 'e');
+        for (int i = 0; exponent_str[i] != '\0'; i++)
+          str[(*l)++] = exponent_str[i];
+        for (int i = 0; i < count_space; i++)
+          str[(*l)++] = ' ';
+      } else {
+        if (f->zero) {
+          if (sign == -1)
+            str[(*l)++] = '-';
+          else if (sign == 1)
+            str[(*l)++] = '+';
+          else if (sign == 2)
+            str[(*l)++] = ' ';
+          for (int i = 0; i < count_space - 1; i++)
+            str[(*l)++] = '0';
+        } else {
+          for (int i = 0; i < count_space; i++)
+            str[(*l)++] = ' ';
+          if (sign == -1)
+            str[(*l)++] = '-';
+          else if (sign == 1)
+            str[(*l)++] = '+';
+          else if (sign == 2)
+            str[(*l)++] = ' ';
+        }
+        for (int i = 0; num_str[i] != '\0'; i++)
+          str[(*l)++] = num_str[i];
+        str[(*l)++] = (uppercase ? 'E' : 'e');
+        for (int i = 0; exponent_str[i] != '\0'; i++)
+          str[(*l)++] = exponent_str[i];
+      }
+    } else if (fabsl(num) >= 0.001 && fabsl(num) <= 10000) {
+      int sign = 0;
+      if (signbit(num)) {
+        sign = -1;
+        num = -num;
+      } else if (f->plus) {
+        sign = 1;
+      } else if (f->space) {
+        sign = 2;
+      }
+      int int_len = 0;
+      int int_part = (int)num;
+      int flag_point = 1;
+      if (f->precision == 0) {
+        flag_point = 0;
+        int digit = (int)(num * 10) % 10;
+        if (digit > 5) {
+          num++;
+        }
+      }
+      if (int_part == 0) {
+        int_len = 1;
+      } else {
+        while (int_part > 0) {
+          int_len++;
+          int_part /= 10;
+        }
+      }
+      f->precision = f->precision - int_len;
+      int frac_len = f->precision;
+      if (f->precision == -1) {
+        frac_len = 6;
+      }
+      int len = int_len + frac_len + flag_point + (sign != 0);
+      if (f->minus) {
+        if (sign == -1) {
+          str[(*l)++] = '-';
+        } else if (sign == 1) {
+          str[(*l)++] = '+';
+        } else if (sign == 2) {
+          str[(*l)++] = ' ';
+        }
+        print_int_part(str, l, num);
+        if (f->precision != 0) {
+          str[(*l)++] = '.';
+        }
+        print_frac_part(str, l, num, frac_len);
+        for (int i = 0; i < f->width - len; i++) {
+          str[(*l)++] = ' ';
+        }
+      } else {
+        if (f->zero) {
+          if (sign == -1) {
+            str[(*l)++] = '-';
+          } else if (sign == 1) {
+            str[(*l)++] = '+';
+          } else if (sign == 2) {
+            str[(*l)++] = ' ';
+          }
+          for (int i = 0; i < f->width - len; i++) {
+            str[(*l)++] = '0';
+          }
+        } else {
+          for (int i = 0; i < f->width - len; i++) {
+            str[(*l)++] = ' ';
+          }
+          if (sign == -1) {
+            str[(*l)++] = '-';
+          } else if (sign == 1) {
+            str[(*l)++] = '+';
+          } else if (sign == 2) {
+            str[(*l)++] = ' ';
+          }
+        }
+        print_int_part(str, l, num);
+        if (f->precision != 0) {
+          str[(*l)++] = '.';
+        }
+        print_frac_part(str, l, num, frac_len);
+      }
     }
   }
 }
