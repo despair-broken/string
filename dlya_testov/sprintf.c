@@ -2232,12 +2232,24 @@ int main() {
   printf("Привет, число: %010.5g", -0.00012345);
   printf("\n%s\n", buffer);
 
-  s21_sprintf(buffer, "Привет, число: %+10.5g", -0.00012345);
-  printf("Привет, число: %+10.5g", -0.00012345);
+  // s21_sprintf(buffer, "Привет, число: %+10.5e", -0.00012345);
+  // printf("Привет, число: %+10.5e", -0.00012345);
+  // printf("\n%s\n", buffer);
+
+  s21_sprintf(buffer, "Привет, число: %+10.5G", -12345.6789);
+  printf("Привет, число: %+10.5G", -12345.6789);
   printf("\n%s\n", buffer);
 
-  s21_sprintf(buffer, "Привет, число: %+10.5G", -0.000000000);
-  printf("Привет, число: %+10.5G", -0.000000000);
+  // s21_sprintf(buffer, "Привет, число: %+10.5f", -12345.6789);
+  // printf("Привет, число: %+10.5f", -12345.6789);
+  // printf("\n%s\n", buffer);
+
+  // s21_sprintf(buffer, "Привет, число: %+10.5G", -0.000000000);
+  // printf("Привет, число: %+10.5G", -0.000000000);
+  // printf("\n%s\n", buffer);
+
+  s21_sprintf(buffer, "Привет, число: %+10.5G", -12345678.9);
+  printf("Привет, число: %+10.5G", -12345678.9);
   printf("\n%s\n", buffer);
 
   return 0;
@@ -3163,9 +3175,6 @@ void handle_general(va_list factor, char *str, int *l, flags *f,
   } else {
     num = va_arg(factor, double);
   }
-
-
-
   int flag_inf_nan = 1;
   if (isnan(num)) {
     const char *nan_str = uppercase ? "NAN" : "nan";
@@ -3227,76 +3236,23 @@ void handle_general(va_list factor, char *str, int *l, flags *f,
       }
     }
   }
+  int flag_num = 0;
+  if (num < 0) {
+    num = -num;
+    flag_num = 1;
+  }
+  int exp_x = 0;
+  if (num != 0.0) {
+    exp_x = floorl(log10l(num));
+    num /= powl(10, exp_x);
+  }
+  if (flag_num) {
+    num = -num;
+  }
+  int precision = (f->precision == -1) ? 6 : f->precision;
+
   if (flag_inf_nan) {
-    if ((fabsl(num) < 0.001) || (fabsl(num) > 10000)) {
-      int sign = 0;
-      if (signbit(num)) {
-        sign = -1;
-        num = -num;
-      } else if (f->plus) {
-        sign = 1;
-      } else if (f->space) {
-        sign = 2;
-      }
-      int precision = (f->precision == -1) ? 6 : f->precision;
-      int exponent = 0;
-      if (num != 0.0) {
-        exponent = floorl(log10l(num));
-        num /= powl(10, exponent);
-      }
-      char num_str[50] = {0};
-      snprintf(num_str, sizeof(num_str), "%.*Lf", precision, num);
-      int num_len = strlen(num_str);
-      int exponent_sign = (exponent >= 0) ? '+' : '-';
-      exponent = abs(exponent);
-      char exponent_str[20] = {0};
-      snprintf(exponent_str, sizeof(exponent_str), "%c%02d", exponent_sign,
-               exponent);
-      int total_len = num_len + 1 + 2 + (sign != 0);
-      int count_space = 0;
-      if (f->width > 0 && f->width > total_len)
-        count_space = f->width - total_len;
-      if (f->minus) {
-        if (sign == -1)
-          str[(*l)++] = '-';
-        else if (sign == 1)
-          str[(*l)++] = '+';
-        else if (sign == 2)
-          str[(*l)++] = ' ';
-        for (int i = 0; num_str[i] != '\0'; i++)
-          str[(*l)++] = num_str[i];
-        str[(*l)++] = (uppercase ? 'E' : 'e');
-        for (int i = 0; exponent_str[i] != '\0'; i++)
-          str[(*l)++] = exponent_str[i];
-        for (int i = 0; i < count_space; i++)
-          str[(*l)++] = ' ';
-      } else {
-        if (f->zero) {
-          if (sign == -1)
-            str[(*l)++] = '-';
-          else if (sign == 1)
-            str[(*l)++] = '+';
-          else if (sign == 2)
-            str[(*l)++] = ' ';
-          for (int i = 0; i < count_space - 1; i++)
-            str[(*l)++] = '0';
-        } else {
-          for (int i = 0; i < count_space; i++)
-            str[(*l)++] = ' ';
-          if (sign == -1)
-            str[(*l)++] = '-';
-          else if (sign == 1)
-            str[(*l)++] = '+';
-          else if (sign == 2)
-            str[(*l)++] = ' ';
-        }
-        for (int i = 0; num_str[i] != '\0'; i++)
-          str[(*l)++] = num_str[i];
-        str[(*l)++] = (uppercase ? 'E' : 'e');
-        for (int i = 0; exponent_str[i] != '\0'; i++)
-          str[(*l)++] = exponent_str[i];
-      }
-    } else if (fabsl(num) >= 0.001 && fabsl(num) <= 10000) {
+    if (exp_x >= -4 && exp_x < precision) {
       int sign = 0;
       if (signbit(num)) {
         sign = -1;
@@ -3324,27 +3280,57 @@ void handle_general(va_list factor, char *str, int *l, flags *f,
           int_part /= 10;
         }
       }
-      f->precision = f->precision - int_len;
       int frac_len = f->precision;
       if (f->precision == -1) {
         frac_len = 6;
       }
       int len = int_len + frac_len + flag_point + (sign != 0);
-      if (f->minus) {
-        if (sign == -1) {
-          str[(*l)++] = '-';
-        } else if (sign == 1) {
-          str[(*l)++] = '+';
-        } else if (sign == 2) {
-          str[(*l)++] = ' ';
-        }
-        print_int_part(str, l, num);
-        if (f->precision != 0) {
-          str[(*l)++] = '.';
-        }
-        print_frac_part(str, l, num, frac_len);
-        for (int i = 0; i < f->width - len; i++) {
-          str[(*l)++] = ' ';
+      if (flag_inf_nan) {
+        if (f->minus) {
+          if (sign == -1) {
+            str[(*l)++] = '-';
+          } else if (sign == 1) {
+            str[(*l)++] = '+';
+          } else if (sign == 2) {
+            str[(*l)++] = ' ';
+          }
+          print_int_part(str, l, num);
+          if (f->precision != 0) {
+            str[(*l)++] = '.';
+          }
+          print_frac_part(str, l, num, frac_len);
+          for (int i = 0; i < f->width - len; i++) {
+            str[(*l)++] = ' ';
+          }
+        } else {
+          if (f->zero) {
+            if (sign == -1) {
+              str[(*l)++] = '-';
+            } else if (sign == 1) {
+              str[(*l)++] = '+';
+            } else if (sign == 2) {
+              str[(*l)++] = ' ';
+            }
+            for (int i = 0; i < f->width - len; i++) {
+              str[(*l)++] = '0';
+            }
+          } else {
+            for (int i = 0; i < f->width - len; i++) {
+              str[(*l)++] = ' ';
+            }
+            if (sign == -1) {
+              str[(*l)++] = '-';
+            } else if (sign == 1) {
+              str[(*l)++] = '+';
+            } else if (sign == 2) {
+              str[(*l)++] = ' ';
+            }
+          }
+          print_int_part(str, l, num);
+          if (f->precision != 0) {
+            str[(*l)++] = '.';
+          }
+          print_frac_part(str, l, num, frac_len);
         }
       } else {
         if (f->zero) {
@@ -3375,6 +3361,76 @@ void handle_general(va_list factor, char *str, int *l, flags *f,
           str[(*l)++] = '.';
         }
         print_frac_part(str, l, num, frac_len);
+      }
+    } else {
+      int sign = 0;
+      if (signbit(num)) {
+        sign = -1;
+        num = -num;
+      } else if (f->plus) {
+        sign = 1;
+      } else if (f->space) {
+        sign = 2;
+      }
+      int precision = (f->precision == -1) ? 6 : f->precision;
+      int exponent = 0;
+      if (num != 0.0) {
+        exponent = floorl(log10l(num));
+        num /= powl(10, exponent);
+      }
+      char num_str[50] = {0};
+      snprintf(num_str, sizeof(num_str), "%.*Lf", precision, num);
+      int num_len = strlen(num_str);
+      int exponent_sign = (exponent >= 0) ? '+' : '-';
+      exponent = abs(exponent);
+      char exponent_str[20] = {0};
+      snprintf(exponent_str, sizeof(exponent_str), "%c%02d", exponent_sign,
+               exponent);
+      int total_len = num_len + 1 + 2 + (sign != 0);
+      int count_space = 0;
+      if (f->width > 0 && f->width > total_len)
+        count_space = f->width - total_len;
+      if (flag_inf_nan) {
+        if (f->minus) {
+          if (sign == -1)
+            str[(*l)++] = '-';
+          else if (sign == 1)
+            str[(*l)++] = '+';
+          else if (sign == 2)
+            str[(*l)++] = ' ';
+          for (int i = 0; num_str[i] != '\0'; i++)
+            str[(*l)++] = num_str[i];
+          str[(*l)++] = (uppercase ? 'E' : 'e');
+          for (int i = 0; exponent_str[i] != '\0'; i++)
+            str[(*l)++] = exponent_str[i];
+          for (int i = 0; i < count_space; i++)
+            str[(*l)++] = ' ';
+        } else {
+          if (f->zero) {
+            if (sign == -1)
+              str[(*l)++] = '-';
+            else if (sign == 1)
+              str[(*l)++] = '+';
+            else if (sign == 2)
+              str[(*l)++] = ' ';
+            for (int i = 0; i < count_space - 1; i++)
+              str[(*l)++] = '0';
+          } else {
+            for (int i = 0; i < count_space; i++)
+              str[(*l)++] = ' ';
+            if (sign == -1)
+              str[(*l)++] = '-';
+            else if (sign == 1)
+              str[(*l)++] = '+';
+            else if (sign == 2)
+              str[(*l)++] = ' ';
+          }
+          for (int i = 0; num_str[i] != '\0'; i++)
+            str[(*l)++] = num_str[i];
+          str[(*l)++] = (uppercase ? 'E' : 'e');
+          for (int i = 0; exponent_str[i] != '\0'; i++)
+            str[(*l)++] = exponent_str[i];
+        }
       }
     }
   }
