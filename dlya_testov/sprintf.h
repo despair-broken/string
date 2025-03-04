@@ -1,3 +1,4 @@
+#include "check.h"
 #include <ctype.h>
 #include <float.h>
 #include <limits.h>
@@ -7,6 +8,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+
+#define s21_size_t unsigned int
+#define S21_NULL ((void *)0)
 
 typedef struct flags_width_precision_length {
   int minus;
@@ -46,3 +50,11 @@ void handle_p(va_list factor, char *str, int *l, flags *f);
 
 void print_frac_part(char *str, int *l, long double num, int frac_len);
 void print_int_part(char *str, int *l, long double num);
+
+void print_c(char *str, int *l, int flag, char c);
+void print_space_c(char *str, int width, int *l);
+void print_space(char *str, int width, int *l);
+void pirnt_char(char *str, char *buff, int width, int *l);
+void get_int_number(va_list factor, flags *f, long long int *num);
+void get_uns_number(va_list factor, flags *f, long long unsigned int *num);
+void get_doub_number(va_list factor, flags *f, long double *num);
