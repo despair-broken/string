@@ -78,15 +78,29 @@ void print_int_part(char *str, int *l, long double num);
 void print_frac_part(char *str, int *l, long double num, int frac_len);
 void print_int_part(char *str, int *l, long double num);
 
+////////////////////////////////////
+
 void print_c(char *str, int *l, int flag, char c);
 void print_space_c(char *str, int width, int *l);
 void print_space(char *str, int width, int *l);
 void pirnt_char(char *str, char *buff, int width, int *l);
-void get_int_number_and_sign(va_list factor, flags *f, long long int *num,
-                             int *sign);
-void get_uns_number(va_list factor, flags *f, long long unsigned int *num);
+void get_int_number_and_sign_and_len(va_list factor, flags *f,
+                                     long long int *num, int *sign, char *buff,
+                                     int *len);
+void get_uns_number(va_list factor, flags *f, long long unsigned *num);
+void get_uns_number_and_len(va_list factor, flags *f, long long unsigned *num,
+                            char *buff, int *len);
 void get_doub_number_and_sign(va_list factor, flags *f, long double *num,
                               int *sign);
+void add_sign(int sign, char *str, int *l);
+void print_zero(char *str, int count, int *l);
+void pirnt_char_reverse(char *str, char *buff, int width, int *l);
+void calculate_leading_zeros(int *count_zero, flags *f, int len);
+void print_nan(char *str, int len, int *l);
+void print_inf(char *str, int len, int *l);
+void print_nan_inf(long double num, flags *f, char *str, int *l);
+
+//////////////////////////////
 
 int s21_sscanf(const char *str, const char *format, ...);
 void read_format(const char *format, format_flags *flags, s21_size_t *pi);

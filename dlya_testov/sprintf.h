@@ -1,4 +1,3 @@
-#include "check.h"
 #include <ctype.h>
 #include <float.h>
 #include <limits.h>
@@ -8,6 +7,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+
+#include "check.h"
 
 #define s21_size_t unsigned int
 #define S21_NULL ((void *)0)
@@ -60,3 +61,7 @@ void get_int_number_and_sign(va_list factor, flags *f, long long int *num,
 void get_uns_number(va_list factor, flags *f, long long unsigned int *num);
 void get_doub_number_and_sign(va_list factor, flags *f, long double *num,
                               int *sign);
+void print_nan(char *str, int len, int *l);
+void print_inf(char *str, int len, int *l);
+void print_nan_inf(long double num, flags *f, char *str, int *l);
+void print_point(char *str, flags *f, int *l);
