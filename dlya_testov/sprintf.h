@@ -42,7 +42,7 @@ void handle_char(va_list factor, char *str, int *l, flags *f);
 void handle_string(va_list factor, char *str, int *l, flags *f);
 void handle_int(va_list factor, char *str, int *l, flags *f);
 void handle_unsigned(va_list factor, char *str, int *l, flags *f);
-void handle_float(va_list factor, char *str, int *l, flags *f);
+void handle_float(va_list factor, char *str, int *l, flags *f, int uppercase);
 void handle_general(va_list factor, char *str, int *l, flags *f, int uppercase);
 void handle_hex(va_list factor, char *str, int *l, flags *f, int uppercase);
 void handle_e(va_list factor, char *str, int *l, flags *f, int uppercase);
@@ -55,13 +55,11 @@ void print_int_part(char *str, int *l, long double num);
 void print_c(char *str, int *l, int flag, char c);
 void print_space_c(char *str, int width, int *l);
 void print_space(char *str, int width, int *l);
-void pirnt_char(char *str, char *buff, int width, int *l);
+void print_char(char *str, char *buff, int width, int *l);
 void get_int_number_and_sign(va_list factor, flags *f, long long int *num,
                              int *sign);
 void get_uns_number(va_list factor, flags *f, long long unsigned int *num);
 void get_doub_number_and_sign(va_list factor, flags *f, long double *num,
                               int *sign);
-void print_nan(char *str, int len, int *l);
-void print_inf(char *str, int len, int *l);
-void print_nan_inf(long double num, flags *f, char *str, int *l);
+void print_nan_inf(long double num, flags *f, char *str, int *l, int uppercase);
 void print_point(char *str, flags *f, int *l);
