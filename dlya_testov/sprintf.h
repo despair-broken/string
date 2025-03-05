@@ -55,6 +55,8 @@ void print_c(char *str, int *l, int flag, char c);
 void print_space_c(char *str, int width, int *l);
 void print_space(char *str, int width, int *l);
 void pirnt_char(char *str, char *buff, int width, int *l);
-void get_int_number(va_list factor, flags *f, long long int *num);
+void get_int_number_and_sign(va_list factor, flags *f, long long int *num,
+                             int *sign);
 void get_uns_number(va_list factor, flags *f, long long unsigned int *num);
-void get_doub_number(va_list factor, flags *f, long double *num);
+void get_doub_number_and_sign(va_list factor, flags *f, long double *num,
+                              int *sign);

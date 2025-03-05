@@ -30,7 +30,7 @@ void initialize_flags(flags *f) {
   f->sharp = 0;
   f->zero = 0;
   f->width = 0;
-  f->precision = -1;
+  f->precision = -100;
   f->short_ = 0;
   f->long_ = 0;
   f->longlong_ = 0;
@@ -114,12 +114,12 @@ void handle_specifier(const char *format, int *i, va_list factor, char *str,
     str[(*l)++] = '%';
   } else if (format[*i] == 'f') {
     handle_float(factor, str, l, f);
-    // } else if (format[*i] == 'g' || format[*i] == 'G') {
-    //   handle_general(factor, str, l, f, format[*i] == 'G');
+  } else if (format[*i] == 'g' || format[*i] == 'G') {
+    handle_general(factor, str, l, f, format[*i] == 'G');
   } else if (format[*i] == 'x' || format[*i] == 'X') {
     handle_hex(factor, str, l, f, format[*i] == 'X');
-    // } else if (format[*i] == 'e' || format[*i] == 'E') {
-    //   handle_e(factor, str, l, f, format[*i] == 'E');
+  } else if (format[*i] == 'e' || format[*i] == 'E') {
+    handle_e(factor, str, l, f, format[*i] == 'E');
   } else if (format[*i] == 'o') {
     handle_o(factor, str, l, f);
   } else if (format[*i] == 'p') {
@@ -130,38 +130,37 @@ void handle_specifier(const char *format, int *i, va_list factor, char *str,
 
 void handle_char(va_list factor, char *str, int *l, flags *f) {
   char c = (char)va_arg(factor, int);
-  int flag_zero = 1;
+  int flag_end = 1;
   if (c == '\0') {
     c = ' ';
-    flag_zero = 0;
+    flag_end = 0;
   }
   if (f->minus) {
-    if (flag_zero) {
-      str[(*l)++] = c;
-    }
-    for (int i = 1; i < f->width; i++) {
-      str[(*l)++] = ' ';
-    }
+    print_c(str, l, flag_end, c);
+    print_space_c(str, f->width, l);
   } else if (f->width > 1) {
-    for (int i = 1; i < f->width; i++) {
-      str[(*l)++] = ' ';
-    }
-    if (flag_zero) {
-      str[(*l)++] = c;
-    }
+    print_space_c(str, f->width, l);
+    print_c(str, l, flag_end, c);
   } else {
-    if (flag_zero) {
-      str[(*l)++] = c;
-    }
+    print_c(str, l, flag_end, c);
+  }
+}
+
+void print_space_c(char *str, int count, int *l) {
+  for (int i = 1; i < count; i++) {
+    str[(*l)++] = ' ';
+  }
+}
+
+void print_c(char *str, int *l, int flag, char c) {
+  if (flag) {
+    str[(*l)++] = c;
   }
 }
 
 void handle_string(va_list factor, char *str, int *l, flags *f) {
   char *s = va_arg(factor, char *);
-  if (s == NULL) {
-    s = "(null)";
-  }
-  int len = strlen(s);
+  int len = s21_strlen(s);
   char new_s[len + 1];
   strcpy(new_s, s);
   int actual_len = len;
@@ -169,63 +168,98 @@ void handle_string(va_list factor, char *str, int *l, flags *f) {
     actual_len = f->precision;
   }
   if (f->minus) {
-    for (int i = 0; i < actual_len; i++) {
-      str[(*l)++] = new_s[i];
-    }
-    for (int i = 0; i < f->width - actual_len; i++) {
-      str[(*l)++] = ' ';
-    }
+    pirnt_char(str, new_s, actual_len, l);
+    print_space(str, f->width - actual_len, l);
   } else {
-    for (int i = 0; i < f->width - actual_len; i++) {
-      str[(*l)++] = ' ';
-    }
-    for (int i = 0; i < actual_len; i++) {
-      str[(*l)++] = new_s[i];
-    }
+    print_space(str, f->width - actual_len, l);
+    pirnt_char(str, new_s, actual_len, l);
+  }
+}
+
+void pirnt_char(char *str, char *buff, int width, int *l) {
+  for (int i = 0; i < width; i++) {
+    str[(*l)++] = buff[i];
+  }
+}
+
+void print_space(char *str, int count, int *l) {
+  for (int i = 0; i < count; i++) {
+    str[(*l)++] = ' ';
+  }
+}
+
+void get_int_number_and_sign(va_list factor, flags *f, long long int *num,
+                             int *sign) {
+  if (f->short_) {
+    short s_num = va_arg(factor, int);
+    *num = s_num;
+  } else if (f->long_) {
+    long l_num = va_arg(factor, long);
+    *num = l_num;
+  } else {
+    *num = va_arg(factor, int);
+  }
+  if (signbit(*num)) {
+    *sign = -1;
+    *num = -(*num);
+  } else if (f->plus) {
+    *sign = 1;
+  } else if (f->space) {
+    *sign = 2;
+  }
+  if (!*num) {
+    *sign = 0;
+  }
+}
+
+void get_uns_number(va_list factor, flags *f, long long unsigned *num) {
+  if (f->short_) {
+    unsigned short s_num = va_arg(factor, int);
+    *num = s_num;
+  } else if (f->long_) {
+    unsigned long l_num = va_arg(factor, unsigned long);
+    *num = l_num;
+  } else {
+    unsigned u_num = va_arg(factor, unsigned int);
+    *num = u_num;
+  }
+}
+
+void get_doub_number_and_sign(va_list factor, flags *f, long double *num,
+                              int *sign) {
+  if (f->longlong_) {
+    *num = va_arg(factor, long double);
+  } else if (f->long_) {
+    *num = va_arg(factor, double);
+  } else if (f->short_) {
+    float f_num = (float)va_arg(factor, double);
+    *num = (long double)f_num;
+  } else {
+    *num = va_arg(factor, double);
+  }
+  if (signbit(*num)) {
+    *sign = -1;
+    *num = -(*num);
+  } else if (f->plus) {
+    *sign = 1;
+  } else if (f->space) {
+    *sign = 2;
   }
 }
 
 void handle_int(va_list factor, char *str, int *l, flags *f) {
-  long long num = 0;
-  if (f->short_) {
-    short s_num = va_arg(factor, int);
-    num = s_num;
-  } else if (f->long_) {
-    long l_num = va_arg(factor, long);
-    num = l_num;
-  } else {
-    num = va_arg(factor, int);
-  }
+  long long int num = 0;
+  int sign = 0;
+  get_int_number_and_sign(factor, f, &num, &sign);
   char num_str[50] = {0};
   int len = 0;
-  int sign = 0;
-  if (num < 0) {
-    sign = -1;
-    num = -num;
-  } else if (f->plus) {
-    sign = 1;
-  } else if (f->space) {
-    sign = 2;
-  }
-  int flag_sign = (sign != 0);
-  int flag_lm = 0;
-  if (num == LONG_MIN) {
-    num = LONG_MAX;
-    flag_lm = 1;
-  }
   if (num == 0) {
-    sign = 0;
     if (f->precision == 0)
       num_str[len++] = ' ';
     else
       num_str[len++] = '0';
   } else {
     while (num > 0) {
-      if (flag_lm) {
-        num_str[len++] = num % 10 + 1 + '0';
-        num /= 10;
-        flag_lm = 0;
-      }
       num_str[len++] = num % 10 + '0';
       num /= 10;
     }
@@ -247,7 +281,7 @@ void handle_int(va_list factor, char *str, int *l, flags *f) {
     for (int i = len - 1; i >= 0; i--) {
       str[(*l)++] = num_str[i];
     }
-    for (int i = 0; i < f->width - len - flag_sign - count_zero; i++) {
+    for (int i = 0; i < f->width - len - (sign != 0) - count_zero; i++) {
       str[(*l)++] = ' ';
     }
   } else {
@@ -259,7 +293,7 @@ void handle_int(va_list factor, char *str, int *l, flags *f) {
       } else if (sign == 2) {
         str[(*l)++] = ' ';
       }
-      for (int i = 0; i < f->width - len - flag_sign; i++) {
+      for (int i = 0; i < f->width - len - (sign != 0); i++) {
         str[(*l)++] = '0';
       }
       for (int i = len - 1; i >= 0; i--) {
@@ -269,7 +303,7 @@ void handle_int(va_list factor, char *str, int *l, flags *f) {
       if (sign == 2) {
         str[(*l)++] = ' ';
       }
-      for (int i = 0; i < f->width - len - flag_sign - count_zero; i++) {
+      for (int i = 0; i < f->width - len - (sign != 0) - count_zero; i++) {
         str[(*l)++] = ' ';
       }
       if (sign == -1) {
@@ -289,16 +323,7 @@ void handle_int(va_list factor, char *str, int *l, flags *f) {
 
 void handle_unsigned(va_list factor, char *str, int *l, flags *f) {
   unsigned long long num = 0;
-  if (f->short_) {
-    unsigned short s_num = va_arg(factor, int);
-    num = s_num;
-  } else if (f->long_) {
-    unsigned long l_num = va_arg(factor, unsigned long);
-    num = l_num;
-  } else {
-    unsigned u_num = va_arg(factor, unsigned int);
-    num = u_num;
-  }
+  get_uns_number(factor, f, &num);
   char num_str[50] = {0};
   int len = 0;
   if (num == 0) {
@@ -349,17 +374,8 @@ void handle_unsigned(va_list factor, char *str, int *l, flags *f) {
 
 void handle_float(va_list factor, char *str, int *l, flags *f) {
   long double num = 0.0;
-  if (f->longlong_) {
-    num = va_arg(factor, long double);
-  } else if (f->long_) {
-    num = va_arg(factor, double);
-  } else if (f->short_) {
-    float f_num = (float)va_arg(factor, double);
-    num = (long double)f_num;
-  } else {
-    num = va_arg(factor, double);
-  }
-  // int flag_zero = f->zero;
+  int sign = 0;
+  get_doub_number_and_sign(factor, f, &num, &sign);
   int flag_inf_nan = 1;
   if (isnan(num)) {
     flag_inf_nan = 0;
@@ -418,15 +434,6 @@ void handle_float(va_list factor, char *str, int *l, flags *f) {
       }
     }
   }
-  int sign = 0;
-  if (signbit(num)) {
-    sign = -1;
-    num = -num;
-  } else if (f->plus) {
-    sign = 1;
-  } else if (f->space) {
-    sign = 2;
-  }
   int int_len = 0;
   int int_part = (int)num;
   int flag_point = 1;
@@ -446,7 +453,7 @@ void handle_float(va_list factor, char *str, int *l, flags *f) {
     }
   }
   int frac_len = f->precision;
-  if (f->precision == -1) {
+  if (f->precision == -100) {
     frac_len = 6;
   }
   int len = int_len + frac_len + flag_point + (sign != 0);
@@ -502,13 +509,7 @@ void handle_float(va_list factor, char *str, int *l, flags *f) {
 
 void handle_hex(va_list factor, char *str, int *l, flags *f, int uppercase) {
   unsigned long long int num = 0;
-  if (f->long_) {
-    num = va_arg(factor, unsigned long long int);
-  } else if (f->short_) {
-    num = (unsigned short int)va_arg(factor, int);
-  } else {
-    num = va_arg(factor, unsigned int);
-  }
+  get_uns_number(factor, f, &num);
   int len = 0;
   unsigned int temp = num;
   if (temp == 0) {
@@ -526,7 +527,7 @@ void handle_hex(va_list factor, char *str, int *l, flags *f, int uppercase) {
   int temp_len = 0;
   temp = num;
   if (num == 0) {
-    if (f->precision < 1 && f->precision != -1) {
+    if (f->precision < 1 && f->precision != -100) {
       temp_str[temp_len] = ' ';
     } else {
       temp_str[temp_len++] = '0';
@@ -595,14 +596,8 @@ void handle_hex(va_list factor, char *str, int *l, flags *f, int uppercase) {
 }
 
 void handle_o(va_list factor, char *str, int *l, flags *f) {
-  unsigned long int num = 0;
-  if (f->long_) {
-    num = va_arg(factor, unsigned long int);
-  } else if (f->short_) {
-    num = (unsigned short int)va_arg(factor, int);
-  } else {
-    num = va_arg(factor, unsigned int);
-  }
+  long long unsigned int num = 0;
+  get_uns_number(factor, f, &num);
   int len = 0;
   unsigned int temp = num;
   if (temp == 0) {
@@ -620,7 +615,7 @@ void handle_o(va_list factor, char *str, int *l, flags *f) {
   int temp_len = 0;
   temp = num;
   if (num == 0) {
-    if (f->precision < 1 && f->precision != -1) {
+    if (f->precision < 1 && f->precision != -100) {
       temp_str[temp_len] = ' ';
     } else {
       temp_str[temp_len++] = '0';
@@ -766,16 +761,8 @@ void print_frac_part(char *str, int *l, long double num, int frac_len) {
 
 void handle_e(va_list factor, char *str, int *l, flags *f, int uppercase) {
   long double num = 0.0;
-  if (f->longlong_) {
-    num = va_arg(factor, long double);
-  } else if (f->long_) {
-    num = va_arg(factor, double);
-  } else if (f->short_) {
-    float f_num = (float)va_arg(factor, double);
-    num = (long double)f_num;
-  } else {
-    num = va_arg(factor, double);
-  }
+  int sign = 0;
+  get_doub_number_and_sign(factor, f, &num, &sign);
   int flag_inf_nan = 1;
   if (isnan(num)) {
     const char *nan_str = uppercase ? "NAN" : "nan";
@@ -837,16 +824,7 @@ void handle_e(va_list factor, char *str, int *l, flags *f, int uppercase) {
       }
     }
   }
-  int sign = 0;
-  if (signbit(num)) {
-    sign = -1;
-    num = -num;
-  } else if (f->plus) {
-    sign = 1;
-  } else if (f->space) {
-    sign = 2;
-  }
-  int precision = (f->precision == -1) ? 6 : f->precision;
+  int precision = (f->precision == -100) ? 6 : f->precision;
   int exponent = 0;
   if (num != 0.0) {
     exponent = floorl(log10l(num));
@@ -904,6 +882,275 @@ void handle_e(va_list factor, char *str, int *l, flags *f, int uppercase) {
       str[(*l)++] = (uppercase ? 'E' : 'e');
       for (int i = 0; exponent_str[i] != '\0'; i++)
         str[(*l)++] = exponent_str[i];
+    }
+  }
+}
+
+void handle_general(va_list factor, char *str, int *l, flags *f,
+                    int uppercase) {
+  long double num = 0.0;
+  int sign = 0;
+  get_doub_number_and_sign(factor, f, &num, &sign);
+  int flag_inf_nan = 1;
+  if (isnan(num)) {
+    const char *nan_str = uppercase ? "NAN" : "nan";
+    flag_inf_nan = 0;
+    int len = 3;
+    if (f->minus) {
+      for (int i = 0; i < len; i++) {
+        str[(*l)++] = nan_str[i];
+      }
+      for (int i = 0; i < f->width - len; i++) {
+        str[(*l)++] = ' ';
+      }
+    } else {
+      for (int i = 0; i < f->width - len; i++) {
+        str[(*l)++] = ' ';
+      }
+      for (int i = 0; i < len; i++) {
+        str[(*l)++] = nan_str[i];
+      }
+    }
+  } else if (isinf(num)) {
+    const char *inf_str;
+    flag_inf_nan = 0;
+    if (num < 0) {
+      inf_str = uppercase ? "-INF" : "-inf";
+      int len = 4;
+      if (f->minus) {
+        for (int i = 0; i < len; i++) {
+          str[(*l)++] = inf_str[i];
+        }
+        for (int i = 0; i < f->width - len; i++) {
+          str[(*l)++] = ' ';
+        }
+      } else {
+        for (int i = 0; i < f->width - len; i++) {
+          str[(*l)++] = ' ';
+        }
+        for (int i = 0; i < len; i++) {
+          str[(*l)++] = inf_str[i];
+        }
+      }
+    } else {
+      int len = 3;
+      inf_str = uppercase ? "INF" : "inf";
+      if (f->minus) {
+        for (int i = 0; i < len; i++) {
+          str[(*l)++] = inf_str[i];
+        }
+        for (int i = 0; i < f->width - len; i++) {
+          str[(*l)++] = ' ';
+        }
+      } else {
+        for (int i = 0; i < f->width - len; i++) {
+          str[(*l)++] = ' ';
+        }
+        for (int i = 0; i < len; i++) {
+          str[(*l)++] = inf_str[i];
+        }
+      }
+    }
+  }
+  int flag_num = 0;
+  if (num < 0) {
+    num = -num;
+    flag_num = 1;
+  }
+  int exp_x = 0;
+  long double temp_num = num;
+  if (temp_num != 0.0) {
+    exp_x = floorl(log10l(temp_num));
+    temp_num /= powl(10, exp_x);
+  }
+  if (flag_num) {
+    num = -num;
+  }
+  int precision = (f->precision == -100) ? 6 : f->precision;
+  if (flag_inf_nan) {
+    if (exp_x >= -4 && exp_x < precision) {
+      int int_len = 0;
+      int int_part = (int)num;
+      int flag_point = 1;
+      if (f->precision == 0) {
+        flag_point = 0;
+        int digit = (int)(num * 10) % 10;
+        if (digit > 5) {
+          num++;
+        }
+      }
+      if (int_part == 0) {
+        int_len = 1;
+      } else {
+        while (int_part > 0) {
+          int_len++;
+          int_part /= 10;
+        }
+      }
+      int frac_len;
+      if (num < 10) {
+        frac_len = f->precision + 3;
+        if (f->precision == -100) {
+          frac_len = 8;
+        }
+      } else {
+        frac_len = f->precision - 5;
+        if (f->precision == -100) {
+          frac_len = 1;
+        }
+      }
+      int len = int_len + frac_len + flag_point + (sign != 0);
+      if (flag_inf_nan) {
+        if (f->minus) {
+          if (sign == -1) {
+            str[(*l)++] = '-';
+          } else if (sign == 1) {
+            str[(*l)++] = '+';
+          } else if (sign == 2) {
+            str[(*l)++] = ' ';
+          }
+          print_int_part(str, l, num);
+          if ((f->precision != 0 && num < 1) || (num > 10 && precision != 5)) {
+            str[(*l)++] = '.';
+          }
+          print_frac_part(str, l, num, frac_len);
+          for (int i = 0; i < f->width - len; i++) {
+            str[(*l)++] = ' ';
+          }
+        } else {
+          if (f->zero) {
+            if (sign == -1) {
+              str[(*l)++] = '-';
+            } else if (sign == 1) {
+              str[(*l)++] = '+';
+            } else if (sign == 2) {
+              str[(*l)++] = ' ';
+            }
+            for (int i = 0; i < f->width - len; i++) {
+              str[(*l)++] = '0';
+            }
+          } else {
+            for (int i = 0; i < f->width - len; i++) {
+              str[(*l)++] = ' ';
+            }
+            if (sign == -1) {
+              str[(*l)++] = '-';
+            } else if (sign == 1) {
+              str[(*l)++] = '+';
+            } else if (sign == 2) {
+              str[(*l)++] = ' ';
+            }
+          }
+          print_int_part(str, l, num);
+          if ((f->precision != 0 && num < 1) || (num > 10 && precision != 5)) {
+            str[(*l)++] = '.';
+          }
+          print_frac_part(str, l, num, frac_len);
+        }
+      } else {
+        if (f->zero) {
+          if (sign == -1) {
+            str[(*l)++] = '-';
+          } else if (sign == 1) {
+            str[(*l)++] = '+';
+          } else if (sign == 2) {
+            str[(*l)++] = ' ';
+          }
+          for (int i = 0; i < f->width - len; i++) {
+            str[(*l)++] = '0';
+          }
+        } else {
+          for (int i = 0; i < f->width - len; i++) {
+            str[(*l)++] = ' ';
+          }
+          if (sign == -1) {
+            str[(*l)++] = '-';
+          } else if (sign == 1) {
+            str[(*l)++] = '+';
+          } else if (sign == 2) {
+            str[(*l)++] = ' ';
+          }
+        }
+        print_int_part(str, l, num);
+        if ((f->precision != 0 && num < 1) || (num > 10 && precision != 5)) {
+          str[(*l)++] = '.';
+        }
+        print_frac_part(str, l, num, frac_len);
+      }
+    } else {
+      int sign = 0;
+      if (signbit(num)) {
+        sign = -1;
+        num = -num;
+      } else if (f->plus) {
+        sign = 1;
+      } else if (f->space) {
+        sign = 2;
+      }
+      int precision = (f->precision == -100) ? 5 : f->precision - 1;
+      int exponent = 0;
+      if (num != 0.0) {
+        exponent = floorl(log10l(num));
+        num /= powl(10, exponent);
+      }
+      char num_str[50] = {0};
+      snprintf(num_str, sizeof(num_str), "%.*Lf", precision, num);
+      int num_len = strlen(num_str);
+      int exponent_sign = (exponent >= 0) ? '+' : '-';
+      exponent = abs(exponent);
+      char exponent_str[20] = {0};
+      snprintf(exponent_str, sizeof(exponent_str), "%c%02d", exponent_sign,
+               exponent);
+      int total_len = num_len + 1 + 2 + (sign != 0);
+      int count_space = 0;
+      int qqq_flag = 1;
+      if (f->zero || f->minus) {
+        qqq_flag = 0;
+      }
+      if (f->width > 0 && f->width > total_len)
+        count_space = f->width - total_len - qqq_flag;
+      if (flag_inf_nan) {
+        if (f->minus) {
+          if (sign == -1)
+            str[(*l)++] = '-';
+          else if (sign == 1)
+            str[(*l)++] = '+';
+          else if (sign == 2)
+            str[(*l)++] = ' ';
+          for (int i = 0; num_str[i] != '\0'; i++)
+            str[(*l)++] = num_str[i];
+          str[(*l)++] = (uppercase ? 'E' : 'e');
+          for (int i = 0; exponent_str[i] != '\0'; i++)
+            str[(*l)++] = exponent_str[i];
+          for (int i = 0; i < count_space; i++)
+            str[(*l)++] = ' ';
+        } else {
+          if (f->zero) {
+            if (sign == -1)
+              str[(*l)++] = '-';
+            else if (sign == 1)
+              str[(*l)++] = '+';
+            else if (sign == 2)
+              str[(*l)++] = ' ';
+            for (int i = 0; i < count_space - 1; i++)
+              str[(*l)++] = '0';
+          } else {
+            for (int i = 0; i < count_space; i++)
+              str[(*l)++] = ' ';
+            if (sign == -1)
+              str[(*l)++] = '-';
+            else if (sign == 1)
+              str[(*l)++] = '+';
+            else if (sign == 2)
+              str[(*l)++] = ' ';
+          }
+          for (int i = 0; num_str[i] != '\0'; i++)
+            str[(*l)++] = num_str[i];
+          str[(*l)++] = (uppercase ? 'E' : 'e');
+          for (int i = 0; exponent_str[i] != '\0'; i++)
+            str[(*l)++] = exponent_str[i];
+        }
+      }
     }
   }
 }
