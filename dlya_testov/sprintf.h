@@ -46,20 +46,34 @@ void handle_float(va_list factor, char *str, int *l, flags *f, int uppercase);
 void handle_general(va_list factor, char *str, int *l, flags *f, int uppercase);
 void handle_hex(va_list factor, char *str, int *l, flags *f, int uppercase);
 void handle_e(va_list factor, char *str, int *l, flags *f, int uppercase);
-void handle_o(va_list factor, char *str, int *l, flags *f);
+void handle_o(va_list factor, char *str, int *l, flags *f, int uppercase);
 void handle_p(va_list factor, char *str, int *l, flags *f);
 
 void print_frac_part(char *str, int *l, long double num, int frac_len);
 void print_int_part(char *str, int *l, long double num);
 
+void print_space_c(char *str, int count, int *l);
 void print_c(char *str, int *l, int flag, char c);
-void print_space_c(char *str, int width, int *l);
-void print_space(char *str, int width, int *l);
 void print_char(char *str, char *buff, int width, int *l);
-void get_int_number_and_sign(va_list factor, flags *f, long long int *num,
-                             int *sign);
-void get_uns_number(va_list factor, flags *f, long long unsigned int *num);
+void pirnt_char_reverse(char *str, char *buff, int width, int *l);
+void print_space(char *str, int count, int *l);
+void get_int_number_and_sign_and_len(va_list factor, flags *f,
+                                     long long int *num, int *sign, char *buff,
+                                     int *len);
+void get_uns_number(va_list factor, flags *f, long long unsigned *num);
+void get_uns_number_and_len(va_list factor, flags *f, long long unsigned *num,
+                            char *buff, int *len);
 void get_doub_number_and_sign(va_list factor, flags *f, long double *num,
                               int *sign);
+void add_sign(int sign, char *str, int *l);
+void print_zero(char *str, int count, int *l);
+void calculate_leading_zeros(int *count_zero, flags *f, int len);
 void print_nan_inf(long double num, flags *f, char *str, int *l, int uppercase);
 void print_point(char *str, flags *f, int *l);
+int get_len_and_precision_float(flags *f, int *frac_len, int sign,
+                                long double *num);
+void set_sharp_hex(flags *f, int num, char *str, int *l, int uppercase);
+void set_sharp_o(flags *f, int num, char *str, int *l, int uppercase);
+int get_len_and_precision_hex_and_o(unsigned long long int num, int *len,
+                                    flags *f, int *count_zero, char *buff,
+                                    int uppercase, int value);

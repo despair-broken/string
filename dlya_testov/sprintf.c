@@ -5387,7 +5387,7 @@ int main() {
   }
   test_num++;
 
-    // Тест 366: Бесконечность с заглавными буквами и текстом после формата
+  // Тест 366: Бесконечность с заглавными буквами и текстом после формата
   s21_sprintf(buffer, "Привет, число: %E  qq", INFINITY);
   snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %E  qq", INFINITY);
   if (strcmp(buffer, std_buffer) == 0) {
@@ -5580,10 +5580,10 @@ void handle_specifier(const char *format, int *i, va_list factor, char *str,
     handle_general(factor, str, l, f, format[*i] == 'G');
   } else if (format[*i] == 'x' || format[*i] == 'X') {
     handle_hex(factor, str, l, f, format[*i] == 'X');
+  } else if (format[*i] == 'o' || format[*i] == 'O') {
+    handle_o(factor, str, l, f, format[*i] == 'O');
   } else if (format[*i] == 'e' || format[*i] == 'E') {
     handle_e(factor, str, l, f, format[*i] == 'E');
-  } else if (format[*i] == 'o') {
-    handle_o(factor, str, l, f);
   } else if (format[*i] == 'p') {
     handle_p(factor, str, l, f);
   }
@@ -5919,51 +5919,73 @@ void handle_float(va_list factor, char *str, int *l, flags *f, int uppercase) {
   }
 }
 
-void handle_hex(va_list factor, char *str, int *l, flags *f, int uppercase) {
-  unsigned long long int num = 0;
-  get_uns_number(factor, f, &num);
-  int len = 0;
-  unsigned int temp = num;
-  if (temp == 0) {
-    len = 1;
-  } else {
-    while (temp) {
-      len++;
-      temp /= 16;
+void set_sharp_hex(flags *f, int num, char *str, int *l, int uppercase) {
+  if (f->sharp) {
+    if (num != 0) {
+      str[(*l)++] = '0';
+      str[(*l)++] = uppercase ? 'X' : 'x';
+    } else {
+      str[(*l)++] = ' ';
+      str[(*l)++] = ' ';
     }
   }
-  int count_zero = 0;
-  calculate_leading_zeros(&count_zero, f, len);
-  char temp_str[20] = {0};
+}
+
+void set_sharp_o(flags *f, int num, char *str, int *l, int uppercase) {
+  if (f->sharp) {
+    if (num != 0) {
+      str[(*l)++] = uppercase ? 'O' : 'o';
+    } else {
+      str[(*l)++] = ' ';
+    }
+  }
+}
+
+int get_len_and_precision_hex_and_o(unsigned long long int num, int *len,
+                                    flags *f, int *count_zero, char *buff,
+                                    int uppercase, int value) {
+  unsigned long long int temp = num;
+  if (temp == 0) {
+    *len = 1;
+  } else {
+    while (temp) {
+      (*len)++;
+      temp /= value;
+    }
+  }
+  calculate_leading_zeros(count_zero, f, *len);
   int temp_len = 0;
   temp = num;
   if (num == 0) {
     if (f->precision < 1 && f->precision != -100) {
-      temp_str[temp_len] = ' ';
+      buff[temp_len] = ' ';
     } else {
-      temp_str[temp_len++] = '0';
+      buff[temp_len++] = '0';
     }
   } else {
     while (temp) {
-      int digit = temp % 16;
-      if (digit < 10) {
-        temp_str[temp_len++] = digit + '0';
+      int digit = temp % value;
+      if (digit > 9) {
+        buff[temp_len++] = uppercase ? 'A' + digit - 10 : 'a' + digit - 10;
       } else {
-        temp_str[temp_len++] = uppercase ? 'A' + digit - 10 : 'a' + digit - 10;
+        buff[temp_len++] = digit + '0';
       }
-      temp /= 16;
+      temp /= value;
     }
   }
+  return temp_len;
+}
+
+void handle_hex(va_list factor, char *str, int *l, flags *f, int uppercase) {
+  unsigned long long int num = 0;
+  get_uns_number(factor, f, &num);
+  int len = 0;
+  int count_zero = 0;
+  char temp_str[20] = {0};
+  int temp_len = get_len_and_precision_hex_and_o(num, &len, f, &count_zero,
+                                                 temp_str, uppercase, 16);
   if (f->minus) {
-    if (f->sharp) {
-      if (num != 0) {
-        str[(*l)++] = '0';
-        str[(*l)++] = uppercase ? 'X' : 'x';
-      } else {
-        str[(*l)++] = ' ';
-        str[(*l)++] = ' ';
-      }
-    }
+    set_sharp_hex(f, num, str, l, uppercase);
     print_zero(str, count_zero, l);
     pirnt_char_reverse(str, temp_str, temp_len, l);
     print_space(str, f->width - len - (f->sharp ? 2 : 0) - count_zero, l);
@@ -5973,59 +5995,22 @@ void handle_hex(va_list factor, char *str, int *l, flags *f, int uppercase) {
     } else {
       print_space(str, f->width - len - (f->sharp ? 2 : 0) - count_zero, l);
     }
-    if (f->sharp) {
-      if (num != 0) {
-        str[(*l)++] = '0';
-        str[(*l)++] = uppercase ? 'X' : 'x';
-      } else {
-        str[(*l)++] = ' ';
-        str[(*l)++] = ' ';
-      }
-    }
+    set_sharp_hex(f, num, str, l, uppercase);
     print_zero(str, count_zero, l);
     pirnt_char_reverse(str, temp_str, temp_len, l);
   }
 }
 
-void handle_o(va_list factor, char *str, int *l, flags *f) {
-  long long unsigned int num = 0;
+void handle_o(va_list factor, char *str, int *l, flags *f, int uppercase) {
+  unsigned long long int num = 0;
   get_uns_number(factor, f, &num);
   int len = 0;
-  unsigned int temp = num;
-  if (temp == 0) {
-    len = 1;
-  } else {
-    while (temp) {
-      len++;
-      temp /= 8;
-    }
-  }
   int count_zero = 0;
-  calculate_leading_zeros(&count_zero, f, len);
   char temp_str[20] = {0};
-  int temp_len = 0;
-  temp = num;
-  if (num == 0) {
-    if (f->precision < 1 && f->precision != -100) {
-      temp_str[temp_len] = ' ';
-    } else {
-      temp_str[temp_len++] = '0';
-    }
-  } else {
-    while (temp) {
-      int digit = temp % 8;
-      temp_str[temp_len++] = digit + '0';
-      temp /= 8;
-    }
-  }
+  int temp_len = get_len_and_precision_hex_and_o(num, &len, f, &count_zero,
+                                                 temp_str, uppercase, 8);
   if (f->minus) {
-    if (f->sharp) {
-      if (num != 0) {
-        str[(*l)++] = '0';
-      } else {
-        str[(*l)++] = ' ';
-      }
-    }
+    set_sharp_o(f, num, str, l, uppercase);
     print_zero(str, count_zero, l);
     pirnt_char_reverse(str, temp_str, temp_len, l);
     print_space(str, f->width - len - (f->sharp ? 2 : 0) - count_zero, l);
@@ -6035,13 +6020,7 @@ void handle_o(va_list factor, char *str, int *l, flags *f) {
     } else {
       print_space(str, f->width - len - (f->sharp ? 2 : 0) - count_zero, l);
     }
-    if (f->sharp) {
-      if (num != 0) {
-        str[(*l)++] = '0';
-      } else {
-        str[(*l)++] = ' ';
-      }
-    }
+    set_sharp_o(f, num, str, l, uppercase);
     print_zero(str, count_zero, l);
     pirnt_char_reverse(str, temp_str, temp_len, l);
   }
@@ -6049,9 +6028,25 @@ void handle_o(va_list factor, char *str, int *l, flags *f) {
 
 void handle_p(va_list factor, char *str, int *l, flags *f) {
   void *ptr = va_arg(factor, void *);
+  uintptr_t addr = (uintptr_t)ptr;
   char buffer[20];
-  sprintf(buffer, "%p", ptr);
-  int len = strlen(buffer);  // ИЗМЕНИТЬ
+  int len = 0;
+  buffer[len++] = '0';
+  buffer[len++] = 'x';
+  if (addr == 0) {
+    buffer[len++] = '0';
+  } else {
+    for (int i = 15; i >= 0; --i) {
+      uint8_t byte = (addr >> (i * 4)) & 0xF;
+      if ((byte != 0) || (i == 0)) {
+        if (byte < 10) {
+          buffer[len++] = '0' + byte;
+        } else {
+          buffer[len++] = 'a' + (byte - 10);
+        }
+      }
+    }
+  }
   if (f->minus) {
     print_char(str, buffer, len, l);
     print_zero(str, f->width - len, l);
@@ -6104,11 +6099,9 @@ void print_frac_part(char *str, int *l, long double num, int frac_len) {
       buff_digit++;
     }
     char buff_str[20];
-    sprintf(buff_str, "%d", buff_digit);
-    for (size_t i = 0; i < strlen(buff_str); i++) {  // ЗАМЕНИТЬ НА С21
-      str[(*l)++] = buff_str[i];
-    }
-    int len = (int)strlen(buff_str);
+    sprintf(buff_str, "%d", buff_digit);                  // ЗАМЕНИТЬ НА С21
+    print_char(str, buff_str, (int)strlen(buff_str), l);  // ЗАМЕНИТЬ НА С21
+    int len = (int)strlen(buff_str);                      // ЗАМЕНИТЬ НА С21
     print_space(str, frac_len - len - count_zero, l);
   }
 }
