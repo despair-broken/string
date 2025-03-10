@@ -44,9 +44,8 @@ void handle_int(va_list factor, char *str, int *l, flags *f);
 void handle_unsigned(va_list factor, char *str, int *l, flags *f);
 void handle_float(va_list factor, char *str, int *l, flags *f, int uppercase);
 void handle_general(va_list factor, char *str, int *l, flags *f, int uppercase);
-void handle_hex(va_list factor, char *str, int *l, flags *f, int uppercase);
 void handle_e(va_list factor, char *str, int *l, flags *f, int uppercase);
-void handle_o(va_list factor, char *str, int *l, flags *f, int uppercase);
+
 void handle_p(va_list factor, char *str, int *l, flags *f);
 
 void print_frac_part(char *str, int *l, long double num, int frac_len);
@@ -72,8 +71,10 @@ void print_nan_inf(long double num, flags *f, char *str, int *l, int uppercase);
 void print_point(char *str, flags *f, int *l);
 int get_len_and_precision_float(flags *f, int *frac_len, int sign,
                                 long double *num);
-void set_sharp_hex(flags *f, int num, char *str, int *l, int uppercase);
-void set_sharp_o(flags *f, int num, char *str, int *l, int uppercase);
 int get_len_and_precision_hex_and_o(unsigned long long int num, int *len,
                                     flags *f, int *count_zero, char *buff,
                                     int uppercase, int value);
+void handle_hex_and_o(va_list factor, char *str, int *l, flags *f,
+                      int uppercase, char value);
+void set_sharp_hex_and_o(flags *f, int num, char *str, int *l, int uppercase,
+                         int value);

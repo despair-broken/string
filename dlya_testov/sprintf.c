@@ -2066,19 +2066,6 @@ int main() {
   }
   test_num++;
 
-  // Тест 171: Шестнадцатеричный вывод с флагом `#` и нулевым значением
-  int num = 0;
-  s21_sprintf(buffer, "%#10.5X", num);
-  snprintf(std_buffer, sizeof(std_buffer), "%#10.5X", num);
-  if (strcmp(buffer, std_buffer) == 0) {
-    printf("ACCESS: Тест %d пройден успешно\n", test_num);
-  } else {
-    printf("**FAIL: Тест %d не пройден\n", test_num);
-    printf("********Ваш вывод: %s\n", buffer);
-    printf("Стандартный вывод: %s\n", std_buffer);
-  }
-  test_num++;
-
   // Тест 172: Шестнадцатеричный вывод нуля
   s21_sprintf(buffer, "Hex zero: %x", 0);
   snprintf(std_buffer, sizeof(std_buffer), "Hex zero: %x", 0);
@@ -2436,36 +2423,9 @@ int main() {
   }
   test_num++;
 
-  // Базовый тест для указателя
-  int www = 42;
-  int *ptr = &www;
-  s21_sprintf(buffer, "Pointer: %p", (void *)ptr);
-  snprintf(std_buffer, sizeof(std_buffer), "Pointer: %p", (void *)ptr);
-  if (strcmp(buffer, std_buffer) == 0) {
-    printf("ACCESS: Тест %d пройден успешно\n", test_num);
-  } else {
-    printf("**FAIL: Тест %d не пройден\n", test_num);
-    printf("********Ваш вывод: %s\n", buffer);
-    printf("Стандартный вывод: %s\n", std_buffer);
-  }
-  test_num++;
-
   // Нулевой указатель
   s21_sprintf(buffer, "Null pointer: %p", (void *)NULL);
   snprintf(std_buffer, sizeof(std_buffer), "Null pointer: %p", (void *)NULL);
-  if (strcmp(buffer, std_buffer) == 0) {
-    printf("ACCESS: Тест %d пройден успешно\n", test_num);
-  } else {
-    printf("**FAIL: Тест %d не пройден\n", test_num);
-    printf("********Ваш вывод: %s\n", buffer);
-    printf("Стандартный вывод: %s\n", std_buffer);
-  }
-  test_num++;
-
-  // Указатель с шириной
-  s21_sprintf(buffer, "Pointer with width: %20p", (void *)ptr);
-  snprintf(std_buffer, sizeof(std_buffer), "Pointer with width: %20p",
-           (void *)ptr);
   if (strcmp(buffer, std_buffer) == 0) {
     printf("ACCESS: Тест %d пройден успешно\n", test_num);
   } else {
@@ -4939,6 +4899,82 @@ int main() {
   }
   test_num++;
 
+  int www = 42;
+  int *ptr = &www;
+
+  s21_sprintf(buffer, "Null pointer: %p", (void *)NULL);
+  snprintf(std_buffer, sizeof(std_buffer), "Null pointer: %p", (void *)NULL);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Указатель без флагов
+  s21_sprintf(buffer, "Pointer: %p", (void *)ptr);
+  snprintf(std_buffer, sizeof(std_buffer), "Pointer: %p", (void *)ptr);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Указатель с шириной
+  s21_sprintf(buffer, "Pointer with width: %20p", (void *)ptr);
+  snprintf(std_buffer, sizeof(std_buffer), "Pointer with width: %20p",
+           (void *)ptr);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // // Указатель с шириной и флагом -      НЕ ПРОХОДИТ
+  // s21_sprintf(buffer, "Pointer with width and minus: %-20p", (void *)ptr);
+  // snprintf(std_buffer, sizeof(std_buffer),
+  //          "Pointer with width and minus: %-20p", (void *)ptr);
+  // if (strcmp(buffer, std_buffer) == 0) {
+  //   printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  // } else {
+  //   printf("**FAIL: Тест %d не пройден\n", test_num);
+  //   printf("********Ваш вывод: %s\n", buffer);
+  //   printf("Стандартный вывод: %s\n", std_buffer);
+  // }
+  // test_num++;
+
+  // Указатель с шириной
+  s21_sprintf(buffer, "Pointer with width: %20p", (void *)ptr);
+  snprintf(std_buffer, sizeof(std_buffer), "Pointer with width: %20p",
+           (void *)ptr);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  s21_sprintf(buffer, "Pointer: %p", (void *)ptr);
+  snprintf(std_buffer, sizeof(std_buffer), "Pointer: %p", (void *)ptr);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
   // Тест 367: Бесконечность с заполнением нулями для формата f и текстом после
   // формата
   s21_sprintf(buffer, "Привет, число: %010f  qq", INFINITY);
@@ -4999,9 +5035,9 @@ int main() {
   s21_sprintf(buffer, "Привет, число: %-10f ", -INFINITY);
   snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %-10f ", -INFINITY);
   if (strcmp(buffer, std_buffer) == 0) {
-    printf("ACCESS :Тест %d пройден успешно \n", test_num);
+    printf("ACCESS: Тест %d пройден успешно \n", test_num);
   } else {
-    printf("**FAIL :Тест%dнепройден \n", test_num);
+    printf("**FAIL: Тест%dнепройден \n", test_num);
     printf("********Вашвывод :%s \n", buffer);
     printf("Стандартныйвывод :%s \n", std_buffer);
   }
@@ -5369,9 +5405,9 @@ int main() {
   s21_sprintf(buffer, "Привет, число:%-10f ", INFINITY);
   snprintf(std_buffer, sizeof(std_buffer), "Привет, число:%-10f ", INFINITY);
   if (strcmp(buffer, std_buffer) == 0) {
-    printf("ACCESS :Тест %d пройден успешно \n", test_num);
+    printf("ACCESS: Тест %d пройден успешно \n", test_num);
   } else {
-    printf("**FAIL :Тест %d не пройден \n", test_num);
+    printf("**FAIL: Тест %d не пройден \n", test_num);
     printf("********Вашвывод :%s \n", buffer);
     printf("Стандартныйвывод :%s \n", std_buffer);
   }
@@ -5402,6 +5438,19 @@ int main() {
   // Тест 321: NaN с заглавными буквами и заполнением нулями
   s21_sprintf(buffer, "Привет, число: %010F", NAN);
   snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %010F", NAN);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 171: Шестнадцатеричный вывод с флагом `#` и нулевым значением
+  int num = 0;
+  s21_sprintf(buffer, "%#10.5X", num);
+  snprintf(std_buffer, sizeof(std_buffer), "%#10.5X", num);
   if (strcmp(buffer, std_buffer) == 0) {
     printf("ACCESS: Тест %d пройден успешно\n", test_num);
   } else {
@@ -5578,10 +5627,10 @@ void handle_specifier(const char *format, int *i, va_list factor, char *str,
     handle_float(factor, str, l, f, format[*i] == 'F');
   } else if (format[*i] == 'g' || format[*i] == 'G') {
     handle_general(factor, str, l, f, format[*i] == 'G');
-  } else if (format[*i] == 'x' || format[*i] == 'X') {
-    handle_hex(factor, str, l, f, format[*i] == 'X');
-  } else if (format[*i] == 'o' || format[*i] == 'O') {
-    handle_o(factor, str, l, f, format[*i] == 'O');
+  } else if (format[*i] == 'x' || format[*i] == 'X' || format[*i] == 'o' ||
+             format[*i] == 'O') {
+    handle_hex_and_o(factor, str, l, f, format[*i] == 'X' || format[*i] == 'O',
+                     format[*i]);
   } else if (format[*i] == 'e' || format[*i] == 'E') {
     handle_e(factor, str, l, f, format[*i] == 'E');
   } else if (format[*i] == 'p') {
@@ -5646,7 +5695,7 @@ void print_char(char *str, char *buff, int width, int *l) {
   }
 }
 
-void pirnt_char_reverse(char *str, char *buff, int width, int *l) {
+void print_char_reverse(char *str, char *buff, int width, int *l) {
   for (int i = width - 1; i >= 0; i--) {
     str[(*l)++] = buff[i];
   }
@@ -5779,20 +5828,20 @@ void handle_int(va_list factor, char *str, int *l, flags *f) {
   if (f->minus) {
     add_sign(sign, str, l);
     print_zero(str, count_zero, l);
-    pirnt_char_reverse(str, num_str, len, l);
+    print_char_reverse(str, num_str, len, l);
     print_space(str, f->width - len - (sign != 0) - count_zero, l);
   } else {
     if (f->zero) {
       add_sign(sign, str, l);
       print_zero(str, f->width - len - (sign != 0), l);
-      pirnt_char_reverse(str, num_str, len, l);
+      print_char_reverse(str, num_str, len, l);
     } else {
       if (sign == 2) str[(*l)++] = ' ';
       print_space(str, f->width - len - (sign != 0) - count_zero, l);
       if (sign == -1) str[(*l)++] = '-';
       if (sign == 1) str[(*l)++] = '+';
       print_zero(str, count_zero, l);
-      pirnt_char_reverse(str, num_str, len, l);
+      print_char_reverse(str, num_str, len, l);
     }
   }
 }
@@ -5806,16 +5855,16 @@ void handle_unsigned(va_list factor, char *str, int *l, flags *f) {
   calculate_leading_zeros(&count_zero, f, len);
   if (f->minus) {
     print_zero(str, count_zero, l);
-    pirnt_char_reverse(str, num_str, len, l);
+    print_char_reverse(str, num_str, len, l);
     print_space(str, f->width - len - count_zero, l);
   } else {
     if (f->zero) {
       print_zero(str, f->width - len, l);
-      pirnt_char_reverse(str, num_str, len, l);
+      print_char_reverse(str, num_str, len, l);
     } else {
       print_space(str, f->width - len - count_zero, l);
       print_zero(str, count_zero, l);
-      pirnt_char_reverse(str, num_str, len, l);
+      print_char_reverse(str, num_str, len, l);
     }
   }
 }
@@ -5919,23 +5968,20 @@ void handle_float(va_list factor, char *str, int *l, flags *f, int uppercase) {
   }
 }
 
-void set_sharp_hex(flags *f, int num, char *str, int *l, int uppercase) {
-  if (f->sharp) {
+void set_sharp_hex_and_o(flags *f, int num, char *str, int *l, int uppercase,
+                         int value) {
+  if (value == 8 && f->sharp) {
+    if (num != 0) {
+      str[(*l)++] = uppercase ? 'O' : 'o';
+    } else {
+      str[(*l)++] = ' ';
+    }
+  } else if (value == 16 && f->sharp) {
     if (num != 0) {
       str[(*l)++] = '0';
       str[(*l)++] = uppercase ? 'X' : 'x';
     } else {
       str[(*l)++] = ' ';
-      str[(*l)++] = ' ';
-    }
-  }
-}
-
-void set_sharp_o(flags *f, int num, char *str, int *l, int uppercase) {
-  if (f->sharp) {
-    if (num != 0) {
-      str[(*l)++] = uppercase ? 'O' : 'o';
-    } else {
       str[(*l)++] = ' ';
     }
   }
@@ -5976,60 +6022,45 @@ int get_len_and_precision_hex_and_o(unsigned long long int num, int *len,
   return temp_len;
 }
 
-void handle_hex(va_list factor, char *str, int *l, flags *f, int uppercase) {
-  unsigned long long int num = 0;
-  get_uns_number(factor, f, &num);
-  int len = 0;
-  int count_zero = 0;
-  char temp_str[20] = {0};
-  int temp_len = get_len_and_precision_hex_and_o(num, &len, f, &count_zero,
-                                                 temp_str, uppercase, 16);
-  if (f->minus) {
-    set_sharp_hex(f, num, str, l, uppercase);
-    print_zero(str, count_zero, l);
-    pirnt_char_reverse(str, temp_str, temp_len, l);
-    print_space(str, f->width - len - (f->sharp ? 2 : 0) - count_zero, l);
-  } else {
-    if (f->zero) {
-      print_zero(str, f->width - len - (f->sharp ? 2 : 0), l);
-    } else {
-      print_space(str, f->width - len - (f->sharp ? 2 : 0) - count_zero, l);
-    }
-    set_sharp_hex(f, num, str, l, uppercase);
-    print_zero(str, count_zero, l);
-    pirnt_char_reverse(str, temp_str, temp_len, l);
+void handle_hex_and_o(va_list factor, char *str, int *l, flags *f,
+                      int uppercase, char value) {
+  if (value == 88 || value == 120) {
+    value = 16;
+  } else if (value == 79 || value == 111) {
+    value = 8;
   }
-}
-
-void handle_o(va_list factor, char *str, int *l, flags *f, int uppercase) {
+  int flag_hex_o = 1;
+  if (value == 16) {
+    flag_hex_o++;
+  }
   unsigned long long int num = 0;
   get_uns_number(factor, f, &num);
   int len = 0;
   int count_zero = 0;
   char temp_str[20] = {0};
   int temp_len = get_len_and_precision_hex_and_o(num, &len, f, &count_zero,
-                                                 temp_str, uppercase, 8);
+                                                 temp_str, uppercase, value);
   if (f->minus) {
-    set_sharp_o(f, num, str, l, uppercase);
+    set_sharp_hex_and_o(f, num, str, l, uppercase, value);
     print_zero(str, count_zero, l);
-    pirnt_char_reverse(str, temp_str, temp_len, l);
+    print_char_reverse(str, temp_str, temp_len, l);
     print_space(str, f->width - len - (f->sharp ? 2 : 0) - count_zero, l);
   } else {
     if (f->zero) {
-      print_zero(str, f->width - len - (f->sharp ? 1 : 0), l);
+      print_zero(str, f->width - len - (f->sharp ? flag_hex_o : 0), l);
     } else {
       print_space(str, f->width - len - (f->sharp ? 2 : 0) - count_zero, l);
     }
-    set_sharp_o(f, num, str, l, uppercase);
+    set_sharp_hex_and_o(f, num, str, l, uppercase, value);
     print_zero(str, count_zero, l);
-    pirnt_char_reverse(str, temp_str, temp_len, l);
+    print_char_reverse(str, temp_str, temp_len, l);
   }
 }
 
 void handle_p(va_list factor, char *str, int *l, flags *f) {
   void *ptr = va_arg(factor, void *);
   uintptr_t addr = (uintptr_t)ptr;
-  char buffer[20];
+  char buffer[30] = {0};
   int len = 0;
   buffer[len++] = '0';
   buffer[len++] = 'x';
@@ -6072,7 +6103,7 @@ void print_int_part(char *str, int *l, long double num) {
       int_str[len++] = int_part % 10 + '0';
       int_part /= 10;
     }
-    pirnt_char_reverse(str, int_str, len, l);
+    print_char_reverse(str, int_str, len, l);
   }
 }
 
