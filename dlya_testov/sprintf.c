@@ -5,30 +5,43 @@ int main() {
   char std_buffer[1000] = {0};
   int test_num = 1;
 
-  // Тест 1: Модификатор `L` с положительным числом
-  s21_sprintf(buffer, "Привет, число: %10.5Lf", 123.456L);
-  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %10.5Lf", 123.456L);
-  if (strcmp(buffer, std_buffer) == 0) {
-    printf("ACCESS: Тест %d пройден успешно\n", test_num);
-  } else {
-    printf("**FAIL: Тест %d не пройден\n", test_num);
-    printf("********Ваш вывод: %s\n", buffer);
-    printf("Стандартный вывод: %s\n", std_buffer);
-  }
-  test_num++;
+  // // Тест 3: Вывод указателя с шириной и выравниванием по левому краю
+  // s21_sprintf(buffer, "Привет, указатель: %-20p", &x);
+  // snprintf(std_buffer, sizeof(std_buffer), "Привет, указатель: %-20p", &x);
+  // if (strcmp(buffer, std_buffer) == 0) {
+  //   printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  // } else {
+  //   printf("**FAIL: Тест %d не пройден\n", test_num);
+  //   printf("********Ваш вывод: %s\n", buffer);
+  //   printf("Стандартный вывод: %s\n", std_buffer);
+  // }
+  // test_num++;
 
-  // Тест 2: Модификатор `L` с отрицательным числом
-  s21_sprintf(buffer, "Привет, число: %10.5Lf", -123.456L);
-  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %10.5Lf", -123.456L);
-  if (strcmp(buffer, std_buffer) == 0) {
-    printf("ACCESS: Тест %d пройден успешно\n", test_num);
-  } else {
-    printf("**FAIL: Тест %d не пройден\n", test_num);
-    printf("********Ваш вывод: %s\n", buffer);
-    printf("Стандартный вывод: %s\n", std_buffer);
-  }
-  test_num++;
+  // // Указатель с шириной и флагом -      НЕ ПРОХОДИТ
+  // s21_sprintf(buffer, "Pointer with width and minus: %-20p", (void *)ptr);
+  // snprintf(std_buffer, sizeof(std_buffer),
+  //          "Pointer with width and minus: %-20p", (void *)ptr);
+  // if (strcmp(buffer, std_buffer) == 0) {
+  //   printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  // } else {
+  //   printf("**FAIL: Тест %d не пройден\n", test_num);
+  //   printf("********Ваш вывод: %s\n", buffer);
+  //   printf("Стандартный вывод: %s\n", std_buffer);
+  // }
+  // test_num++;
 
+  // // Тест 6: Вывод указателя с шириной для большого указателя НЕ ПРОХОДИТ
+  // void *ptr_y = (void *)0x1234567890abcdef;
+  // s21_sprintf(buffer, "Привет, указатель: %20p", ptr_y);
+  // snprintf(std_buffer, sizeof(std_buffer), "Привет, указатель: %20p", ptr_y);
+  // if (strcmp(buffer, std_buffer) == 0) {
+  //   printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  // } else {
+  //   printf("**FAIL: Тест %d не пройден\n", test_num);
+  //   printf("********Ваш вывод: %s\n", buffer);
+  //   printf("Стандартный вывод: %s\n", std_buffer);
+  // }
+  // test_num++;
   // // Тест 3: `LONG_MIN` с шириной
   // s21_sprintf(buffer, "Привет, число: %20ld", LONG_MIN);
   // snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %20ld", LONG_MIN);
@@ -52,6 +65,30 @@ int main() {
   //   printf("Стандартный вывод: %s\n", std_buffer);
   // }
   // test_num++;
+
+  // Тест 1: Модификатор `L` с положительным числом
+  s21_sprintf(buffer, "Привет, число: %10.5Lf", 123.456L);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %10.5Lf", 123.456L);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 2: Модификатор `L` с отрицательным числом
+  s21_sprintf(buffer, "Привет, число: %10.5Lf", -123.456L);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %10.5Lf", -123.456L);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
 
   // Тест 5: Символ с обычной шириной
   s21_sprintf(buffer, "Привет, символ: %5c", 'A');
@@ -2555,171 +2592,6 @@ int main() {
   }
   test_num++;
 
-  // Широкий символ (хотя %c ожидает int)
-  // ВНИМАНИЕ: поведение может быть непредсказуемым, так как %c ожидает int
-  // Это тест на потенциальную ошибку, а не на корректную работу!
-
-  // // Тесты с флагом `-` и статической шириной
-  // s21_sprintf(buffer, "Привет, число: %-10.5g", 123.456);
-  // printf("Привет, число: %-10.5g", 123.456);
-  // printf("\n%s\n", buffer);
-
-  // s21_sprintf(buffer, "Привет, число: %-10.5g", -123.456);
-  // printf("Привет, число: %-10.5g", -123.456);
-  // printf("\n%s\n", buffer);
-
-  // s21_sprintf(buffer, "Привет, число: %-10.5G", 123.456);
-  // printf("Привет, число: %-10.5G", 123.456);
-  // printf("\n%s\n", buffer);
-
-  // s21_sprintf(buffer, "Привет, число: %-10.5G", -123.456);
-  // printf("Привет, число: %-10.5G", -123.456);
-  // printf("\n%s\n", buffer);
-  // s21_sprintf(buffer, "Привет, число: % 10.5g", -123.456);
-  // printf("Привет, число: % 10.5g", -123.456);
-  // printf("\n%s\n", buffer);
-
-  // s21_sprintf(buffer, "Привет, число: % 10.5G", 123.456);
-  // printf("Привет, число: % 10.5G", 123.456);
-  // printf("\n%s\n", buffer);
-
-  // s21_sprintf(buffer, "Привет, число: % 10.5G", -123.456);
-  // printf("Привет, число: % 10.5G", -123.456);
-  // printf("\n%s\n", buffer);
-
-  // // Тесты с флагом `#` и статической шириной
-  // s21_sprintf(buffer, "Привет, число: %#10.5g", 123.456);
-  // printf("Привет, число: %#10.5g", 123.456);
-  // printf("\n%s\n", buffer);
-
-  // s21_sprintf(buffer, "Привет, число: %#10.5g", -123.456);
-  // printf("Привет, число: %#10.5g", -123.456);
-  // printf("\n%s\n", buffer);
-
-  // s21_sprintf(buffer, "Привет, число: %#10.5G", 123.456);
-  // printf("Привет, число: %#10.5G", 123.456);
-  // printf("\n%s\n", buffer);
-
-  // s21_sprintf(buffer, "Привет, число: %#10.5G", -123.456);
-  // printf("Привет, число: %#10.5G", -123.456);
-  // printf("\n%s\n", buffer);
-
-  // // Тесты с динамической шириной
-  // s21_sprintf(buffer, "Привет, число: %*.*g", 20, 5, 123.456);
-  // printf("Привет, число: %*.*g", 20, 5, 123.456);
-  // printf("\n%s\n", buffer);
-
-  // s21_sprintf(buffer, "Привет, число: %*.*g", 20, 5, -123.456);
-  // printf("Привет, число: %*.*g", 20, 5, -123.456);
-  // printf("\n%s\n", buffer);
-
-  // s21_sprintf(buffer, "Привет, число: %*.*G", 20, 5, 123.456);
-  // printf("Привет, число: %*.*G", 20, 5, 123.456);
-  // printf("\n%s\n", buffer);
-
-  // s21_sprintf(buffer, "Привет, число: %*.*G", 20, 5, -123.456);
-  // printf("Привет, число: %*.*G", 20, 5, -123.456);
-  // printf("\n%s\n", buffer);
-
-  // // Тесты с флагом `-` и динамической шириной
-  // s21_sprintf(buffer, "Привет, число: %-*.*g", 20, 5, 123.456);
-  // printf("Привет, число: %-*.*g", 20, 5, 123.456);
-  // printf("\n%s\n", buffer);
-
-  // s21_sprintf(buffer, "Привет, число: %-*.*g", 20, 5, -123.456);
-  // printf("Привет, число: %-*.*g", 20, 5, -123.456);
-  // printf("\n%s\n", buffer);
-
-  // s21_sprintf(buffer, "Привет, число: %-*.*G", 20, 5, 123.456);
-  // printf("Привет, число: %-*.*G", 20, 5, 123.456);
-  // printf("\n%s\n", buffer);
-
-  // s21_sprintf(buffer, "Привет, число: %-*.*G", 20, 5, -123.456);
-  // printf("Привет, число: %-*.*G", 20, 5, -123.456);
-  // printf("\n%s\n", buffer);
-
-  // // Тесты с флагом `+` и динамической шириной
-  // s21_sprintf(buffer, "Привет, число: %+*.*g", 20, 5, 123.456);
-  // printf("Привет, число: %+*.*g", 20, 5, 123.456);
-  // printf("\n%s\n", buffer);
-
-  // s21_sprintf(buffer, "Привет, число: %+*.*g", 20, 5, -123.456);
-  // printf("Привет, число: %+*.*g", 20, 5, -123.456);
-  // printf("\n%s\n", buffer);
-
-  // s21_sprintf(buffer, "Привет, число: %+*.*G", 20, 5, 123.456);
-  // printf("Привет, число: %+*.*G", 20, 5, 123.456);
-  // printf("\n%s\n", buffer);
-
-  // s21_sprintf(buffer, "Привет, число: %+*.*G", 20, 5, -123.456);
-  // printf("Привет, число: %+*.*G", 20, 5, -123.456);
-  // printf("\n%s\n", buffer);
-
-  // // Тесты с флагом `#` и динамической шириной
-  // s21_sprintf(buffer, "Привет, число: %#*.*g", 20, 5, 123.456);
-  // printf("Привет, число: %#*.*g", 20, 5, 123.456);
-  // printf("\n%s\n", buffer);
-
-  // s21_sprintf(buffer, "Привет, число: % *.*G", 20, 5, 123.456);
-  // printf("Привет, число: % *.*G", 20, 5, 123.456);
-  // printf("\n%s\n", buffer);
-
-  // s21_sprintf(buffer, "Привет, число: %#*.*g", 20, 5, -123.456);
-  // printf("Привет, число: %#*.*g", 20, 5, -123.456);
-  // printf("\n%s\n", buffer);
-
-  // // Тесты с флагом пробел и динамической шириной
-  // s21_sprintf(buffer, "Привет, число: % *.*g", 20, 5, 123.456);
-  // printf("Привет, число: % *.*g", 20, 5, 123.456);
-  // printf("\n%s\n", buffer);
-
-  // s21_sprintf(buffer, "Привет, число: % *.*g", 20, 5, -123.456);
-  // printf("Привет, число: % *.*g", 20, 5, -123.456);
-  // printf("\n%s\n", buffer);
-
-  // s21_sprintf(buffer, "Привет, число: % *.*G", 20, 5, -123.456);
-  // printf("Привет, число: % *.*G", 20, 5, -123.456);
-  // printf("\n%s\n", buffer);
-
-  // // Тесты с флагом `+` и статической шириной
-  // s21_sprintf(buffer, "Привет, число: %+10.5g", 123.456);
-  // printf("Привет, число: %+10.5g", 123.456);
-  // printf("\n%s\n", buffer);
-
-  // s21_sprintf(buffer, "Привет, число: %+10.5G", 123.456);
-  // printf("Привет, число: %+10.5G", 123.456);
-  // printf("\n%s\n", buffer);
-
-  // // Тесты с флагом пробел и статической шириной
-  // s21_sprintf(buffer, "Привет, число: % 10.5g", 123.456);
-  // printf("Привет, число: % 10.5g", 123.456);
-  // printf("\n%s\n", buffer);
-
-  // // Тесты с флагом `0` и статической шириной
-  // s21_sprintf(buffer, "Привет, число: %010.5g", 123.456);
-  // printf("Привет, число: %010.5g", 123.456);
-  // printf("\n%s\n", buffer);
-
-  // s21_sprintf(buffer, "Привет, число: %010.5G", 123.456);
-  // printf("Привет, число: %010.5G", 123.456);
-  // printf("\n%s\n", buffer);
-
-  // s21_sprintf(buffer, "Привет, число: %010.5G", -123.456);
-  // printf("Привет, число: %010.5G", -123.456);
-  // printf("\n%s\n", buffer);
-
-  // s21_sprintf(buffer, "Привет, число: %010.5g", -123.456);
-  // printf("Привет, число: %010.5g", -123.456);
-  // printf("\n%s\n", buffer);
-
-  // s21_sprintf(buffer, "Привет, число: %+10.5g", -123.456);
-  // printf("Привет, число: %+10.5g", -123.456);
-  // printf("\n%s\n", buffer);
-
-  // s21_sprintf(buffer, "Привет, число: %+10.5G", -123.456);
-  // printf("Привет, число: %+10.5G", -123.456);
-  // printf("\n%s\n", buffer);
-
   // Без флага, динамическая ширина и точность
   // Тест 217: Строка с динамической шириной и точностью, содержащая `\0`
   s21_sprintf(buffer, "Привет, строка: %*.*s", 10, 5, "He\0lloWorld");
@@ -3542,32 +3414,6 @@ int main() {
   }
   test_num++;
 
-  // Тест 287: NaN с шириной для экспоненциального вывода
-  s21_sprintf(buffer, "Привет, число: %10e", NAN);
-  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %10e", NAN);
-  if (strcmp(buffer, std_buffer) == 0) {
-    printf("ACCESS: Тест %d пройден успешно\n", test_num);
-  } else {
-    printf("**FAIL: Тест %d не пройден\n", test_num);
-    printf("********Ваш вывод: %s\n", buffer);
-    printf("Стандартный вывод: %s\n", std_buffer);
-  }
-  test_num++;
-
-  // Тест 288: Ширина и точность для экспоненциального вывода с заполнением
-  // нулями
-  s21_sprintf(buffer, "Привет, число: %010.3e   ", 123.456);
-  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %010.3e   ",
-           123.456);
-  if (strcmp(buffer, std_buffer) == 0) {
-    printf("ACCESS: Тест %d пройден успешно\n", test_num);
-  } else {
-    printf("**FAIL: Тест %d не пройден\n", test_num);
-    printf("********Ваш вывод: %s\n", buffer);
-    printf("Стандартный вывод: %s\n", std_buffer);
-  }
-  test_num++;
-
   // Тест 289: Ширина и точность для отрицательного экспоненциального вывода с
   // заполнением нулями
   s21_sprintf(buffer, "Привет, число: %010.3e", -123.456);
@@ -3621,18 +3467,6 @@ int main() {
   // вывода
   s21_sprintf(buffer, "Привет, число: %+010e", -123.456);
   snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %+010e", -123.456);
-  if (strcmp(buffer, std_buffer) == 0) {
-    printf("ACCESS: Тест %d пройден успешно\n", test_num);
-  } else {
-    printf("**FAIL: Тест %d не пройден\n", test_num);
-    printf("********Ваш вывод: %s\n", buffer);
-    printf("Стандартный вывод: %s\n", std_buffer);
-  }
-  test_num++;
-
-  // Тест 294: Заполнение нулями для экспоненциального вывода
-  s21_sprintf(buffer, "Привет, число: %010.3e", 123.456);
-  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %010.3e", 123.456);
   if (strcmp(buffer, std_buffer) == 0) {
     printf("ACCESS: Тест %d пройден успешно\n", test_num);
   } else {
@@ -3850,6 +3684,18 @@ int main() {
   }
   test_num++;
 
+  // Тест 287: NaN с шириной для экспоненциального вывода
+  s21_sprintf(buffer, "Привет, число: %10e", NAN);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %10e", NAN);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
   // Тест 312: Очень маленькое отрицательное число с заполнением нулями
   s21_sprintf(buffer, "Привет, число: %010e", -1e-323);
   snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %010e", -1e-323);
@@ -3925,18 +3771,6 @@ int main() {
   // Тест 318: NaN с заполнением нулями
   s21_sprintf(buffer, "Привет, число: %010e", NAN);
   snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %010e", NAN);
-  if (strcmp(buffer, std_buffer) == 0) {
-    printf("ACCESS: Тест %d пройден успешно\n", test_num);
-  } else {
-    printf("**FAIL: Тест %d не пройден\n", test_num);
-    printf("********Ваш вывод: %s\n", buffer);
-    printf("Стандартный вывод: %s\n", std_buffer);
-  }
-  test_num++;
-
-  // Тест 319: Ширина и точность для экспоненциального вывода
-  s21_sprintf(buffer, "Привет, число: %010.3e", 123.456);
-  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %010.3e", 123.456);
   if (strcmp(buffer, std_buffer) == 0) {
     printf("ACCESS: Тест %d пройден успешно\n", test_num);
   } else {
@@ -4938,19 +4772,6 @@ int main() {
   }
   test_num++;
 
-  // // Указатель с шириной и флагом -      НЕ ПРОХОДИТ
-  // s21_sprintf(buffer, "Pointer with width and minus: %-20p", (void *)ptr);
-  // snprintf(std_buffer, sizeof(std_buffer),
-  //          "Pointer with width and minus: %-20p", (void *)ptr);
-  // if (strcmp(buffer, std_buffer) == 0) {
-  //   printf("ACCESS: Тест %d пройден успешно\n", test_num);
-  // } else {
-  //   printf("**FAIL: Тест %d не пройден\n", test_num);
-  //   printf("********Ваш вывод: %s\n", buffer);
-  //   printf("Стандартный вывод: %s\n", std_buffer);
-  // }
-  // test_num++;
-
   // Указатель с шириной
   s21_sprintf(buffer, "Pointer with width: %20p", (void *)ptr);
   snprintf(std_buffer, sizeof(std_buffer), "Pointer with width: %20p",
@@ -5360,48 +5181,17 @@ int main() {
   }
   test_num++;
 
-  // // Тест 214: Восьмеричный вывод с модификатором `l`
-  // s21_sprintf(buffer, "Octal with long: %lo", LONG_MAX);
-  // snprintf(std_buffer, sizeof(std_buffer), "Octal with long: %lo", LONG_MAX);
-  // if (strcmp(buffer, std_buffer) == 0) {
-  //   printf("ACCESS: Тест %d пройден успешно\n", test_num);
-  // } else {
-  //   printf("**FAIL: Тест %d не пройден\n", test_num);
-  //   printf("********Ваш вывод: %s\n", buffer);
-  //   printf("Стандартный вывод: %s\n", std_buffer);
-  // }
-  // test_num++;
-
-  // // Тест 215: Шестнадцатеричный вывод с модификатором `l` и заглавными
-  // буквами s21_sprintf(buffer, "Hex with long: %lX", LONG_MAX);
-  // snprintf(std_buffer, sizeof(std_buffer), "Hex with long: %lX", LONG_MAX);
-  // if (strcmp(buffer, std_buffer) == 0) {
-  //   printf("ACCESS: Тест %d пройден успешно\n", test_num);
-  // } else {
-  //   printf("**FAIL: Тест %d не пройден\n", test_num);
-  //   printf("********Ваш вывод: %s\n", buffer);
-  //   printf("Стандартный вывод: %s\n", std_buffer);
-  // }
-  // test_num++;
-
-  // // Тест 216: Шестнадцатеричный вывод с модификатором `l`
-  // s21_sprintf(buffer, "Hex with long: %lx", LONG_MAX);
-  // snprintf(std_buffer, sizeof(std_buffer), "Hex with long: %lx", LONG_MAX);
-  // if (strcmp(buffer, std_buffer) == 0) {
-  //   printf("ACCESS: Тест %d пройден успешно\n", test_num);
-  // } else {
-  //   printf("**FAIL: Тест %d не пройден\n", test_num);
-  //   printf("********Ваш вывод: %s\n", buffer);
-  //   printf("Стандартный вывод: %s\n", std_buffer);
-  // }
-  // test_num++;
-
-  // Тест 211: Нулевой символ с шириной и выравниванием влево
-
-  // Тест 22: Отрицательная ширина
-
-  // Тест 372: Бесконечность с выравниванием влево для формата f и текстом после
-  // формата
+  // Тест 269: Флаг `-` для отрицательного экспоненциального вывода
+  s21_sprintf(buffer, "Привет, число: %010.3e", -123.456);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %010.3e", -123.456);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
   s21_sprintf(buffer, "Привет, число:%-10f ", INFINITY);
   snprintf(std_buffer, sizeof(std_buffer), "Привет, число:%-10f ", INFINITY);
   if (strcmp(buffer, std_buffer) == 0) {
@@ -5484,6 +5274,78 @@ int main() {
   }
   test_num++;
 
+  // Тест 269: Флаг `-` для отрицательного экспоненциального вывода
+  s21_sprintf(buffer, "Привет, число: %e", -123.456);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %e", -123.456);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 269: Флаг `-` для отрицательного экспоненциального вывода
+  s21_sprintf(buffer, "Привет, число: %10e", -123.456);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %10e", -123.456);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 269: Флаг `-` для отрицательного экспоненциального вывода
+  s21_sprintf(buffer, "Привет, число: %10.3e", -123.456);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %10.3e", -123.456);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 269: Флаг `-` для отрицательного экспоненциального вывода
+  s21_sprintf(buffer, "Привет, число: %+10.3e", -123.456);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %+10.3e", -123.456);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 269: Флаг `-` для отрицательного экспоненциального вывода
+  s21_sprintf(buffer, "Привет, число: % 10.3e", -123.456);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: % 10.3e", -123.456);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 269: Флаг `-` для отрицательного экспоненциального вывода
+  s21_sprintf(buffer, "Привет, число: %-10.3E", 123.456);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %-10.3E", 123.456);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
   // Тест 268: Флаг `-` и экспоненциальный вывод
   s21_sprintf(buffer, "Привет, число: %-10.3e", 123.456);
   snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %-10.3e", 123.456);
@@ -5496,15 +5358,750 @@ int main() {
   }
   test_num++;
 
-  // Тест 269: Флаг `-` для отрицательного экспоненциального вывода
-  s21_sprintf(buffer, "Привет, число: %-10.3e", -123.456);
-  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %-10.3e", -123.456);
+  // Тест 294: Заполнение нулями для экспоненциального вывода
+  s21_sprintf(buffer, "Привет, число: %010.3e", 123.456);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %010.3e", 123.456);
   if (strcmp(buffer, std_buffer) == 0) {
     printf("ACCESS: Тест %d пройден успешно\n", test_num);
   } else {
     printf("**FAIL: Тест %d не пройден\n", test_num);
     printf("********Ваш вывод: %s\n", buffer);
     printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 288: Ширина и точность для экспоненциального вывода с заполнением
+  // нулями
+  s21_sprintf(buffer, "Привет, число: %010.3e   ", 123.456);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %010.3e   ",
+           123.456);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 319: Ширина и точность для экспоненциального вывода
+  s21_sprintf(buffer, "Привет, число: %010.3e", 123.456);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %010.3e", 123.456);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 1: Базовый вывод шестнадцатеричного числа
+  s21_sprintf(buffer, "Привет, число: %x", 123);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %x", 123);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 2: Базовый вывод шестнадцатеричного числа с большой буквой
+  s21_sprintf(buffer, "Привет, число: %X", 123);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %X", 123);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 3: Вывод с шириной и выравниванием по левому краю
+  s21_sprintf(buffer, "Привет, число: %-10x", 123);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %-10x", 123);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 4: Вывод с шириной и заполнением нулями
+  s21_sprintf(buffer, "Привет, число: %010x", 123);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %010x", 123);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 5: Вывод с шириной и выравниванием по левому краю для %X
+  s21_sprintf(buffer, "Привет, число: %-10X", 123);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %-10X", 123);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 6: Вывод с шириной и заполнением нулями для %X
+  s21_sprintf(buffer, "Привет, число: %010X", 123);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %010X", 123);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 7: Вывод нулевого числа
+  s21_sprintf(buffer, "Привет, число: %x", 0);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %x", 0);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 8: Вывод нулевого числа с шириной и заполнением нулями
+  s21_sprintf(buffer, "Привет, число: %010x", 0);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %010x", 0);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 13: Вывод с шириной и заполнением нулями для отрицательного числа
+  s21_sprintf(buffer, "Привет, число: %010x", -123);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %010x", -123);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 14: Вывод с шириной и заполнением нулями для отрицательного числа с %X
+  s21_sprintf(buffer, "Привет, число: %010X", -123);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %010X", -123);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 1: Базовый вывод восьмеричного числа
+  s21_sprintf(buffer, "Привет, число: %o", 123);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %o", 123);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 2: Вывод восьмеричного числа с шириной и выравниванием по левому краю
+  s21_sprintf(buffer, "Привет, число: %-10o", 123);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %-10o", 123);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 3: Вывод восьмеричного числа с шириной и заполнением нулями
+  s21_sprintf(buffer, "Привет, число: %010o", 123);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %010o", 123);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 4: Вывод нулевого числа
+  s21_sprintf(buffer, "Привет, число: %o", 0);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %o", 0);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 5: Вывод нулевого числа с шириной и заполнением нулями
+  s21_sprintf(buffer, "Привет, число: %010o", 0);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %010o", 0);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 6: Вывод отрицательного числа (должно быть преобразовано в
+  // положительное)
+  s21_sprintf(buffer, "Привет, число: %o", -123);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %o", -123);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 7: Вывод отрицательного числа с шириной и заполнением нулями
+  s21_sprintf(buffer, "Привет, число: %010o", -123);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %010o", -123);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 11: Вывод с шириной и выравниванием по левому краю для отрицательного
+  // числа
+  s21_sprintf(buffer, "Привет, число: %-10o", -123);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %-10o", -123);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 12: Вывод с шириной и заполнением нулями для отрицательного числа с
+  // выравниванием по правому краю
+  s21_sprintf(buffer, "Привет, число: %010o", -123);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %010o", -123);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 13: Вывод с шириной и выравниванием по левому краю для нулевого числа
+  s21_sprintf(buffer, "Привет, число: %-10o", 0);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %-10o", 0);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 14: Вывод с шириной и заполнением нулями для нулевого числа
+  s21_sprintf(buffer, "Привет, число: %010o", 0);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %010o", 0);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 17: Вывод с шириной и заполнением нулями для отрицательного числа с
+  // выравниванием по правому краю
+  s21_sprintf(buffer, "Привет, число: %010o", -123);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %010o", -123);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 18: Вывод с шириной и выравниванием по левому краю для отрицательного
+  // числа
+  s21_sprintf(buffer, "Привет, число: %-10o", -123);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %-10o", -123);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 19: Вывод с шириной и заполнением нулями для большого числа
+  s21_sprintf(buffer, "Привет, число: %010o", 123456789);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %010o", 123456789);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 1: Базовый вывод указателя
+  int x = 123;
+  s21_sprintf(buffer, "Привет, указатель: %p", &x);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, указатель: %p", &x);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 2: Вывод нулевого указателя
+  s21_sprintf(buffer, "Привет, указатель: %p", NULL);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, указатель: %p", NULL);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 4: Вывод указателя с шириной
+  s21_sprintf(buffer, "Привет, указатель: %20p", &x);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, указатель: %20p", &x);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 5: Вывод нулевого указателя с шириной
+  s21_sprintf(buffer, "Привет, указатель: %20p", NULL);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, указатель: %20p", NULL);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 1: Базовый вывод в научной записи
+  double qwq = 123.456;
+  s21_sprintf(buffer, "Привет, число: %e", qwq);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %e", qwq);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 2: Базовый вывод в научной записи с большой буквой
+  s21_sprintf(buffer, "Привет, число: %E", qwq);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %E", qwq);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 3: Вывод с шириной и выравниванием по левому краю
+  s21_sprintf(buffer, "Привет, число: %-10.3e", qwq);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %-10.3e", qwq);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 4: Вывод с шириной и заполнением нулями
+  s21_sprintf(buffer, "Привет, число: %010.3e", qwq);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %010.3e", qwq);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 5: Вывод с шириной и выравниванием по левому краю для %E
+  s21_sprintf(buffer, "Привет, число: %-10.3E", qwq);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %-10.3E", qwq);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 6: Вывод с шириной и заполнением нулями для %E
+  s21_sprintf(buffer, "Привет, число: %010.3E", qwq);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %010.3E", qwq);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 7: Вывод нулевого числа
+  double y = 0.0;
+  s21_sprintf(buffer, "Привет, число: %e", y);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %e", y);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 8: Вывод нулевого числа с шириной и заполнением нулями
+  s21_sprintf(buffer, "Привет, число: %010.3e", y);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %010.3e", y);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 9: Вывод отрицательного числа
+  double z = -123.456;
+  s21_sprintf(buffer, "Привет, число: %e", z);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %e", z);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 10: Вывод отрицательного числа с шириной и заполнением нулями
+  s21_sprintf(buffer, "Привет, число: %010.3e", z);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %010.3e", z);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 1: Базовый вывод в научной записи
+  double qqqq = 123.456;
+  s21_sprintf(buffer, "Привет, число: %e", qqqq);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %e", qqqq);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 2: Базовый вывод в научной записи с большой буквой
+  s21_sprintf(buffer, "Привет, число: %E", qqqq);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %E", qqqq);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 3: Вывод с шириной и выравниванием по левому краю
+  s21_sprintf(buffer, "Привет, число: %-10.3e", qqqq);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %-10.3e", qqqq);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 4: Вывод с шириной и заполнением нулями
+  s21_sprintf(buffer, "Привет, число: %010.3e", qqqq);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %010.3e", qqqq);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 5: Вывод с шириной и выравниванием по левому краю для %E
+  s21_sprintf(buffer, "Привет, число: %-10.3E", qqqq);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %-10.3E", qqqq);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 6: Вывод с шириной и заполнением нулями для %E
+  s21_sprintf(buffer, "Привет, число: %010.3E", qqqq);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %010.3E", qqqq);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 7: Вывод нулевого числа
+  double wwew = 0.0;
+  s21_sprintf(buffer, "Привет, число: %e", wwew);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %e", wwew);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 8: Вывод нулевого числа с шириной и заполнением нулями
+  s21_sprintf(buffer, "Привет, число: %010.3e", wwew);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %010.3e", wwew);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 9: Вывод отрицательного числа
+  double wwew2 = -123.456;
+  s21_sprintf(buffer, "Привет, число: %e", wwew2);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %e", wwew2);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 10: Вывод отрицательного числа с шириной и заполнением нулями
+  s21_sprintf(buffer, "Привет, число: %010.3e", wwew2);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %010.3e", wwew2);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 11: Вывод с шириной и выравниванием по левому краю для отрицательного
+  // числа
+  s21_sprintf(buffer, "Привет, число: %-10.3e", wwew2);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %-10.3e", wwew2);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 12: Вывод с шириной и заполнением нулями для отрицательного числа с %E
+  s21_sprintf(buffer, "Привет, число: %010.3E", wwew2);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %010.3E", wwew2);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 13: Вывод с шириной и выравниванием по левому краю для нулевого числа
+  s21_sprintf(buffer, "Привет, число: %-10.3e", wwew);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %-10.3e", wwew);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 14: Вывод с шириной и заполнением нулями для нулевого числа с %E
+  s21_sprintf(buffer, "Привет, число: %010.3E", wwew);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %010.3E", wwew);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 15: Вывод с большой точностью
+  s21_sprintf(buffer, "Привет, число: %e", qqqq);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %e", qqqq);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 16: Вывод с большой точностью и шириной
+  s21_sprintf(buffer, "Привет, число: %010.10e", qqqq);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %010.10e", qqqq);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 214: Восьмеричный вывод с модификатором `l`
+  s21_sprintf(buffer, "Octal with long: %lo", LONG_MAX);
+  snprintf(std_buffer, sizeof(std_buffer), "Octal with long: %lo", LONG_MAX);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 215: Шестнадцатеричный вывод с модификатором `l` и заглавными
+  s21_sprintf(buffer, "Hex with long: %lX", LONG_MAX);
+  snprintf(std_buffer, sizeof(std_buffer), "Hex with long: %lX", LONG_MAX);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 216: Шестнадцатеричный вывод с модификатором `l`
+  s21_sprintf(buffer, "Hex with long: %lx", LONG_MAX);
+  snprintf(std_buffer, sizeof(std_buffer), "Hex with long: %lx", LONG_MAX);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 217: Флаг '-' со статической шириной (g)
+  s21_sprintf(buffer, "Привет, число: %-10.5g", 123.456);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %-10.5g", 123.456);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+  printf("**FAIL: Тест %d не пройден\n", test_num);
+  printf("********Ваш вывод: %s\n", buffer);
+  printf("Стандартный вывод: %s\n", std_buffer);
   }
   test_num++;
 
@@ -6060,7 +6657,7 @@ void handle_hex_and_o(va_list factor, char *str, int *l, flags *f,
 void handle_p(va_list factor, char *str, int *l, flags *f) {
   void *ptr = va_arg(factor, void *);
   uintptr_t addr = (uintptr_t)ptr;
-  char buffer[30] = {0};
+  char buffer[40] = {0};
   int len = 0;
   buffer[len++] = '0';
   buffer[len++] = 'x';
@@ -6137,6 +6734,15 @@ void print_frac_part(char *str, int *l, long double num, int frac_len) {
   }
 }
 
+int get_exponent(long double *num) {
+  int exponent = 0;
+  if (*num != 0.0) {
+    exponent = floorl(log10l(*num));
+    *num /= powl(10, exponent);
+  }
+  return exponent;
+}
+
 void handle_e(va_list factor, char *str, int *l, flags *f, int uppercase) {
   long double num = 0.0;
   int sign = 0;
@@ -6145,42 +6751,35 @@ void handle_e(va_list factor, char *str, int *l, flags *f, int uppercase) {
     print_nan_inf(num, f, str, l, uppercase);
   } else {
     int precision = (f->precision == -100) ? 6 : f->precision;
-    int exponent = 0;
-    if (num != 0.0) {
-      exponent = floorl(log10l(num));
-      num /= powl(10, exponent);
-    }
+    int exponent = get_exponent(&num);
     char num_str[50] = {0};
     snprintf(num_str, sizeof(num_str), "%.*Lf", precision, num);
-    int num_len = strlen(num_str);
     int exponent_sign = (exponent >= 0) ? '+' : '-';
     exponent = abs(exponent);
     char exponent_str[20] = {0};
     snprintf(exponent_str, sizeof(exponent_str), "%c%02d", exponent_sign,
              exponent);
-    int total_len = num_len + 1 + 2 + (sign != 0);
-    int count_space = 0;
-    if (f->width > 0 && f->width > total_len)
-      count_space = f->width - total_len;
+    char str_buff[50] = {0};
+    strcpy(str_buff, num_str);
+    strcat(str_buff, uppercase ? "E" : "e");
+    strcat(str_buff, exponent_str);
+    int len = strlen(str_buff);
+    int total_len = f->width;
+    if (len > total_len) total_len = len;
+    total_len -= (sign ? 2 : (f->space ? 1 : 0));
     if (f->minus) {
       add_sign(sign, str, l);
-      for (int i = 0; num_str[i] != '\0'; i++) str[(*l)++] = num_str[i];
-      str[(*l)++] = (uppercase ? 'E' : 'e');
-      for (int i = 0; exponent_str[i] != '\0'; i++)
-        str[(*l)++] = exponent_str[i];
-      for (int i = 0; i < count_space; i++) str[(*l)++] = ' ';
+      print_char(str, str_buff, len, l);
+      print_space(str, total_len - len, l);
     } else {
       if (f->zero) {
         add_sign(sign, str, l);
-        for (int i = 0; i < count_space - 1; i++) str[(*l)++] = '0';
+        print_zero(str, total_len - len, l);
       } else {
-        for (int i = 0; i < count_space; i++) str[(*l)++] = ' ';
+        print_space(str, total_len - len, l);
         add_sign(sign, str, l);
       }
-      for (int i = 0; num_str[i] != '\0'; i++) str[(*l)++] = num_str[i];
-      str[(*l)++] = (uppercase ? 'E' : 'e');
-      for (int i = 0; exponent_str[i] != '\0'; i++)
-        str[(*l)++] = exponent_str[i];
+      print_char(str, str_buff, len, l);
     }
   }
 }

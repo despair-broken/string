@@ -78,3 +78,4 @@ void handle_hex_and_o(va_list factor, char *str, int *l, flags *f,
                       int uppercase, char value);
 void set_sharp_hex_and_o(flags *f, int num, char *str, int *l, int uppercase,
                          int value);
+int get_exponent(long double *num);
