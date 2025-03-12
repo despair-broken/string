@@ -4300,8 +4300,6 @@ int main() {
   }
   test_num++;
 
-  // Тест 362: Бесконечность с экспоненциальным выводом и текстом после формата
-  // с двумя пробелами после формата
   s21_sprintf(buffer, "Привет, число: %010e   qq", INFINITY);
   snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %010e   qq",
            INFINITY);
@@ -4314,8 +4312,6 @@ int main() {
   }
   test_num++;
 
-  // Тест 363: Бесконечность с экспоненциальным выводом и текстом после формата
-  // с тремя пробелами после формата
   s21_sprintf(buffer, "Привет, число: %010e    qq", INFINITY);
   snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %010e    qq",
            INFINITY);
@@ -4328,399 +4324,6 @@ int main() {
   }
   test_num++;
 
-  // Тест 364: Отрицательная бесконечность с экспоненциальным выводом и текстом
-
-  // // С длинным целым  ЕСЛИ БУДУ ПЕРЕДЕЛЫВАТЬ ТУТ ПЕРЕДЕЛАТЬ!
-  // s21_sprintf(buffer, "Hex with long: %lx", LONG_MAX);
-  // printf("Hex with long: %lx\n", LONG_MAX);
-  // printf("%s\n", buffer);
-
-  // Тесты с флагом `-` и статической шириной
-
-  // s21_sprintf(buffer, "Привет, число: %+10.5g", 0.00012345);
-  // printf("Привет, число: %+10.5g", 0.00012345);
-  // printf("\n%s\n", buffer);
-
-  // s21_sprintf(buffer, "Привет, число: %+10.5G", 0.00012345);
-  // printf("Привет, число: %+10.5G", 0.00012345);
-  // printf("\n%s\n", buffer);
-
-  // s21_sprintf(buffer, "Привет, число: % 10.5g", 0.00012345);
-  // printf("Привет, число: % 10.5g", 0.00012345);
-  // printf("\n%s\n", buffer);
-
-  // s21_sprintf(buffer, "Привет, число: %010.5g", 0.00012345);
-  // printf("Привет, число: %010.5g", 0.00012345);
-  // printf("\n%s\n", buffer);
-
-  // s21_sprintf(buffer, "Привет, число: %010.5G", 0.00012345);
-  // printf("Привет, число: %010.5G", 0.00012345);
-  // printf("\n%s\n", buffer);
-
-  // s21_sprintf(buffer, "Привет, число: %010.5G", -0.00012345);
-  // printf("Привет, число: %010.5G", -0.00012345);
-  // printf("\n%s\n", buffer);
-
-  // s21_sprintf(buffer, "Привет, число: %010.5g", -0.00012345);
-  // printf("Привет, число: %010.5g", -0.00012345);
-  // printf("\n%s\n", buffer);
-
-  // s21_sprintf(buffer, "Привет, число: %+10.5e", -0.00012345);
-  // printf("Привет, число: %+10.5e", -0.00012345);
-  // printf("\n%s\n", buffer);
-
-  // s21_sprintf(buffer, "Привет, число: %+10.5G", -12345678.9);
-  // printf("Привет, число: %+10.5G", -12345678.9);
-  // printf("\n%s\n", buffer);
-
-  // // Тест 9: Маленькое число с использованием `%G`
-  // s21_sprintf(buffer, "Привет, число: %12.2G", -0.00012345);
-  // printf("Привет, число: %12.2G", -0.00012345);
-  // printf("\n%s\n", buffer);
-
-  // // Тест 7: Маленькое число с флагом `0` и выравниванием по правому краю
-  // s21_sprintf(buffer, "Привет, число: %012.2g", -0.00012345);
-  // printf("Привет, число: %012.2g", -0.00012345);
-  // printf("\n%s\n", buffer);
-
-  // // Тест 3: Маленькое число с выравниванием по левому краю
-  // s21_sprintf(buffer, "Привет, число: %-12.2g", -0.00012345);
-  // printf("Привет, число: %-12.2g", -0.00012345);
-  // printf("\n%s\n", buffer);
-
-  // // Тест 5: Маленькое число с флагом `+` и выравниванием по правому краю
-  // s21_sprintf(buffer, "Привет, число: %+12.2g", -0.00012345);
-  // printf("Привет, число: %+12.2g", -0.00012345);
-  // printf("\n%s\n", buffer);
-
-  // s21_sprintf(buffer, "Привет, число: %12.2g", -0.00012345);
-  // printf("Привет, число: %12.2g", -0.00012345);
-  // printf("\n%s\n", buffer);
-
-  // s21_sprintf(buffer, "Привет, число: %12.2G", -12345.6789);
-  // printf("Привет, число: %12.2G", -12345.6789);
-  // printf("\n%s\n", buffer);
-
-  // s21_sprintf(buffer, "Привет, число: %-12.2G", -12345.6789);
-  // printf("Привет, число: %-12.2G", -12345.6789);
-  // printf("\n%s\n", buffer);
-
-  // s21_sprintf(buffer, "Привет, число: %+12.2G", -12345.6789);
-  // printf("Привет, число: %+12.2G", -12345.6789);
-  // printf("\n%s\n", buffer);
-
-  // s21_sprintf(buffer, "Привет, число: %012.2G", -12345.6789);
-  // printf("Привет, число: %012.2G", -12345.6789);
-  // printf("\n%s\n", buffer);
-
-  // // Тест 2: Большое число с выравниванием по правому краю
-  // s21_sprintf(buffer, "Привет, число: %12.2g", 1234567890123.45);
-  // printf("Привет, число: %12.2g", 1234567890123.45);
-  // printf("\n%s\n", buffer);
-
-  // // Тест 4: Большое число с выравниванием по левому краю
-  // s21_sprintf(buffer, "Привет, число: %-12.2g", 1234567890123.45);
-  // printf("Привет, число: %-12.2g", 1234567890123.45);
-  // printf("\n%s\n", buffer);
-
-  // // Тест 6: Большое число с флагом `+` и выравниванием по правому краю
-  // s21_sprintf(buffer, "Привет, число: %+12.2g", 1234567890123.45);
-  // printf("Привет, число: %+12.2g", 1234567890123.45);
-  // printf("\n%s\n", buffer);
-
-  // // Тест 8: Большое число с флагом `0` и выравниванием по правому краю
-  // s21_sprintf(buffer, "Привет, число: %012.2g", 1234567890123.45);
-  // printf("Привет, число: %012.2g", 1234567890123.45);
-  // printf("\n%s\n", buffer);
-
-  // // Тест 10: Большое число с использованием `%G`
-  // s21_sprintf(buffer, "Привет, число: %12.2G", 1234567890123.45);
-  // printf("Привет, число: %12.2G", 1234567890123.45);
-  // printf("\n%s\n", buffer);
-
-  // // Тест 5: Маленькое число с флагом `+` и выравниванием по правому краю
-  // s21_sprintf(buffer, "Привет, число: %12g", -0.00012345);
-  // printf("Привет, число: %12g", -0.00012345);
-  // printf("\n%s\n", buffer);
-
-  // // Тест 5: Маленькое число с флагом `+` и выравниванием по правому краю
-  // s21_sprintf(buffer, "Привет, число: %+12g", -0.00012345);
-  // printf("Привет, число: %+12g", -0.00012345);
-  // printf("\n%s\n", buffer);
-
-  // // Тест 5: Маленькое число с флагом `+` и выравниванием по правому краю
-  // s21_sprintf(buffer, "Привет, число: %-12g", -0.00012345);
-  // printf("Привет, число: %-12g", -0.00012345);
-  // printf("\n%s\n", buffer);
-
-  // // Тест 5: Маленькое число с флагом `+` и выравниванием по правому краю
-  // s21_sprintf(buffer, "Привет, число: %012g", -0.00012345);
-  // printf("Привет, число: %012g", -0.00012345);
-  // printf("\n%s\n", buffer);
-
-  // // Тест 5: Маленькое число с флагом `+` и выравниванием по правому краю
-  // s21_sprintf(buffer, "Привет, число: %12.4g", -0.00012345);
-  // printf("Привет, число: %12.4g", -0.00012345);
-  // printf("\n%s\n", buffer);
-
-  // // Тест 5: Маленькое число с флагом `+` и выравниванием по правому краю
-  // s21_sprintf(buffer, "Привет, число: %+12.4g", -0.00012345);
-  // printf("Привет, число: %+12.4g", -0.00012345);
-  // printf("\n%s\n", buffer);
-
-  // // Тест 5: Маленькое число с флагом `+` и выравниванием по правому краю
-  // s21_sprintf(buffer, "Привет, число: %-12.4g", -0.00012345);
-  // printf("Привет, число: %-12.4g", -0.00012345);
-  // printf("\n%s\n", buffer);
-
-  // // Тест 5: Маленькое число с флагом `+` и выравниванием по правому краю
-  // s21_sprintf(buffer, "Привет, число: %012.4g", -0.00012345);
-  // printf("Привет, число: %012.4g", -0.00012345);
-  // printf("\n%s\n", buffer);
-
-  // s21_sprintf(buffer, "Привет, число: %+10.5G", -12345.6789);
-  // printf("Привет, число: %+10.5G", -12345.6789);
-  // printf("\n%s\n", buffer);
-
-  // s21_sprintf(buffer, "Привет, число: %+10.5G", -0.000000000);
-  // printf("Привет, число: %+10.5G", -0.000000000);
-  // printf("\n%s\n", buffer);
-
-  // s21_sprintf(buffer, "Привет, число: %-10.5g", 123.456);
-  // printf("Привет, число: %-10.5g", 123.456);
-  // printf("\n%s\n", buffer);
-
-  // s21_sprintf(buffer, "Привет, число: %-10.5g", -123.456);
-  // printf("Привет, число: %-10.5g", -123.456);
-  // printf("\n%s\n", buffer);
-
-  // s21_sprintf(buffer, "Привет, число: %-10.5G", 123.456);
-  // printf("Привет, число: %-10.5G", 123.456);
-  // printf("\n%s\n", buffer);
-
-  // s21_sprintf(buffer, "Привет, число: %-10.5G", -123.456);
-  // printf("Привет, число: %-10.5G", -123.456);
-  // printf("\n%s\n", buffer);
-  // s21_sprintf(buffer, "Привет, число: % 10.5g", -123.456);
-  // printf("Привет, число: % 10.5g", -123.456);
-  // printf("\n%s\n", buffer);
-
-  // s21_sprintf(buffer, "Привет, число: % 10.5G", 123.456);
-  // printf("Привет, число: % 10.5G", 123.456);
-  // printf("\n%s\n", buffer);
-
-  // s21_sprintf(buffer, "Привет, число: % 10.5G", -123.456);
-  // printf("Привет, число: % 10.5G", -123.456);
-  // printf("\n%s\n", buffer);
-
-  // // Тесты с флагом `#` и статической шириной
-  // s21_sprintf(buffer, "Привет, число: %#10.5g", 123.456);
-  // printf("Привет, число: %#10.5g", 123.456);
-  // printf("\n%s\n", buffer);
-
-  // s21_sprintf(buffer, "Привет, число: %#10.5g", -123.456);
-  // printf("Привет, число: %#10.5g", -123.456);
-  // printf("\n%s\n", buffer);
-
-  // s21_sprintf(buffer, "Привет, число: %#10.5G", 123.456);
-  // printf("Привет, число: %#10.5G", 123.456);
-  // printf("\n%s\n", buffer);
-
-  // s21_sprintf(buffer, "Привет, число: %#10.5G", -123.456);
-  // printf("Привет, число: %#10.5G", -123.456);
-  // printf("\n%s\n", buffer);
-
-  // // Тесты с динамической шириной
-  // s21_sprintf(buffer, "Привет, число: %*.*g", 20, 5, 123.456);
-  // printf("Привет, число: %*.*g", 20, 5, 123.456);
-  // printf("\n%s\n", buffer);
-
-  // s21_sprintf(buffer, "Привет, число: %*.*g", 20, 5, -123.456);
-  // printf("Привет, число: %*.*g", 20, 5, -123.456);
-  // printf("\n%s\n", buffer);
-
-  // s21_sprintf(buffer, "Привет, число: %*.*G", 20, 5, 123.456);
-  // printf("Привет, число: %*.*G", 20, 5, 123.456);
-  // printf("\n%s\n", buffer);
-
-  // s21_sprintf(buffer, "Привет, число: %*.*G", 20, 5, -123.456);
-  // printf("Привет, число: %*.*G", 20, 5, -123.456);
-  // printf("\n%s\n", buffer);
-
-  // // Тесты с флагом `-` и динамической шириной
-  // s21_sprintf(buffer, "Привет, число: %-*.*g", 20, 5, 123.456);
-  // printf("Привет, число: %-*.*g", 20, 5, 123.456);
-  // printf("\n%s\n", buffer);
-
-  // s21_sprintf(buffer, "Привет, число: %-*.*g", 20, 5, -123.456);
-  // printf("Привет, число: %-*.*g", 20, 5, -123.456);
-  // printf("\n%s\n", buffer);
-
-  // s21_sprintf(buffer, "Привет, число: %-*.*G", 20, 5, 123.456);
-  // printf("Привет, число: %-*.*G", 20, 5, 123.456);
-  // printf("\n%s\n", buffer);
-
-  // s21_sprintf(buffer, "Привет, число: %-*.*G", 20, 5, -123.456);
-  // printf("Привет, число: %-*.*G", 20, 5, -123.456);
-  // printf("\n%s\n", buffer);
-
-  // // Тесты с флагом `+` и динамической шириной
-  // s21_sprintf(buffer, "Привет, число: %+*.*g", 20, 5, 123.456);
-  // printf("Привет, число: %+*.*g", 20, 5, 123.456);
-  // printf("\n%s\n", buffer);
-
-  // s21_sprintf(buffer, "Привет, число: %+*.*g", 20, 5, -123.456);
-  // printf("Привет, число: %+*.*g", 20, 5, -123.456);
-  // printf("\n%s\n", buffer);
-
-  // s21_sprintf(buffer, "Привет, число: %+*.*G", 20, 5, 123.456);
-  // printf("Привет, число: %+*.*G", 20, 5, 123.456);
-  // printf("\n%s\n", buffer);
-
-  // s21_sprintf(buffer, "Привет, число: %+*.*G", 20, 5, -123.456);
-  // printf("Привет, число: %+*.*G", 20, 5, -123.456);
-  // printf("\n%s\n", buffer);
-
-  // // Тесты с флагом `#` и динамической шириной
-  // s21_sprintf(buffer, "Привет, число: %#*.*g", 20, 5, 123.456);
-  // printf("Привет, число: %#*.*g", 20, 5, 123.456);
-  // printf("\n%s\n", buffer);
-
-  // s21_sprintf(buffer, "Привет, число: % *.*G", 20, 5, 123.456);
-  // printf("Привет, число: % *.*G", 20, 5, 123.456);
-  // printf("\n%s\n", buffer);
-
-  // s21_sprintf(buffer, "Привет, число: %#*.*g", 20, 5, -123.456);
-  // printf("Привет, число: %#*.*g", 20, 5, -123.456);
-  // printf("\n%s\n", buffer);
-
-  // // Тесты с флагом пробел и динамической шириной
-  // s21_sprintf(buffer, "Привет, число: % *.*g", 20, 5, 123.456);
-  // printf("Привет, число: % *.*g", 20, 5, 123.456);
-  // printf("\n%s\n", buffer);
-
-  // s21_sprintf(buffer, "Привет, число: % *.*g", 20, 5, -123.456);
-  // printf("Привет, число: % *.*g", 20, 5, -123.456);
-  // printf("\n%s\n", buffer);
-
-  // s21_sprintf(buffer, "Привет, число: % *.*G", 20, 5, -123.456);
-  // printf("Привет, число: % *.*G", 20, 5, -123.456);
-  // printf("\n%s\n", buffer);
-
-  // // Тесты с флагом `+` и статической шириной
-  // s21_sprintf(buffer, "Привет, число: %+10.5g", 123.456);
-  // printf("Привет, число: %+10.5g", 123.456);
-  // printf("\n%s\n", buffer);
-
-  // s21_sprintf(buffer, "Привет, число: %+10.5G", 123.456);
-  // printf("Привет, число: %+10.5G", 123.456);
-  // printf("\n%s\n", buffer);
-
-  // // Тесты с флагом пробел и статической шириной
-  // s21_sprintf(buffer, "Привет, число: % 10.5g", 123.456);
-  // printf("Привет, число: % 10.5g", 123.456);
-  // printf("\n%s\n", buffer);
-
-  // // Тесты с флагом `0` и статической шириной
-  // s21_sprintf(buffer, "Привет, число: %010.5g", 123.456);
-  // printf("Привет, число: %010.5g", 123.456);
-  // printf("\n%s\n", buffer);
-
-  // s21_sprintf(buffer, "Привет, число: %010.5G", 123.456);
-  // printf("Привет, число: %010.5G", 123.456);
-  // printf("\n%s\n", buffer);
-
-  // s21_sprintf(buffer, "Привет, число: %010.5G", -123.456);
-  // printf("Привет, число: %010.5G", -123.456);
-  // printf("\n%s\n", buffer);
-
-  // s21_sprintf(buffer, "Привет, число: %010.5g", -123.456);
-  // printf("Привет, число: %010.5g", -123.456);
-  // printf("\n%s\n", buffer);
-
-  // s21_sprintf(buffer, "Привет, число: %+10.5g", -123.456);
-  // printf("Привет, число: %+10.5g", -123.456);
-  // printf("\n%s\n", buffer);
-
-  // s21_sprintf(buffer, "Привет, число: %+10.5G", -123.456);
-  // printf("Привет, число: %+10.5G", -123.456);
-  // printf("\n%s\n", buffer);
-
-  // // Тесты с флагом `+` и статической шириной
-  // s21_sprintf(buffer, "Привет, число: %+10.5g", 12345.6789);
-  // printf("Привет, число: %+10.5g", 12345.6789);
-  // printf("\n%s\n", buffer);
-
-  // s21_sprintf(buffer, "Привет, число: %+10.5G", 12345.6789);
-  // printf("Привет, число: %+10.5G", 12345.6789);
-  // printf("\n%s\n", buffer);
-
-  // // Тесты с флагом пробел и статической шириной
-  // s21_sprintf(buffer, "Привет, число: % 10.5g", 12345.6789);
-  // printf("Привет, число: % 10.5g", 12345.6789);
-  // printf("\n%s\n", buffer);
-
-  // // Тесты с флагом `0` и статической шириной
-  // s21_sprintf(buffer, "Привет, число: %010.5g", 12345.6789);
-  // printf("Привет, число: %010.5g", 12345.6789);
-  // printf("\n%s\n", buffer);
-
-  // s21_sprintf(buffer, "Привет, число: %010.5G", 12345.6789);
-  // printf("Привет, число: %010.5G", 12345.6789);
-  // printf("\n%s\n", buffer);
-
-  // s21_sprintf(buffer, "Привет, число: %010.5G", -12345.6789);
-  // printf("Привет, число: %010.5G", -12345.6789);
-  // printf("\n%s\n", buffer);
-
-  // s21_sprintf(buffer, "Привет, число: %010.5g", -12345.6789);
-  // printf("Привет, число: %010.5g", -12345.6789);
-  // printf("\n%s\n", buffer);
-
-  // s21_sprintf(buffer, "Привет, число: %+10.5g", -12345.6789);
-  // printf("Привет, число: %+10.5g", -12345.6789);
-  // printf("\n%s\n", buffer);
-
-  // s21_sprintf(buffer, "Привет, число: %+10.5G", -12345.6789);
-  // printf("Привет, число: %+10.5G", -12345.6789);
-  // printf("\n%s\n", buffer);
-
-  // printf("\n");
-
-  // s21_sprintf(buffer, "Привет, число: %-11G", -12345.6789);
-  // printf("Привет, число: %-11G", -12345.6789);
-  // printf("\n%s\n", buffer);
-
-  // s21_sprintf(buffer, "Привет, число: %+11G", -12345.6789);
-  // printf("Привет, число: %+11G", -12345.6789);
-  // printf("\n%s\n", buffer);
-
-  // s21_sprintf(buffer, "Привет, число: %011G", -12345.6789);
-  // printf("Привет, число: %011G", -12345.6789);
-  // printf("\n%s\n", buffer);
-
-  // s21_sprintf(buffer, "Привет, число: % 11G", -12345.6789);
-  // printf("Привет, число: % 11G", -12345.6789);
-  // printf("\n%s\n", buffer);
-
-  // s21_sprintf(buffer, "Привет, число: %-11.6G", -12345.6789);
-  // printf("Привет, число: %-11.6G", -12345.6789);
-  // printf("\n%s\n", buffer);
-
-  // s21_sprintf(buffer, "Привет, число: %+11.6G", -12345.6789);
-  // printf("Привет, число: %+11.6G", -12345.6789);
-  // printf("\n%s\n", buffer);
-
-  // s21_sprintf(buffer, "Привет, число: %011.6G", -12345.6789);
-  // printf("Привет, число: %011.6G", -12345.6789);
-  // printf("\n%s\n", buffer);
-
-  // s21_sprintf(buffer, "Привет, число: % 11.7G", -12345.6789);
-  // printf("Привет, число: % 11.7G", -12345.6789);
-  // printf("\n%s\n", buffer);
-
-  // Тест 365: Отрицательная бесконечность с заполнением нулями для
-  // экспоненциального вывода и текстом после формата
   s21_sprintf(buffer, "Привет, число: %010e    qq", -INFINITY);
   snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %010e    qq",
            -INFINITY);
@@ -6099,9 +5702,3374 @@ int main() {
   if (strcmp(buffer, std_buffer) == 0) {
     printf("ACCESS: Тест %d пройден успешно\n", test_num);
   } else {
-  printf("**FAIL: Тест %d не пройден\n", test_num);
-  printf("********Ваш вывод: %s\n", buffer);
-  printf("Стандартный вывод: %s\n", std_buffer);
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 217: Флаг '-' с положительным g
+  s21_sprintf(buffer, "Привет, число: %-10.5g", 123.456);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %-10.5g", 123.456);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 218: Флаг '-' с отрицательным g
+  s21_sprintf(buffer, "Привет, число: %-10.5g", -123.456);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %-10.5g", -123.456);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 219: Флаг '-' с положительным G
+  s21_sprintf(buffer, "Привет, число: %-10.5G", 123.456);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %-10.5G", 123.456);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 220: Флаг '-' с отрицательным G
+  s21_sprintf(buffer, "Привет, число: %-10.5G", -123.456);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %-10.5G", -123.456);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 221: Флаг ' ' с отрицательным g
+  s21_sprintf(buffer, "Привет, число: % 10.5g", -123.456);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: % 10.5g", -123.456);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 222: Флаг ' ' с положительным G
+  s21_sprintf(buffer, "Привет, число: % 10.5G", 123.456);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: % 10.5G", 123.456);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 223: Флаг ' ' с отрицательным G
+  s21_sprintf(buffer, "Привет, число: % 10.5G", -123.456);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: % 10.5G", -123.456);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 224: Флаг '#' с положительным g
+  s21_sprintf(buffer, "Привет, число: %#10.5g", 123.456);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %#10.5g", 123.456);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 225: Флаг '#' с отрицательным g
+  s21_sprintf(buffer, "Привет, число: %#10.5g", -123.456);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %#10.5g", -123.456);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 226: Флаг '#' с положительным G
+  s21_sprintf(buffer, "Привет, число: %#10.5G", 123.456);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %#10.5G", 123.456);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 227: Флаг '#' с отрицательным G
+  s21_sprintf(buffer, "Привет, число: %#10.5G", -123.456);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %#10.5G", -123.456);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 228: Динамическая ширина/точность g
+  s21_sprintf(buffer, "Привет, число: %*.*g", 20, 5, 123.456);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %*.*g", 20, 5,
+           123.456);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 229: Динамическая ширина с отрицательным g
+  s21_sprintf(buffer, "Привет, число: %*.*g", 20, 5, -123.456);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %*.*g", 20, 5,
+           -123.456);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 230: Динамическая ширина с положительным G
+  s21_sprintf(buffer, "Привет, число: %*.*G", 20, 5, 123.456);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %*.*G", 20, 5,
+           123.456);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 231: Динамическая ширина с отрицательным G
+  s21_sprintf(buffer, "Привет, число: %*.*G", 20, 5, -123.456);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %*.*G", 20, 5,
+           -123.456);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 232: '-' с динамической шириной (g)
+  s21_sprintf(buffer, "Привет, число: %-*.*g", 20, 5, 123.456);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %-*.*g", 20, 5,
+           123.456);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 233: '-' с динамической шириной (отрицательное g)
+  s21_sprintf(buffer, "Привет, число: %-*.*g", 20, 5, -123.456);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %-*.*g", 20, 5,
+           -123.456);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 234: '+' с динамической шириной (G)
+  s21_sprintf(buffer, "Привет, число: %+*.*G", 20, 5, 123.456);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %+*.*G", 20, 5,
+           123.456);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 235: '+' с динамической шириной (отрицательное G)
+  s21_sprintf(buffer, "Привет, число: %+*.*G", 20, 5, -123.456);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %+*.*G", 20, 5,
+           -123.456);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 236: '#' с динамической шириной (g)
+  s21_sprintf(buffer, "Привет, число: %#*.*g", 20, 5, 123.456);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %#*.*g", 20, 5,
+           123.456);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 237: '#' с динамической шириной (отрицательное g)
+  s21_sprintf(buffer, "Привет, число: %#*.*g", 20, 5, -123.456);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %#*.*g", 20, 5,
+           -123.456);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 238: ' ' с динамической шириной (g)
+  s21_sprintf(buffer, "Привет, число: % *.*g", 20, 5, 123.456);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: % *.*g", 20, 5,
+           123.456);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 239: ' ' с динамической шириной (отрицательное g)
+  s21_sprintf(buffer, "Привет, число: % *.*g", 20, 5, -123.456);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: % *.*g", 20, 5,
+           -123.456);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 240: ' ' с динамической шириной (G)
+  s21_sprintf(buffer, "Привет, число: % *.*G", 20, 5, 123.456);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: % *.*G", 20, 5,
+           123.456);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 241: '+' с статической шириной (g)
+  s21_sprintf(buffer, "Привет, число: %+10.5g", 123.456);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %+10.5g", 123.456);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 242: '+' с стат
+  // Тест 242: '+' с статической шириной (G)
+  s21_sprintf(buffer, "Привет, число: %+10.5G", 123.456);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %+10.5G", 123.456);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 243: '+' с статической шириной (отрицательное g)
+  s21_sprintf(buffer, "Привет, число: %+10.5g", -123.456);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %+10.5g", -123.456);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 244: '+' с статической шириной (отрицательное G)
+  s21_sprintf(buffer, "Привет, число: %+10.5G", -123.456);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %+10.5G", -123.456);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 245: ' ' с статической шириной (g)
+  s21_sprintf(buffer, "Привет, число: % 10.5g", 123.456);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: % 10.5g", 123.456);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 246: ' ' с статической шириной (отрицательное g)
+  s21_sprintf(buffer, "Привет, число: % 10.5g", -123.456);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: % 10.5g", -123.456);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 247: '0' с статической шириной (g)
+  s21_sprintf(buffer, "Привет, число: %010.5g", 123.456);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %010.5g", 123.456);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 248: '0' с статической шириной (отрицательное g)
+  s21_sprintf(buffer, "Привет, число: %010.5g", -123.456);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %010.5g", -123.456);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 249: '0' с статической шириной (G)
+  s21_sprintf(buffer, "Привет, число: %010.5G", 123.456);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %010.5G", 123.456);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 250: '0' с статической шириной (отрицательное G)
+  s21_sprintf(buffer, "Привет, число: %010.5G", -123.456);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %010.5G", -123.456);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 251: '+', 10.5, g, 0.00012345
+  s21_sprintf(buffer, "Привет, число: %+10.5g", 0.00012345);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %+10.5g",
+           0.00012345);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 315: ' ', 10.5g, 0.00012345
+  s21_sprintf(buffer, "Привет, число: % 10.5g", 0.00012345);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: % 10.5g",
+           0.00012345);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 316: '0', 10.5g, 0.00012345
+  s21_sprintf(buffer, "Привет, число: %010.5g", 0.00012345);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %010.5g",
+           0.00012345);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 317: '0', 10.5G, 0.00012345
+  s21_sprintf(buffer, "Привет, число: %010.5G", 0.00012345);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %010.5G",
+           0.00012345);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 318: '0', 10.5G, -0.00012345
+  s21_sprintf(buffer, "Привет, число: %010.5G", -0.00012345);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %010.5G",
+           -0.00012345);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 319: '0', 10.5g, -0.00012345
+  s21_sprintf(buffer, "Привет, число: %010.5g", -0.00012345);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %010.5g",
+           -0.00012345);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 320: '+', 10.5e, -0.00012345
+  s21_sprintf(buffer, "Привет, число: %+10.5e", -0.00012345);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %+10.5e",
+           -0.00012345);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 321: '+', 10.5G, -12345678.9
+  s21_sprintf(buffer, "Привет, число: %+10.5G", -12345678.9);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %+10.5G",
+           -12345678.9);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 322: 12.2, G, -0.00012345
+  s21_sprintf(buffer, "Привет, число: %12.2G", -0.00012345);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %12.2G",
+           -0.00012345);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 323: '0', 12.2, g, -0.00012345
+  s21_sprintf(buffer, "Привет, число: %012.2g", -0.00012345);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %012.2g",
+           -0.00012345);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 324: '-', 12.2, g, -0.00012345
+  s21_sprintf(buffer, "Привет, число: %-12.2g", -0.00012345);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %-12.2g",
+           -0.00012345);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 325: '+', 12.2, g, -0.00012345
+  s21_sprintf(buffer, "Привет, число: %+12.2g", -0.00012345);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %+12.2g",
+           -0.00012345);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 326: 12.2, g, -0.00012345
+  s21_sprintf(buffer, "Привет, число: %12.2g", -0.00012345);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %12.2g",
+           -0.00012345);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 327: 12.2, G, -12345.6789
+  s21_sprintf(buffer, "Привет, число: %12.2G", -12345.6789);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %12.2G",
+           -12345.6789);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 328: '-', 12.2, G, -12345.6789
+  s21_sprintf(buffer, "Привет, число: %-12.2G", -12345.6789);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %-12.2G",
+           -12345.6789);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 329: '+', 12.2, G, -12345.6789
+  s21_sprintf(buffer, "Привет, число: %+12.2G", -12345.6789);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %+12.2G",
+           -12345.6789);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 330: '0', 12.2, G, -12345.6789
+  s21_sprintf(buffer, "Привет, число: %012.2G", -12345.6789);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %012.2G",
+           -12345.6789);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 331: 12.2, g, 1234567890123.45 (Большое число)
+  s21_sprintf(buffer, "Привет, число: %12.2g", 1234567890123.45);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %12.2g",
+           1234567890123.45);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 332: '-', 12.2, g, 1234567890123.45 (Большое число)
+  s21_sprintf(buffer, "Привет, число: %-12.2g", 1234567890123.45);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %-12.2g",
+           1234567890123.45);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 333: '+', 12.2, g, 1234567890123.45 (Большое число)
+  s21_sprintf(buffer, "Привет, число: %+12.2g", 1234567890123.45);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %+12.2g",
+           1234567890123.45);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 334: '0', 12.2, g, 1234567890123.45 (Большое число)
+  s21_sprintf(buffer, "Привет, число: %012.2g", 1234567890123.45);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %012.2g",
+           1234567890123.45);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 335: 12.2, G, 1234567890123.45 (Большое число)
+  s21_sprintf(buffer, "Привет, число: %12.2G", 1234567890123.45);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %12.2G",
+           1234567890123.45);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 336: 12g, -0.00012345
+  s21_sprintf(buffer, "Привет, число: %12g", -0.00012345);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %12g", -0.00012345);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 337: +12g, -0.00012345
+  s21_sprintf(buffer, "Привет, число: %+12g", -0.00012345);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %+12g", -0.00012345);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 338: -12g, -0.00012345
+  s21_sprintf(buffer, "Привет, число: %-12g", -0.00012345);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %-12g", -0.00012345);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 339: 012g, -0.00012345
+  s21_sprintf(buffer, "Привет, число: %012g", -0.00012345);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %012g", -0.00012345);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 340: 12.4g, -0.00012345
+  s21_sprintf(buffer, "Привет, число: %12.4g", -0.00012345);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %12.4g",
+           -0.00012345);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 341: +12.4g, -0.00012345
+  s21_sprintf(buffer, "Привет, число: %+12.4g", -0.00012345);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %+12.4g",
+           -0.00012345);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 342: -12.4g, -0.00012345
+  s21_sprintf(buffer, "Привет, число: %-12.4g", -0.00012345);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %-12.4g",
+           -0.00012345);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 343: 012.4g, -0.00012345
+  s21_sprintf(buffer, "Привет, число: %012.4g", -0.00012345);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %012.4g",
+           -0.00012345);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 344: +10.5G, -12345.6789
+  s21_sprintf(buffer, "Привет, число: %+10.5G", -12345.6789);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %+10.5G",
+           -12345.6789);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 345: +10.5G, -0.0
+  s21_sprintf(buffer, "Привет, число: %+10.5G", -0.000000000);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %+10.5G",
+           -0.000000000);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 346: -10.5g, 123.456
+  s21_sprintf(buffer, "Привет, число: %-10.5g", 123.456);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %-10.5g", 123.456);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 347: -10.5g, -123.456
+  s21_sprintf(buffer, "Привет, число: %-10.5g", -123.456);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %-10.5g", -123.456);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 348: -10.5G, 123.456
+  s21_sprintf(buffer, "Привет, число: %-10.5G", 123.456);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %-10.5G", 123.456);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 349: -10.5G, -123.456
+  s21_sprintf(buffer, "Привет, число: %-10.5G", -123.456);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %-10.5G", -123.456);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 350: ' ', 10.5g, -123.456
+  s21_sprintf(buffer, "Привет, число: % 10.5g", -123.456);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: % 10.5g", -123.456);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 351: ' ', 10.5G, 123.456
+  s21_sprintf(buffer, "Привет, число: % 10.5G", 123.456);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: % 10.5G", 123.456);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 352: ' ', 10.5G, -123.456
+  s21_sprintf(buffer, "Привет, число: % 10.5G", -123.456);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: % 10.5G", -123.456);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 353: #, 10.5g, 123.456
+  s21_sprintf(buffer, "Привет, число: %#10.5g", 123.456);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %#10.5g", 123.456);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 354: #, 10.5g, -123.456
+  s21_sprintf(buffer, "Привет, число: %#10.5g", -123.456);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %#10.5g", -123.456);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 355: #, 10.5G, 123.456
+  s21_sprintf(buffer, "Привет, число: %#10.5G", 123.456);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %#10.5G", 123.456);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 356: #, 10.5G, -123.456
+  s21_sprintf(buffer, "Привет, число: %#10.5G", -123.456);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %#10.5G", -123.456);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 357: *, *, g, 20, 5, 123.456
+  s21_sprintf(buffer, "Привет, число: %*.*g", 20, 5, 123.456);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %*.*g", 20, 5,
+           123.456);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 358: *, *, g, 20, 5, -123.456
+  s21_sprintf(buffer, "Привет, число: %*.*g", 20, 5, -123.456);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %*.*g", 20, 5,
+           -123.456);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 359: *, *, G, 20, 5, 123.456
+  s21_sprintf(buffer, "Привет, число: %*.*G", 20, 5, 123.456);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %*.*G", 20, 5,
+           123.456);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 360: *, *, G, 20, 5, -123.456
+  s21_sprintf(buffer, "Привет, число: %*.*G", 20, 5, -123.456);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %*.*G", 20, 5,
+           -123.456);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 361: -, *, *, g, 20, 5, 123.456
+  s21_sprintf(buffer, "Привет, число: %-*.*g", 20, 5, 123.456);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %-*.*g", 20, 5,
+           123.456);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 362: -, *, *, g, 20, 5, -123.456
+  s21_sprintf(buffer, "Привет, число: %-*.*g", 20, 5, -123.456);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %-*.*g", 20, 5,
+           -123.456);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 363: -, *, *, G, 20, 5, 123.456
+  s21_sprintf(buffer, "Привет, число: %-*.*G", 20, 5, 123.456);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %-*.*G", 20, 5,
+           123.456);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 364: -, *, *, G, 20, 5, -123.456
+  s21_sprintf(buffer, "Привет, число: %-*.*G", 20, 5, -123.456);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %-*.*G", 20, 5,
+           -123.456);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 365: +, *, *, g, 20, 5, 123.456
+  s21_sprintf(buffer, "Привет, число: %+*.*g", 20, 5, 123.456);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %+*.*g", 20, 5,
+           123.456);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 366: +, *, *, g, 20, 5, -123.456
+  s21_sprintf(buffer, "Привет, число: %+*.*g", 20, 5, -123.456);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %+*.*g", 20, 5,
+           -123.456);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 367: +, *, *, G, 20, 5, 123.456
+  s21_sprintf(buffer, "Привет, число: %+*.*G", 20, 5, 123.456);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %+*.*G", 20, 5,
+           123.456);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 368: +, *, *, G, 20, 5, -123.456
+  s21_sprintf(buffer, "Привет, число: %+*.*G", 20, 5, -123.456);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %+*.*G", 20, 5,
+           -123.456);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 369: #, *, *, g, 20, 5, 123.456
+  s21_sprintf(buffer, "Привет, число: %#*.*g", 20, 5, 123.456);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %#*.*g", 20, 5,
+           123.456);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 370: ' ', *, *, G, 20, 5, 123.456
+  s21_sprintf(buffer, "Привет, число: % *.*G", 20, 5, 123.456);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: % *.*G", 20, 5,
+           123.456);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 371: #, *, *, g, 20, 5, -123.456
+  s21_sprintf(buffer, "Привет, число: %#*.*g", 20, 5, -123.456);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %#*.*g", 20, 5,
+           -123.456);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 372: ' ', *, *, g, 20, 5, 123.456
+  s21_sprintf(buffer, "Привет, число: % *.*g", 20, 5, 123.456);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: % *.*g", 20, 5,
+           123.456);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 373: ' ', *, *, g, 20, 5, -123.456
+  s21_sprintf(buffer, "Привет, число: % *.*g", 20, 5, -123.456);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: % *.*g", 20, 5,
+           -123.456);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 374: ' ', *, *, G, 20, 5, -123.456
+  s21_sprintf(buffer, "Привет, число: % *.*G", 20, 5, -123.456);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: % *.*G", 20, 5,
+           -123.456);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 375: +, 10.5g, 0.00012345
+  s21_sprintf(buffer, "Привет, число: %+10.5g", 0.00012345);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %+10.5g",
+           0.00012345);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 376: +, 10.5G, 0.00012345
+  s21_sprintf(buffer, "Привет, число: %+10.5G", 0.00012345);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %+10.5G",
+           0.00012345);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 377: ' ', 10.5g, 0.00012345
+  s21_sprintf(buffer, "Привет, число: % 10.5g", 0.00012345);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: % 10.5g",
+           0.00012345);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 378: '0', 10.5g, 0.00012345
+  s21_sprintf(buffer, "Привет, число: %010.5g", 0.00012345);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %010.5g",
+           0.00012345);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 379: '0', 10.5G, 0.00012345
+  s21_sprintf(buffer, "Привет, число: %010.5G", 0.00012345);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %010.5G",
+           0.00012345);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 380: '0', 10.5G, -0.00012345
+  s21_sprintf(buffer, "Привет, число: %010.5G", -0.00012345);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %010.5G",
+           -0.00012345);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 381: '0', 10.5g, -0.00012345
+  s21_sprintf(buffer, "Привет, число: %010.5g", -0.00012345);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %010.5g",
+           -0.00012345);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 382: '+', 10.5e, -0.00012345
+  s21_sprintf(buffer, "Привет, число: %+10.5e", -0.00012345);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %+10.5e",
+           -0.00012345);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 383: '+', 10.5G, -12345678.9
+  s21_sprintf(buffer, "Привет, число: %+10.5G", -12345678.9);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %+10.5G",
+           -12345678.9);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 384: 12.2, G, -0.00012345
+  s21_sprintf(buffer, "Привет, число: %12.2G", -0.00012345);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %12.2G",
+           -0.00012345);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 385: '0', 12.2, g, -0.00012345
+  s21_sprintf(buffer, "Привет, число: %012.2g", -0.00012345);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %012.2g",
+           -0.00012345);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 386: '-', 12.2, g, -0.00012345
+  s21_sprintf(buffer, "Привет, число: %-12.2g", -0.00012345);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %-12.2g",
+           -0.00012345);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 387: '+', 12.2, g, -0.00012345
+  s21_sprintf(buffer, "Привет, число: %+12.2g", -0.00012345);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %+12.2g",
+           -0.00012345);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 388: 12.2, g, -0.00012345
+  s21_sprintf(buffer, "Привет, число: %12.2g", -0.00012345);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %12.2g",
+           -0.00012345);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 389: 12.2, G, -12345.6789
+  s21_sprintf(buffer, "Привет, число: %12.2G", -12345.6789);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %12.2G",
+           -12345.6789);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 390: '-', 12.2, G, -12345.6789
+  s21_sprintf(buffer, "Привет, число: %-12.2G", -12345.6789);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %-12.2G",
+           -12345.6789);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 391: '+', 12.2, G, -12345.6789
+  s21_sprintf(buffer, "Привет, число: %+12.2G", -12345.6789);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %+12.2G",
+           -12345.6789);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 392: '0', 12.2, G, -12345.6789
+  s21_sprintf(buffer, "Привет, число: %012.2G", -12345.6789);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %012.2G",
+           -12345.6789);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 393: 12.2, g, 1234567890123.45 (Большое число)
+  s21_sprintf(buffer, "Привет, число: %12.2g", 1234567890123.45);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %12.2g",
+           1234567890123.45);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 394: '-', 12.2, g, 1234567890123.45 (Большое число)
+  s21_sprintf(buffer, "Привет, число: %-12.2g", 1234567890123.45);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %-12.2g",
+           1234567890123.45);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 395: '+', 12.2, g, 1234567890123.45 (Большое число)
+  s21_sprintf(buffer, "Привет, число: %+12.2g", 1234567890123.45);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %+12.2g",
+           1234567890123.45);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 396: '0', 12.2, g, 1234567890123.45 (Большое число)
+  s21_sprintf(buffer, "Привет, число: %012.2g", 1234567890123.45);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %012.2g",
+           1234567890123.45);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 397: 12.2, G, 1234567890123.45 (Большое число)
+  s21_sprintf(buffer, "Привет, число: %12.2G", 1234567890123.45);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %12.2G",
+           1234567890123.45);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 398: 12g, -0.00012345
+  s21_sprintf(buffer, "Привет, число: %12g", -0.00012345);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %12g", -0.00012345);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 399: +12g, -0.00012345
+  s21_sprintf(buffer, "Привет, число: %+12g", -0.00012345);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %+12g", -0.00012345);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 400: -12g, -0.00012345
+  s21_sprintf(buffer, "Привет, число: %-12g", -0.00012345);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %-12g", -0.00012345);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 401: 012g, -0.00012345
+  s21_sprintf(buffer, "Привет, число: %012g", -0.00012345);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %012g", -0.00012345);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 402: 12.4g, -0.00012345
+  s21_sprintf(buffer, "Привет, число: %12.4g", -0.00012345);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %12.4g",
+           -0.00012345);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 403: +12.4g, -0.00012345
+  s21_sprintf(buffer, "Привет, число: %+12.4g", -0.00012345);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %+12.4g",
+           -0.00012345);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 404: -12.4g, -0.00012345
+  s21_sprintf(buffer, "Привет, число: %-12.4g", -0.00012345);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %-12.4g",
+           -0.00012345);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 405: 012.4g, -0.00012345
+  s21_sprintf(buffer, "Привет, число: %012.4g", -0.00012345);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %012.4g",
+           -0.00012345);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 406: +10.5G, -12345.6789
+  s21_sprintf(buffer, "Привет, число: %+10.5G", -12345.6789);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %+10.5G",
+           -12345.6789);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 407: +10.5G, -0.0
+  s21_sprintf(buffer, "Привет, число: %+10.5G", -0.000000000);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %+10.5G",
+           -0.000000000);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 408: -10.5g, 123.456
+  s21_sprintf(buffer, "Привет, число: %-10.5g", 123.456);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %-10.5g", 123.456);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 409: -10.5g, -123.456
+  s21_sprintf(buffer, "Привет, число: %-10.5g", -123.456);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %-10.5g", -123.456);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 410: -10.5G, 123.456
+  s21_sprintf(buffer, "Привет, число: %-10.5G", 123.456);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %-10.5G", 123.456);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 411: -10.5G, -123.456
+  s21_sprintf(buffer, "Привет, число: %-10.5G", -123.456);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %-10.5G", -123.456);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 412: ' ', 10.5g, -123.456
+  s21_sprintf(buffer, "Привет, число: % 10.5g", -123.456);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: % 10.5g", -123.456);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 413: ' ', 10.5G, 123.456
+  s21_sprintf(buffer, "Привет, число: % 10.5G", 123.456);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: % 10.5G", 123.456);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 414: ' ', 10.5G, -123.456
+  s21_sprintf(buffer, "Привет, число: % 10.5G", -123.456);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: % 10.5G", -123.456);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 415: #, 10.5g, 123.456
+  s21_sprintf(buffer, "Привет, число: %#10.5g", 123.456);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %#10.5g", 123.456);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 416: #, 10.5g, -123.456
+  s21_sprintf(buffer, "Привет, число: %#10.5g", -123.456);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %#10.5g", -123.456);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 417: #, 10.5G, 123.456
+  s21_sprintf(buffer, "Привет, число: %#10.5G", 123.456);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %#10.5G", 123.456);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 418: #, 10.5G, -123.456
+  s21_sprintf(buffer, "Привет, число: %#10.5G", -123.456);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %#10.5G", -123.456);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 419: *, *, g, 20, 5, 123.456
+  s21_sprintf(buffer, "Привет, число: %*.*g", 20, 5, 123.456);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %*.*g", 20, 5,
+           123.456);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 420: *, *, g, 20, 5, -123.456
+  s21_sprintf(buffer, "Привет, число: %*.*g", 20, 5, -123.456);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %*.*g", 20, 5,
+           -123.456);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 421: *, *, G, 20, 5, 123.456
+  s21_sprintf(buffer, "Привет, число: %*.*G", 20, 5, 123.456);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %*.*G", 20, 5,
+           123.456);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 422: *, *, G, 20, 5, -123.456
+  s21_sprintf(buffer, "Привет, число: %*.*G", 20, 5, -123.456);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %*.*G", 20, 5,
+           -123.456);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 423: -, *, *, g, 20, 5, 123.456
+  s21_sprintf(buffer, "Привет, число: %-*.*g", 20, 5, 123.456);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %-*.*g", 20, 5,
+           123.456);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 424: -, *, *, g, 20, 5, -123.456
+  s21_sprintf(buffer, "Привет, число: %-*.*g", 20, 5, -123.456);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %-*.*g", 20, 5,
+           -123.456);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 425: -, *, *, G, 20, 5, 123.456
+  s21_sprintf(buffer, "Привет, число: %-*.*G", 20, 5, 123.456);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %-*.*G", 20, 5,
+           123.456);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 426: -, *, *, G, 20, 5, -123.456
+  s21_sprintf(buffer, "Привет, число: %-*.*G", 20, 5, -123.456);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %-*.*G", 20, 5,
+           -123.456);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 427: +, *, *, g, 20, 5, 123.456
+  s21_sprintf(buffer, "Привет, число: %+*.*g", 20, 5, 123.456);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %+*.*g", 20, 5,
+           123.456);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 428: +, *, *, g, 20, 5, -123.456
+  s21_sprintf(buffer, "Привет, число: %+*.*g", 20, 5, -123.456);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %+*.*g", 20, 5,
+           -123.456);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 429: +, *, *, G, 20, 5, 123.456
+  s21_sprintf(buffer, "Привет, число: %+*.*G", 20, 5, 123.456);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %+*.*G", 20, 5,
+           123.456);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 430: +, *, *, G, 20, 5, -123.456
+  s21_sprintf(buffer, "Привет, число: %+*.*G", 20, 5, -123.456);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %+*.*G", 20, 5,
+           -123.456);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 431: #, *, *, g, 20, 5, 123.456
+  s21_sprintf(buffer, "Привет, число: %#*.*g", 20, 5, 123.456);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %#*.*g", 20, 5,
+           123.456);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 432: ' ', *, *, G, 20, 5, 123.456
+  s21_sprintf(buffer, "Привет, число: % *.*G", 20, 5, 123.456);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: % *.*G", 20, 5,
+           123.456);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 433: #, *, *, g, 20, 5, -123.456
+  s21_sprintf(buffer, "Привет, число: %#*.*g", 20, 5, -123.456);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %#*.*g", 20, 5,
+           -123.456);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 434: ' ', *, *, g, 20, 5, 123.456
+  s21_sprintf(buffer, "Привет, число: % *.*g", 20, 5, 123.456);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: % *.*g", 20, 5,
+           123.456);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 435: ' ', *, *, g, 20, 5, -123.456
+  s21_sprintf(buffer, "Привет, число: % *.*g", 20, 5, -123.456);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: % *.*g", 20, 5,
+           -123.456);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 436: ' ', *, *, G, 20, 5, -123.456
+  s21_sprintf(buffer, "Привет, число: % *.*G", 20, 5, -123.456);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: % *.*G", 20, 5,
+           -123.456);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 437: +, 10.5g, 0.00012345
+  s21_sprintf(buffer, "Привет, число: %+10.5g", 0.00012345);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %+10.5g",
+           0.00012345);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 438: +, 10.5G, 0.00012345
+  s21_sprintf(buffer, "Привет, число: %+10.5G", 0.00012345);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %+10.5G",
+           0.00012345);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 439: ' ', 10.5g, 0.00012345
+  s21_sprintf(buffer, "Привет, число: % 10.5g", 0.00012345);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: % 10.5g",
+           0.00012345);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 440: '0', 10.5g, 0.00012345
+  s21_sprintf(buffer, "Привет, число: %010.5g", 0.00012345);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %010.5g",
+           0.00012345);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 441: '0', 10.5G, 0.00012345
+  s21_sprintf(buffer, "Привет, число: %010.5G", 0.00012345);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %010.5G",
+           0.00012345);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 442: '0', 10.5G, -0.00012345
+  s21_sprintf(buffer, "Привет, число: %010.5G", -0.00012345);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %010.5G",
+           -0.00012345);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 443: '0', 10.5g, -0.00012345
+  s21_sprintf(buffer, "Привет, число: %010.5g", -0.00012345);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %010.5g",
+           -0.00012345);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 444: '+', 10.5e, -0.00012345
+  s21_sprintf(buffer, "Привет, число: %+10.5e", -0.00012345);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %+10.5e",
+           -0.00012345);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 445: '+', 10.5G, -12345678.9
+  s21_sprintf(buffer, "Привет, число: %+10.5G", -12345678.9);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %+10.5G",
+           -12345678.9);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 446: 12.2, G, -0.00012345
+  s21_sprintf(buffer, "Привет, число: %12.2G", -0.00012345);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %12.2G",
+           -0.00012345);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 447: '0', 12.2, g, -0.00012345
+  s21_sprintf(buffer, "Привет, число: %012.2g", -0.00012345);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %012.2g",
+           -0.00012345);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 448: '-', 12.2, g, -0.00012345
+  s21_sprintf(buffer, "Привет, число: %-12.2g", -0.00012345);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %-12.2g",
+           -0.00012345);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 449: '+', 12.2, g, -0.00012345
+  s21_sprintf(buffer, "Привет, число: %+12.2g", -0.00012345);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %+12.2g",
+           -0.00012345);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 450: 12.2, g, -0.00012345
+  s21_sprintf(buffer, "Привет, число: %12.2g", -0.00012345);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %12.2g",
+           -0.00012345);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 451: 12.2, G, -12345.6789
+  s21_sprintf(buffer, "Привет, число: %12.2G", -12345.6789);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %12.2G",
+           -12345.6789);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 452: '-', 12.2, G, -12345.6789
+  s21_sprintf(buffer, "Привет, число: %-12.2G", -12345.6789);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %-12.2G",
+           -12345.6789);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 453: '+', 12.2, G, -12345.6789
+  s21_sprintf(buffer, "Привет, число: %+12.2G", -12345.6789);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %+12.2G",
+           -12345.6789);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 454: '0', 12.2, G, -12345.6789
+  s21_sprintf(buffer, "Привет, число: %012.2G", -12345.6789);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %012.2G",
+           -12345.6789);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 455: 12.2, g, 1234567890123.45 (Большое число)
+  s21_sprintf(buffer, "Привет, число: %12.2g", 1234567890123.45);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %12.2g",
+           1234567890123.45);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 456: '-', 12.2, g, 1234567890123.45 (Большое число)
+  s21_sprintf(buffer, "Привет, число: %-12.2g", 1234567890123.45);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %-12.2g",
+           1234567890123.45);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 457: '+', 12.2, g, 1234567890123.45 (Большое число)
+  s21_sprintf(buffer, "Привет, число: %+12.2g", 1234567890123.45);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %+12.2g",
+           1234567890123.45);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 458: '0', 12.2, g, 1234567890123.45 (Большое число)
+  s21_sprintf(buffer, "Привет, число: %012.2g", 1234567890123.45);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %012.2g",
+           1234567890123.45);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 459: 12.2, G, 1234567890123.45 (Большое число)
+  s21_sprintf(buffer, "Привет, число: %12.2G", 1234567890123.45);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %12.2G",
+           1234567890123.45);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 460: 12g, -0.00012345
+  s21_sprintf(buffer, "Привет, число: %12g", -0.00012345);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %12g", -0.00012345);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 461: +12g, -0.00012345
+  s21_sprintf(buffer, "Привет, число: %+12g", -0.00012345);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %+12g", -0.00012345);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 462: -12g, -0.00012345
+  s21_sprintf(buffer, "Привет, число: %-12g", -0.00012345);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %-12g", -0.00012345);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 463: 012g, -0.00012345
+  s21_sprintf(buffer, "Привет, число: %012g", -0.00012345);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %012g", -0.00012345);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 464: 12.4g, -0.00012345
+  s21_sprintf(buffer, "Привет, число: %12.4g", -0.00012345);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %12.4g",
+           -0.00012345);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 465: +12.4g, -0.00012345
+  s21_sprintf(buffer, "Привет, число: %+12.4g", -0.00012345);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %+12.4g",
+           -0.00012345);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 466: -12.4g, -0.00012345
+  s21_sprintf(buffer, "Привет, число: %-12.4g", -0.00012345);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %-12.4g",
+           -0.00012345);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 467: 012.4g, -0.00012345
+  s21_sprintf(buffer, "Привет, число: %012.4g", -0.00012345);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %012.4g",
+           -0.00012345);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 468: +10.5G, -12345.6789
+  s21_sprintf(buffer, "Привет, число: %+10.5G", -12345.6789);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %+10.5G",
+           -12345.6789);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 469: +10.5G, -0.0
+  s21_sprintf(buffer, "Привет, число: %+10.5G", -0.000000000);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %+10.5G",
+           -0.000000000);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 470: -10.5g, 123.456
+  s21_sprintf(buffer, "Привет, число: %-10.5g", 123.456);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %-10.5g", 123.456);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 471: -10.5g, -123.456
+  s21_sprintf(buffer, "Привет, число: %-10.5g", -123.456);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %-10.5g", -123.456);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 472: -10.5G, 123.456
+  s21_sprintf(buffer, "Привет, число: %-10.5G", 123.456);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %-10.5G", 123.456);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 473: -10.5G, -123.456
+  s21_sprintf(buffer, "Привет, число: %-10.5G", -123.456);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %-10.5G", -123.456);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 474: ' ', 10.5g, -123.456
+  s21_sprintf(buffer, "Привет, число: % 10.5g", -123.456);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: % 10.5g", -123.456);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 475: ' ', 10.5G, 123.456
+  s21_sprintf(buffer, "Привет, число: % 10.5G", 123.456);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: % 10.5G", 123.456);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 476: ' ', 10.5G, -123.456
+  s21_sprintf(buffer, "Привет, число: % 10.5G", -123.456);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: % 10.5G", -123.456);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 477: #, 10.5g, 123.456
+  s21_sprintf(buffer, "Привет, число: %#10.5g", 123.456);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %#10.5g", 123.456);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 478: #, 10.5g, -123.456
+  s21_sprintf(buffer, "Привет, число: %#10.5g", -123.456);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %#10.5g", -123.456);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 479: #, 10.5G, 123.456
+  s21_sprintf(buffer, "Привет, число: %#10.5G", 123.456);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %#10.5G", 123.456);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 480: #, 10.5G, -123.456
+  s21_sprintf(buffer, "Привет, число: %#10.5G", -123.456);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %#10.5G", -123.456);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 481: *, *, g, 20, 5, 123.456
+  s21_sprintf(buffer, "Привет, число: %*.*g", 20, 5, 123.456);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %*.*g", 20, 5,
+           123.456);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 482: *, *, g, 20, 5, -123.456
+  s21_sprintf(buffer, "Привет, число: %*.*g", 20, 5, -123.456);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %*.*g", 20, 5,
+           -123.456);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 484: '+', 10.5g, 0.00012345
+  s21_sprintf(buffer, "Привет, число: %+10.5g", 0.00012345);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %+10.5g",
+           0.00012345);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 485: '+', 10.5G, 0.00012345
+  s21_sprintf(buffer, "Привет, число: %+10.5G", 0.00012345);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %+10.5G",
+           0.00012345);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 486: ' ', 10.5g, 0.00012345
+  s21_sprintf(buffer, "Привет, число: % 10.5g", 0.00012345);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: % 10.5g",
+           0.00012345);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 487: '0', 10.5g, 0.00012345
+  s21_sprintf(buffer, "Привет, число: %010.5g", 0.00012345);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %010.5g",
+           0.00012345);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 488: '0', 10.5G, 0.00012345
+  s21_sprintf(buffer, "Привет, число: %010.5G", 0.00012345);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %010.5G",
+           0.00012345);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 489: '0', 10.5G, -0.00012345
+  s21_sprintf(buffer, "Привет, число: %010.5G", -0.00012345);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %010.5G",
+           -0.00012345);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 490: '0', 10.5g, -0.00012345
+  s21_sprintf(buffer, "Привет, число: %010.5g", -0.00012345);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %010.5g",
+           -0.00012345);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 491: '+', 10.5e, -0.00012345
+  s21_sprintf(buffer, "Привет, число: %+10.5e", -0.00012345);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %+10.5e",
+           -0.00012345);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 492: '+', 10.5G, -12345678.9
+  s21_sprintf(buffer, "Привет, число: %+10.5G", -12345678.9);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %+10.5G",
+           -12345678.9);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 493: 12.2, G, -0.00012345
+  s21_sprintf(buffer, "Привет, число: %12.2G", -0.00012345);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %12.2G",
+           -0.00012345);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 494: '0', 12.2, g, -0.00012345
+  s21_sprintf(buffer, "Привет, число: %012.2g", -0.00012345);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %012.2g",
+           -0.00012345);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 495: '-', 12.2, g, -0.00012345
+  s21_sprintf(buffer, "Привет, число: %-12.2g", -0.00012345);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %-12.2g",
+           -0.00012345);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 496: '+', 12.2, g, -0.00012345
+  s21_sprintf(buffer, "Привет, число: %+12.2g", -0.00012345);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %+12.2g",
+           -0.00012345);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 497: 12.2, g, -0.00012345
+  s21_sprintf(buffer, "Привет, число: %12.2g", -0.00012345);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %12.2g",
+           -0.00012345);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 498: 12.2, G, -12345.6789
+  s21_sprintf(buffer, "Привет, число: %12.2G", -12345.6789);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %12.2G",
+           -12345.6789);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 499: '-', 12.2, G, -12345.6789
+  s21_sprintf(buffer, "Привет, число: %-12.2G", -12345.6789);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %-12.2G",
+           -12345.6789);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 500: '+', 12.2, G, -12345.6789
+  s21_sprintf(buffer, "Привет, число: %+12.2G", -12345.6789);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %+12.2G",
+           -12345.6789);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 501: '0', 12.2, G, -12345.6789
+  s21_sprintf(buffer, "Привет, число: %012.2G", -12345.6789);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %012.2G",
+           -12345.6789);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 502: 12.2, g, 1234567890123.45 (Большое число)
+  s21_sprintf(buffer, "Привет, число: %12.2g", 1234567890123.45);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %12.2g",
+           1234567890123.45);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 503: '-', 12.2, g, 1234567890123.45 (Большое число)
+  s21_sprintf(buffer, "Привет, число: %-12.2g", 1234567890123.45);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %-12.2g",
+           1234567890123.45);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 504: '+', 12.2, g, 1234567890123.45 (Большое число)
+  s21_sprintf(buffer, "Привет, число: %+12.2g", 1234567890123.45);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %+12.2g",
+           1234567890123.45);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 505: '0', 12.2, g, 1234567890123.45 (Большое число)
+  s21_sprintf(buffer, "Привет, число: %012.2g", 1234567890123.45);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %012.2g",
+           1234567890123.45);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 506: 12.2, G, 1234567890123.45 (Большое число)
+  s21_sprintf(buffer, "Привет, число: %12.2G", 1234567890123.45);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %12.2G",
+           1234567890123.45);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 507: 12g, -0.00012345
+  s21_sprintf(buffer, "Привет, число: %12g", -0.00012345);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %12g", -0.00012345);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 508: +12g, -0.00012345
+  s21_sprintf(buffer, "Привет, число: %+12g", -0.00012345);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %+12g", -0.00012345);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 509: -12g, -0.00012345
+  s21_sprintf(buffer, "Привет, число: %-12g", -0.00012345);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %-12g", -0.00012345);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 510: 012g, -0.00012345
+  s21_sprintf(buffer, "Привет, число: %012g", -0.00012345);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %012g", -0.00012345);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 511: 12.4g, -0.00012345
+  s21_sprintf(buffer, "Привет, число: %12.4g", -0.00012345);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %12.4g",
+           -0.00012345);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 512: +12.4g, -0.00012345
+  s21_sprintf(buffer, "Привет, число: %+12.4g", -0.00012345);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %+12.4g",
+           -0.00012345);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 513: -12.4g, -0.00012345
+  s21_sprintf(buffer, "Привет, число: %-12.4g", -0.00012345);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %-12.4g",
+           -0.00012345);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 514: 012.4g, -0.00012345
+  s21_sprintf(buffer, "Привет, число: %012.4g", -0.00012345);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %012.4g",
+           -0.00012345);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 515: +10.5G, -12345.6789
+  s21_sprintf(buffer, "Привет, число: %+10.5G", -12345.6789);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %+10.5G",
+           -12345.6789);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 516: +10.5G, -0.0
+  s21_sprintf(buffer, "Привет, число: %+10.5G", -0.000000000);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %+10.5G",
+           -0.000000000);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 517: -10.5g, 123.456
+  s21_sprintf(buffer, "Привет, число: %-10.5g", 123.456);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %-10.5g", 123.456);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 518: -10.5g, -123.456
+  s21_sprintf(buffer, "Привет, число: %-10.5g", -123.456);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %-10.5g", -123.456);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 519: -10.5G, 123.456
+  s21_sprintf(buffer, "Привет, число: %-10.5G", 123.456);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %-10.5G", 123.456);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 520: -10.5G, -123.456
+  s21_sprintf(buffer, "Привет, число: %-10.5G", -123.456);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %-10.5G", -123.456);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 521: ' ', 10.5g, -123.456
+  s21_sprintf(buffer, "Привет, число: % 10.5g", -123.456);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: % 10.5g", -123.456);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 522: ' ', 10.5G, 123.456
+  s21_sprintf(buffer, "Привет, число: % 10.5G", 123.456);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: % 10.5G", 123.456);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 523: ' ', 10.5G, -123.456
+  s21_sprintf(buffer, "Привет, число: % 10.5G", -123.456);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: % 10.5G", -123.456);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 524: #, 10.5g, 123.456
+  s21_sprintf(buffer, "Привет, число: %#10.5g", 123.456);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %#10.5g", 123.456);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 525: #, 10.5g, -123.456
+  s21_sprintf(buffer, "Привет, число: %#10.5g", -123.456);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %#10.5g", -123.456);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 526: #, 10.5G, 123.456
+  s21_sprintf(buffer, "Привет, число: %#10.5G", 123.456);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %#10.5G", 123.456);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 527: #, 10.5G, -123.456
+  s21_sprintf(buffer, "Привет, число: %#10.5G", -123.456);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %#10.5G", -123.456);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 528: *, *, g, 20, 5, 123.456
+  s21_sprintf(buffer, "Привет, число: %*.*g", 20, 5, 123.456);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %*.*g", 20, 5,
+           123.456);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 529: *, *, g, 20, 5, -123.456
+  s21_sprintf(buffer, "Привет, число: %*.*g", 20, 5, -123.456);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %*.*g", 20, 5,
+           -123.456);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 530: *, *, G, 20, 5, 123.456
+  s21_sprintf(buffer, "Привет, число: %*.*G", 20, 5, 123.456);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %*.*G", 20, 5,
+           123.456);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 531: *, *, G, 20, 5, -123.456
+  s21_sprintf(buffer, "Привет, число: %*.*G", 20, 5, -123.456);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %*.*G", 20, 5,
+           -123.456);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 532: -, *, *, g, 20, 5, 123.456
+  s21_sprintf(buffer, "Привет, число: %-*.*g", 20, 5, 123.456);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %-*.*g", 20, 5,
+           123.456);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 533: -, *, *, g, 20, 5, -123.456
+  s21_sprintf(buffer, "Привет, число: %-*.*g", 20, 5, -123.456);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %-*.*g", 20, 5,
+           -123.456);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 534: -, *, *, G, 20, 5, 123.456
+  s21_sprintf(buffer, "Привет, число: %-*.*G", 20, 5, 123.456);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %-*.*G", 20, 5,
+           123.456);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 535: -, *, *, G, 20, 5, -123.456
+  s21_sprintf(buffer, "Привет, число: %-*.*G", 20, 5, -123.456);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %-*.*G", 20, 5,
+           -123.456);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 536: +, *, *, g, 20, 5, 123.456
+  s21_sprintf(buffer, "Привет, число: %+*.*g", 20, 5, 123.456);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %+*.*g", 20, 5,
+           123.456);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 537: +, *, *, g, 20, 5, -123.456
+  s21_sprintf(buffer, "Привет, число: %+*.*g", 20, 5, -123.456);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %+*.*g", 20, 5,
+           -123.456);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 538: +, *, *, G, 20, 5, 123.456
+  s21_sprintf(buffer, "Привет, число: %+*.*G", 20, 5, 123.456);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %+*.*G", 20, 5,
+           123.456);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 539: +, *, *, G, 20, 5, -123.456
+  s21_sprintf(buffer, "Привет, число: %+*.*G", 20, 5, -123.456);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %+*.*G", 20, 5,
+           -123.456);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 540: #, *, *, g, 20, 5, 123.456
+  s21_sprintf(buffer, "Привет, число: %#*.*g", 20, 5, 123.456);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %#*.*g", 20, 5,
+           123.456);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 541: ' ', *, *, G, 20, 5, 123.456
+  s21_sprintf(buffer, "Привет, число: % *.*G", 20, 5, 123.456);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: % *.*G", 20, 5,
+           123.456);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 542: #, *, *, g, 20, 5, -123.456
+  s21_sprintf(buffer, "Привет, число: %#*.*g", 20, 5, -123.456);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %#*.*g", 20, 5,
+           -123.456);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 543: ' ', *, *, g, 20, 5, 123.456
+  s21_sprintf(buffer, "Привет, число: % *.*g", 20, 5, 123.456);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: % *.*g", 20, 5,
+           123.456);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 544: ' ', *, *, g, 20, 5, -123.456
+  s21_sprintf(buffer, "Привет, число: % *.*g", 20, 5, -123.456);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: % *.*g", 20, 5,
+           -123.456);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 545: ' ', *, *, G, 20, 5, -123.456
+  s21_sprintf(buffer, "Привет, число: % *.*G", 20, 5, -123.456);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: % *.*G", 20, 5,
+           -123.456);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
   }
   test_num++;
 
@@ -6783,6 +9751,8 @@ void handle_e(va_list factor, char *str, int *l, flags *f, int uppercase) {
     }
   }
 }
+
+// exp_x >= -4 && exp_x < precision флот
 
 void handle_general(va_list factor, char *str, int *l, flags *f,
                     int uppercase) {
