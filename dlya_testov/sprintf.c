@@ -9235,9 +9235,139 @@ int main() {
   test_num++;
 
   // Тест 504: '+', 12.2, g, 1234567890123.45 (Большое число)
+  s21_sprintf(buffer, "Привет, число: %g", 0.00123456123123123);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %g",
+           0.00123456123123123);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 504: '+', 12.2, g, 1234567890123.45 (Большое число)
+  s21_sprintf(buffer, "Привет, число: % g", 0.00123456123123123);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: % g",
+           0.00123456123123123);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 504: '+', 12.2, g, 1234567890123.45 (Большое число)
+  s21_sprintf(buffer, "Привет, число: %+g", 0.00123456123123123);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %+g",
+           0.00123456123123123);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 504: '+', 12.2, g, 1234567890123.45 (Большое число)
+  s21_sprintf(buffer, "Привет, число: %-g", 0.00123456123123123);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %-g",
+           0.00123456123123123);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 504: '+', 12.2, g, 1234567890123.45 (Большое число)
+  s21_sprintf(buffer, "Привет, число: %0g", 0.00123456123123123);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %0g",
+           0.00123456123123123);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 504: '+', 12.2, g, 1234567890123.45 (Большое число)
+  s21_sprintf(buffer, "Привет, число: %06g", 0.00123456123123123);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %06g",
+           0.00123456123123123);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 504: '+', 12.2, g, 1234567890123.45 (Большое число)
+  s21_sprintf(buffer, "Привет, число: %06.1g", 0.00123456123123123);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %06.1g",
+           0.00123456123123123);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 504: '+', 12.2, g, 1234567890123.45 (Большое число)
   s21_sprintf(buffer, "Привет, число: %11g", 0.00123456123123123);
   snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %11g",
            0.00123456123123123);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 504: '+', 12.2, g, 1234567890123.45 (Большое число)
+  s21_sprintf(buffer, "Привет, число: %-11.3g", 0.00123456123123123);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %-11.3g",
+           0.00123456123123123);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 504: '+', 12.2, g, 1234567890123.45 (Большое число)
+  s21_sprintf(buffer, "Привет, число: %011.3g", 0.00123456123123123);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %011.3g",
+           0.00123456123123123);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 447: '0', 12.2, g, -0.00012345
+  s21_sprintf(buffer, "Привет, число: %12.2g", -0.00012345);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %12.2g",
+           -0.00012345);
   if (strcmp(buffer, std_buffer) == 0) {
     printf("ACCESS: Тест %d пройден успешно\n", test_num);
   } else {
@@ -10027,27 +10157,22 @@ void handle_general(va_list factor, char *str, int *l, flags *f,
         qwe /= 10;
       }
       int len = 2 + ferst_zero + znach_cifri;
-      int total_len = len + (sign)-2;
-      if (f->width > total_len) {
-        total_len = f->width - 2;
+      if (f->width > 11) {
+        f->width--;
       }
       if (f->minus) {
         add_sign(sign, str, l);
-        for (int i = 0; i < len; i++) {
-          str[(*l)++] = buffZXC[i];
-        }
-        print_space(str, total_len - len - (sign), l);
+        print_char(str, buffZXC, len, l);
+        print_space(str, f->width - len, l);
       } else {
         if (f->zero) {
           add_sign(sign, str, l);
-          print_zero(str, total_len - len - (sign), l);
+          print_zero(str, f->width - len, l);
         } else {
-          print_space(str, total_len - len - (sign), l);
+          print_space(str, f->width - len, l);
           add_sign(sign, str, l);
         }
-        for (int i = 0; i < len; i++) {
-          str[(*l)++] = buffZXC[i];
-        }
+        print_char(str, buffZXC, len, l);
       }
     }
   } else {
