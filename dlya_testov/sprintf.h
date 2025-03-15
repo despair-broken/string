@@ -1,8 +1,6 @@
 #include <ctype.h>
-#include <float.h>
 #include <limits.h>
 #include <math.h>
-#include <mpfr.h>
 #include <stdarg.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -79,3 +77,12 @@ void handle_hex_and_o(va_list factor, char *str, int *l, flags *f,
 void set_sharp_hex_and_o(flags *f, int num, char *str, int *l, int uppercase,
                          int value);
 int get_exponent(long double *num);
+void e_in_g(long double *num, flags *f, int uppercase, int sign, char *str,
+            int *l);
+void f_in_g(long double num, flags *f, int sign, char *str, int *l);
+void f_in_g_ferst(flags *f, long double num, int sign, char *str, int *l);
+void f_in_g_second(flags *f, long double num, int sign, char *str, int *l);
+void print_f_in_g_ferst(flags *f, int sign, char *str, int *l, long double zxc,
+                        int int_len, int flagqwe, int frac_len, int len);
+void print_f_in_g_second(flags *f, int sign, char *str, int *l, int len,
+                         char *buffZXC);

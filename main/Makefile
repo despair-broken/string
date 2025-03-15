@@ -1,5 +1,5 @@
 FLAGS = -Wall -Werror -Wextra -std=c11
-LIB = -lcheck -L. -lm -lgmp -lmpfr s21_string.a
+LIB = -lcheck -L. -lm s21_string.a
 GCOV_FLAGS = -fprofile-arcs -ftest-coverage
 C_FILE = s21_string.c s21_sprintf.c s21_sscanf.c s21_special.c
 OBJECT = s21_string.o s21_sprintf.o s21_sscanf.o s21_special.o

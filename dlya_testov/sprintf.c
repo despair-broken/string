@@ -7,18 +7,6 @@ int main() {
 
   int flag_huesos = 0;
 
-  // s21_sprintf(buffer, "Привет, число: %+10.5f", -12345678.9);
-  // snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %+10.f",
-  //          -12345678.6789);
-  // if (strcmp(buffer, std_buffer) == 0) {
-  //   printf("ACCESS: Тест %d пройден успешно\n", test_num);
-  // } else {
-  //   printf("**FAIL: Тест %d не пройден\n", test_num);
-  //   printf("********Ваш вывод: %s\n", buffer);
-  //   printf("Стандартный вывод: %s\n", std_buffer);
-  // }
-  // test_num++;
-
   // // Тест 3: Вывод указателя с шириной и выравниванием по левому краю
   // s21_sprintf(buffer, "Привет, указатель: %-20p", &x);
   // snprintf(std_buffer, sizeof(std_buffer), "Привет, указатель: %-20p", &x);
@@ -5710,8 +5698,6 @@ int main() {
   }
   test_num++;
 
-  printf("\nНАЧАЛО G и g\n\n");
-
   // Тест 12: Вывод с шириной и заполнением нулями для отрицательного числа с %E
   s21_sprintf(buffer, "Привет, число: %g", 0.00000123456);
   snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %g", 0.00000123456);
@@ -9379,6 +9365,18 @@ int main() {
   }
   test_num++;
 
+  s21_sprintf(buffer, "Привет, число: %+10.5f", -12345678.6789);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, число: %+10.5f",
+           -12345678.6789);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
   if (flag_huesos) {
     return 0;
   }
@@ -12430,155 +12428,182 @@ void handle_general(va_list factor, char *str, int *l, flags *f,
     exponent = floorl(log10l(temp));
     temp /= powl(10, exponent);
   }
-  int precision = (f->precision == -100) ? 6 : f->precision;
+  if (f->precision == -100) {
+    f->precision = 6;
+  }
   if (isnan(num) || isinf(num)) {
     print_nan_inf(num, f, str, l, uppercase);
-  } else if (exponent >= -4 && exponent < precision) {
-    if ((int)num != 0 || (((int)num == 0) && (num - (int)num == 0))) {
-      int frac_len = 6;
-      if (f->precision != -100) {
-        frac_len = f->precision;
-      }
-      int int_part = (int)num;
-      int flag_point = 1;
-      int int_len = 0;
-      long double temp = num;
-      if (f->precision == 0) {
-        flag_point = 0;
-        int digit = (int)(temp * 10) % 10;
-        if (digit > 5) {
-          (temp)++;
-        }
-      }
-      if (int_part == 0) {
-        int_len = 1;
-      } else {
-        while (int_part > 0) {
-          int_len++;
-          int_part /= 10;
-        }
-      }
-      if (num > 1000) {
-        frac_len -= 5;
-      } else {
-        frac_len -= 3;
-      }
-      long double zxc = num;
-      int len = int_len + frac_len + flag_point + (sign != 0);
-      if (f->precision == int_len) {
-        len = len - frac_len - flag_point;
-        zxc = round(num);
-      }
-      int flagqwe = 1;
-      if (num - (int)num == 0 && (int)num == 0) {
-        flagqwe = 0;
-        len -= 3;
-      }
-      if (f->minus) {
-        add_sign(sign, str, l);
-        print_int_part(str, l, zxc);
-        if (f->precision != int_len && flagqwe) {
-          print_point(str, f, l);
-          print_frac_part(str, l, zxc, frac_len);
-        }
-        print_space(str, f->width - len, l);
-      } else {
-        if (f->zero) {
-          add_sign(sign, str, l);
-          print_zero(str, f->width - len, l);
-        } else {
-          print_space(str, f->width - len, l);
-          add_sign(sign, str, l);
-        }
-        print_int_part(str, l, zxc);
-        if (f->precision != int_len && flagqwe) {
-          print_point(str, f, l);
-          print_frac_part(str, l, zxc, frac_len);
-        }
-      }
-    } else {
-      int temp = (int)(num * pow(10, 9));
-      float tempqwe = temp / 10.0;
-      tempqwe = round(tempqwe);
-      int asd = (int)tempqwe;
-      int last_zero = 0;
-      int znach_cifri = 0;
-      int temp_temp = asd;
-      while (temp_temp % 10 == 0) {
-        last_zero++;
-        temp_temp /= 10;
-      }
-      int qwe = temp_temp;
-      while (temp_temp % 10 != 0) {
-        znach_cifri++;
-        temp_temp /= 10;
-      }
-      int ferst_zero = 8 - last_zero - znach_cifri;
-      if (f->precision < znach_cifri && f->precision != -100) {
-        qwe = qwe * pow(10, f->precision - znach_cifri);
-        qwe = round(qwe);
-        znach_cifri = f->precision;
-      }
-      char buffZXC[50] = {'0'};
-      buffZXC[1] = '.';
-      for (int i = 2; i < 2 + ferst_zero; i++) {
-        buffZXC[i] = '0';
-      }
-      for (int i = 2 + ferst_zero + znach_cifri - 1; i >= 2 + ferst_zero; i--) {
-        buffZXC[i] = (qwe % 10) + '0';
-        qwe /= 10;
-      }
-      int len = 2 + ferst_zero + znach_cifri;
-      if (f->width > 11) {
-        f->width--;
-      }
-      if (f->minus) {
-        add_sign(sign, str, l);
-        print_char(str, buffZXC, len, l);
-        print_space(str, f->width - len, l);
-      } else {
-        if (f->zero) {
-          add_sign(sign, str, l);
-          print_zero(str, f->width - len, l);
-        } else {
-          print_space(str, f->width - len, l);
-          add_sign(sign, str, l);
-        }
-        print_char(str, buffZXC, len, l);
-      }
-    }
+  } else if (exponent >= -4 && exponent < f->precision) {
+    f_in_g(num, f, sign, str, l);
+
   } else {
-    int exponent = get_exponent(&num);
-    char num_str[50] = {0};
-    snprintf(num_str, sizeof(num_str), "%.*Lf", precision - 1, num);
-    int exponent_sign = (exponent >= 0) ? '+' : '-';
-    exponent = abs(exponent);
-    char exponent_str[20] = {0};
-    snprintf(exponent_str, sizeof(exponent_str), "%c%02d", exponent_sign,
-             exponent);
-    char str_buff[50] = {0};
-    strcpy(str_buff, num_str);
-    strcat(str_buff, uppercase ? "E" : "e");
-    strcat(str_buff, exponent_str);
-    int len = strlen(str_buff);
-    int total_len = f->width;
-    if (len > total_len) total_len = len;
-    if (sign) {
-      total_len--;
-    }
-    if (f->minus) {
+    e_in_g(&num, f, uppercase, sign, str, l);
+  }
+}
+
+void e_in_g(long double *num, flags *f, int uppercase, int sign, char *str,
+            int *l) {
+  int exponent = get_exponent(num);
+  char num_str[50] = {0};
+  snprintf(num_str, sizeof(num_str), "%.*Lf", f->precision - 1, *num);
+  int exponent_sign = (exponent >= 0) ? '+' : '-';
+  exponent = abs(exponent);
+  char exponent_str[20] = {0};
+  snprintf(exponent_str, sizeof(exponent_str), "%c%02d", exponent_sign,
+           exponent);
+  char str_buff[50] = {0};
+  strcpy(str_buff, num_str);
+  strcat(str_buff, uppercase ? "E" : "e");
+  strcat(str_buff, exponent_str);
+  int len = strlen(str_buff);
+  int total_len = f->width;
+  if (len > total_len) total_len = len;
+  if (sign) {
+    total_len--;
+  }
+  if (f->minus) {
+    add_sign(sign, str, l);
+    print_char(str, str_buff, len, l);
+    print_space(str, total_len - len, l);
+  } else {
+    if (f->zero) {
       add_sign(sign, str, l);
-      print_char(str, str_buff, len, l);
-      print_space(str, total_len - len, l);
+      print_zero(str, total_len - len, l);
     } else {
-      if (f->zero) {
-        add_sign(sign, str, l);
-        print_zero(str, total_len - len, l);
-      } else {
-        print_space(str, total_len - len, l);
-        add_sign(sign, str, l);
-      }
-      print_char(str, str_buff, len, l);
+      print_space(str, total_len - len, l);
+      add_sign(sign, str, l);
     }
+    print_char(str, str_buff, len, l);
+  }
+}
+
+void f_in_g(long double num, flags *f, int sign, char *str, int *l) {
+  if ((int)num != 0 || (((int)num == 0) && (num - (int)num == 0))) {
+    f_in_g_ferst(f, num, sign, str, l);
+  } else {
+    f_in_g_second(f, num, sign, str, l);
+  }
+}
+
+void f_in_g_ferst(flags *f, long double num, int sign, char *str, int *l) {
+  int frac_len = f->precision;
+  int int_part = (int)num;
+  int flag_point = 1;
+  int int_len = 0;
+  long double temp = num;
+  if (f->precision == 0) {
+    flag_point = 0;
+    int digit = (int)(temp * 10) % 10;
+    if (digit > 5) {
+      (temp)++;
+    }
+  }
+  if (int_part == 0) {
+    int_len = 1;
+  } else {
+    while (int_part > 0) {
+      int_len++;
+      int_part /= 10;
+    }
+  }
+  if (num > 1000) {
+    frac_len -= 5;
+  } else {
+    frac_len -= 3;
+  }
+  long double zxc = num;
+  int len = int_len + frac_len + flag_point + (sign != 0);
+  if (f->precision == int_len) {
+    len = len - frac_len - flag_point;
+    zxc = round(num);
+  }
+  int flagqwe = 1;
+  if (num - (int)num == 0 && (int)num == 0) {
+    flagqwe = 0;
+    len -= 3;
+  }
+  print_f_in_g_ferst(f, sign, str, l, zxc, int_len, flagqwe, frac_len, len);
+}
+
+void print_f_in_g_ferst(flags *f, int sign, char *str, int *l, long double zxc,
+                        int int_len, int flagqwe, int frac_len, int len) {
+  if (f->minus) {
+    add_sign(sign, str, l);
+    print_int_part(str, l, zxc);
+    if (f->precision != int_len && flagqwe) {
+      print_point(str, f, l);
+      print_frac_part(str, l, zxc, frac_len);
+    }
+    print_space(str, f->width - len, l);
+  } else {
+    if (f->zero) {
+      add_sign(sign, str, l);
+      print_zero(str, f->width - len, l);
+    } else {
+      print_space(str, f->width - len, l);
+      add_sign(sign, str, l);
+    }
+    print_int_part(str, l, zxc);
+    if (f->precision != int_len && flagqwe) {
+      print_point(str, f, l);
+      print_frac_part(str, l, zxc, frac_len);
+    }
+  }
+}
+
+void f_in_g_second(flags *f, long double num, int sign, char *str, int *l) {
+  int temp = (int)(num * pow(10, 9));
+  float tempqwe = temp / 10.0;
+  tempqwe = round(tempqwe);
+  int asd = (int)tempqwe;
+  int last_zero = 0;
+  int znach_cifri = 0;
+  int temp_temp = asd;
+  while (temp_temp % 10 == 0) {
+    last_zero++;
+    temp_temp /= 10;
+  }
+  int qwe = temp_temp;
+  while (temp_temp % 10 != 0) {
+    znach_cifri++;
+    temp_temp /= 10;
+  }
+  int ferst_zero = 8 - last_zero - znach_cifri;
+  if (f->precision < znach_cifri && f->precision != -100) {
+    qwe = qwe * pow(10, f->precision - znach_cifri);
+    qwe = round(qwe);
+    znach_cifri = f->precision;
+  }
+  char buffZXC[50] = {'0'};
+  buffZXC[1] = '.';
+  for (int i = 2; i < 2 + ferst_zero; i++) {
+    buffZXC[i] = '0';
+  }
+  for (int i = 2 + ferst_zero + znach_cifri - 1; i >= 2 + ferst_zero; i--) {
+    buffZXC[i] = (qwe % 10) + '0';
+    qwe /= 10;
+  }
+  int len = 2 + ferst_zero + znach_cifri;
+  if (f->width > 11) {
+    f->width--;
+  }
+  print_f_in_g_second(f, sign, str, l, len, buffZXC);
+}
+
+void print_f_in_g_second(flags *f, int sign, char *str, int *l, int len,
+                         char *buffZXC) {
+  if (f->minus) {
+    add_sign(sign, str, l);
+    print_char(str, buffZXC, len, l);
+    print_space(str, f->width - len, l);
+  } else {
+    if (f->zero) {
+      add_sign(sign, str, l);
+      print_zero(str, f->width - len, l);
+    } else {
+      print_space(str, f->width - len, l);
+      add_sign(sign, str, l);
+    }
+    print_char(str, buffZXC, len, l);
   }
 }
