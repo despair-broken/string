@@ -86,3 +86,4 @@ void print_f_in_g_ferst(flags *f, int sign, char *str, int *l, long double zxc,
                         int int_len, int flagqwe, int frac_len, int len);
 void print_f_in_g_second(flags *f, int sign, char *str, int *l, int len,
                          char *buffZXC);
+char hex_to_char(uint8_t byte);

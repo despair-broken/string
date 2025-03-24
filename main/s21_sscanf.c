@@ -132,6 +132,7 @@ int write_signed_int(va_list arg, const char *str, format_flags flags,
   free(buffer);
   return n;
 }
+
 int write_unsigned_int(va_list arg, const char *str, format_flags flags,
                        int *count) {
   int n = 0;

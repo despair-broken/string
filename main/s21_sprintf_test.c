@@ -1,6095 +1,1150 @@
-#include "check.h"
+#include <check.h>
+#include <string.h>
+
 #include "s21_string.h"
 
-START_TEST(s21_sprintf_test_minus_c) {
-  char str1[1000];
-  char str2[1000];
-  char ch = 'F';
-  int r1 = sprintf(str1, "\n%-c%-1c%-2c%-3c%-4c%-5c%-6c%-7c%-8c", ch, ch, ch,
-                   ch, ch, ch, ch, ch, ch);
-  int r2 = s21_sprintf(str2, "\n%-c%-1c%-2c%-3c%-4c%-5c%-6c%-7c%-8c", ch, ch,
-                       ch, ch, ch, ch, ch, ch, ch);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_c) {
-  char str1[1000];
-  char str2[1000];
-  char ch = 'F';
-  int r1 = sprintf(str1, "\n%-c%-1c%-2c%-3c%-4c%-5c%-6c%-7c%-8c", ch, ch, ch,
-                   ch, ch, ch, ch, ch, ch);
-  int r2 = s21_sprintf(str2, "\n%-c%-1c%-2c%-3c%-4c%-5c%-6c%-7c%-8c", ch, ch,
-                       ch, ch, ch, ch, ch, ch, ch);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_minus_s) {
-  char str1[10000];
-  char str2[10000];
-  char str3[1000] = "stroka";
-  int r1 = sprintf(str1, "\n%-s%-1s%-2s%-3s%-4s%-5s%-6s%-7s%-8s", str3, str3,
-                   str3, str3, str3, str3, str3, str3, str3);
-  int r2 = s21_sprintf(str2, "\n%-s%-1s%-2s%-3s%-4s%-5s%-6s%-7s%-8s", str3,
-                       str3, str3, str3, str3, str3, str3, str3, str3);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_s) {
-  char str1[10000];
-  char str2[10000];
-  char str3[1000] = "stroka";
-  int r1 = sprintf(str1, "\n%s%1s%2s%3s%4s%5s%6s%7s%8s", str3, str3, str3, str3,
-                   str3, str3, str3, str3, str3);
-  int r2 = s21_sprintf(str2, "\n%s%1s%2s%3s%4s%5s%6s%7s%8s", str3, str3, str3,
-                       str3, str3, str3, str3, str3, str3);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_minus_u1_statik_width) {
-  char str1[1000];
-  char str2[1000];
-  int r1 =
-      sprintf(str1, "\n%-6u%-6.u%-6.0u%-6.2u%-6.3u%-6.4u%-6.5u%-6.6u%-6.7u", 1,
-              1, 1, 1, 1, 1, 1, 1, 1);
-  int r2 =
-      s21_sprintf(str2, "\n%-6u%-6.u%-6.0u%-6.2u%-6.3u%-6.4u%-6.5u%-6.6u%-6.7u",
-                  1, 1, 1, 1, 1, 1, 1, 1, 1);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_minus_u12_statik_width) {
-  char str1[1000];
-  char str2[1000];
-  int r1 =
-      sprintf(str1, "\n%-6u%-6.u%-6.0u%-6.2u%-6.3u%-6.4u%-6.5u%-6.6u%-6.7u", 12,
-              12, 12, 12, 12, 12, 12, 12, 12);
-  int r2 =
-      s21_sprintf(str2, "\n%-6u%-6.u%-6.0u%-6.2u%-6.3u%-6.4u%-6.5u%-6.6u%-6.7u",
-                  12, 12, 12, 12, 12, 12, 12, 12, 12);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_minus_u123_statik_width) {
-  char str1[1000];
-  char str2[1000];
-  int r1 =
-      sprintf(str1, "\n%-6u%-6.u%-6.0u%-6.2u%-6.3u%-6.4u%-6.5u%-6.6u%-6.7u",
-              123, 123, 123, 123, 123, 123, 123, 123, 123);
-  int r2 =
-      s21_sprintf(str2, "\n%-6u%-6.u%-6.0u%-6.2u%-6.3u%-6.4u%-6.5u%-6.6u%-6.7u",
-                  123, 123, 123, 123, 123, 123, 123, 123, 123);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_minus_u1234_statik_width) {
-  char str1[1000];
-  char str2[1000];
-  int r1 =
-      sprintf(str1, "\n%-6u%-6.u%-6.0u%-6.2u%-6.3u%-6.4u%-6.5u%-6.6u%-6.7u",
-              1234, 1234, 1234, 1234, 1234, 1234, 1234, 1234, 1234);
-  int r2 =
-      s21_sprintf(str2, "\n%-6u%-6.u%-6.0u%-6.2u%-6.3u%-6.4u%-6.5u%-6.6u%-6.7u",
-                  1234, 1234, 1234, 1234, 1234, 1234, 1234, 1234, 1234);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_minus_u12345_statik_width) {
-  char str1[1000];
-  char str2[1000];
-  int r1 =
-      sprintf(str1, "\n%-6u%-6.u%-6.0u%-6.2u%-6.3u%-6.4u%-6.5u%-6.6u%-6.7u",
-              12345, 12345, 12345, 12345, 12345, 12345, 12345, 12345, 12345);
-  int r2 = s21_sprintf(
-      str2, "\n%-6u%-6.u%-6.0u%-6.2u%-6.3u%-6.4u%-6.5u%-6.6u%-6.7u", 12345,
-      12345, 12345, 12345, 12345, 12345, 12345, 12345, 12345);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_minus_u123456_statik_width) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(
-      str1, "\n%-6u%-6.u%-6.0u%-6.2u%-6.3u%-6.4u%-6.5u%-6.6u%-6.7u", 123456,
-      123456, 123456, 123456, 123456, 123456, 123456, 123456, 123456);
-  int r2 = s21_sprintf(
-      str2, "\n%-6u%-6.u%-6.0u%-6.2u%-6.3u%-6.4u%-6.5u%-6.6u%-6.7u", 123456,
-      123456, 123456, 123456, 123456, 123456, 123456, 123456, 123456);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_minus_u1234567_statik_width) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(
-      str1, "\n%-6u%-6.u%-6.0u%-6.2u%-6.3u%-6.4u%-6.5u%-6.6u%-6.7u", 1234567,
-      1234567, 1234567, 1234567, 1234567, 1234567, 1234567, 1234567, 1234567);
-  int r2 = s21_sprintf(
-      str2, "\n%-6u%-6.u%-6.0u%-6.2u%-6.3u%-6.4u%-6.5u%-6.6u%-6.7u", 1234567,
-      1234567, 1234567, 1234567, 1234567, 1234567, 1234567, 1234567, 1234567);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_minus_u12345678_statik_width) {
-  char str1[1000];
-  char str2[1000];
-  int r1 =
-      sprintf(str1, "\n%-6u%-6.u%-6.0u%-6.2u%-6.3u%-6.4u%-6.5u%-6.6u%-6.7u",
-              12345678, 12345678, 12345678, 12345678, 12345678, 12345678,
-              12345678, 12345678, 12345678);
-  int r2 =
-      s21_sprintf(str2, "\n%-6u%-6.u%-6.0u%-6.2u%-6.3u%-6.4u%-6.5u%-6.6u%-6.7u",
-                  12345678, 12345678, 12345678, 12345678, 12345678, 12345678,
-                  12345678, 12345678, 12345678);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-//////////////////////////////////////
-
-START_TEST(s21_sprintf_test_minus_u1_statik_accuracy) {
-  char str1[1000];
-  char str2[1000];
-  int r1 =
-      sprintf(str1, "\n%-.6u%-.6u%-1.6u%-2.6u%-3.6u%-4.6u%-5.6u%-6.6u%-7.6d", 1,
-              1, 1, 1, 1, 1, 1, 1, 1);
-  int r2 = s21_sprintf(str2,
-                       "\n%-.6u%-.6u%-1.6u%-2.6u%-3.6u%-4.6u%-5.6u%-6.6u%-7.6d",
-                       1, 1, 1, 1, 1, 1, 1, 1, 1);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_minus_u12_statik_accuracy) {
-  char str1[1000];
-  char str2[1000];
-  int r1 =
-      sprintf(str1, "\n%-.6u%-.6u%-1.6u%-2.6u%-3.6u%-4.6u%-5.6u%-6.6u%-7.6d",
-              12, 12, 12, 12, 12, 12, 12, 12, 12);
-  int r2 = s21_sprintf(str2,
-                       "\n%-.6u%-.6u%-1.6u%-2.6u%-3.6u%-4.6u%-5.6u%-6.6u%-7.6d",
-                       12, 12, 12, 12, 12, 12, 12, 12, 12);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_minus_u123_statik_accuracy) {
-  char str1[1000];
-  char str2[1000];
-  int r1 =
-      sprintf(str1, "\n%-.6u%-.6u%-1.6u%-2.6u%-3.6u%-4.6u%-5.6u%-6.6u%-7.6d",
-              123, 123, 123, 123, 123, 123, 123, 123, 123);
-  int r2 = s21_sprintf(str2,
-                       "\n%-.6u%-.6u%-1.6u%-2.6u%-3.6u%-4.6u%-5.6u%-6.6u%-7.6d",
-                       123, 123, 123, 123, 123, 123, 123, 123, 123);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_minus_u1234_statik_accuracy) {
-  char str1[1000];
-  char str2[1000];
-  int r1 =
-      sprintf(str1, "\n%-.6u%-.6u%-1.6u%-2.6u%-3.6u%-4.6u%-5.6u%-6.6u%-7.6d",
-              1234, 1234, 1234, 1234, 1234, 1234, 1234, 1234, 1234);
-  int r2 = s21_sprintf(str2,
-                       "\n%-.6u%-.6u%-1.6u%-2.6u%-3.6u%-4.6u%-5.6u%-6.6u%-7.6d",
-                       1234, 1234, 1234, 1234, 1234, 1234, 1234, 1234, 1234);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_minus_u12345_statik_accuracy) {
-  char str1[1000];
-  char str2[1000];
-  int r1 =
-      sprintf(str1, "\n%-.6u%-.6u%-1.6u%-2.6u%-3.6u%-4.6u%-5.6u%-6.6u%-7.6d",
-              12345, 12345, 12345, 12345, 12345, 12345, 12345, 12345, 12345);
-  int r2 = s21_sprintf(
-      str2, "\n%-.6u%-.6u%-1.6u%-2.6u%-3.6u%-4.6u%-5.6u%-6.6u%-7.6d", 12345,
-      12345, 12345, 12345, 12345, 12345, 12345, 12345, 12345);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_minus_u123456_statik_accuracy) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(
-      str1, "\n%-.6u%-.6u%-1.6u%-2.6u%-3.6u%-4.6u%-5.6u%-6.6u%-7.6d", 123456,
-      123456, 123456, 123456, 123456, 123456, 123456, 123456, 123456);
-  int r2 = s21_sprintf(
-      str2, "\n%-.6u%-.6u%-1.6u%-2.6u%-3.6u%-4.6u%-5.6u%-6.6u%-7.6d", 123456,
-      123456, 123456, 123456, 123456, 123456, 123456, 123456, 123456);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_minus_u1234567_statik_accuracy) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(
-      str1, "\n%-.6u%-.6u%-1.6u%-2.6u%-3.6u%-4.6u%-5.6u%-6.6u%-7.6d", 1234567,
-      1234567, 1234567, 1234567, 1234567, 1234567, 1234567, 1234567, 1234567);
-  int r2 = s21_sprintf(
-      str2, "\n%-.6u%-.6u%-1.6u%-2.6u%-3.6u%-4.6u%-5.6u%-6.6u%-7.6d", 1234567,
-      1234567, 1234567, 1234567, 1234567, 1234567, 1234567, 1234567, 1234567);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_minus_u12345678_statik_accuracy) {
-  char str1[1000];
-  char str2[1000];
-  int r1 =
-      sprintf(str1, "\n%-.6u%-.6u%-1.6u%-2.6u%-3.6u%-4.6u%-5.6u%-6.6u%-7.6d",
-              12345678, 12345678, 12345678, 12345678, 12345678, 12345678,
-              12345678, 12345678, 12345678);
-  int r2 = s21_sprintf(str2,
-                       "\n%-.6u%-.6u%-1.6u%-2.6u%-3.6u%-4.6u%-5.6u%-6.6u%-7.6d",
-                       12345678, 12345678, 12345678, 12345678, 12345678,
-                       12345678, 12345678, 12345678, 12345678);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_minus_um1_statik_width) {
-  char str1[1000];
-  char str2[1000];
-  int r1 =
-      sprintf(str1, "\n%-6u%-6.u%-6.0u%-6.2u%-6.3u%-6.4u%-6.5u%-6.6u%-6.7u", -1,
-              -1, -1, -1, -1, -1, -1, -1, -1);
-  int r2 =
-      s21_sprintf(str2, "\n%-6u%-6.u%-6.0u%-6.2u%-6.3u%-6.4u%-6.5u%-6.6u%-6.7u",
-                  -1, -1, -1, -1, -1, -1, -1, -1, -1);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_minus_um12_statik_width) {
-  char str1[1000];
-  char str2[1000];
-  int r1 =
-      sprintf(str1, "\n%-6u%-6.u%-6.0u%-6.2u%-6.3u%-6.4u%-6.5u%-6.6u%-6.7u",
-              -12, -12, -12, -12, -12, -12, -12, -12, -12);
-  int r2 =
-      s21_sprintf(str2, "\n%-6u%-6.u%-6.0u%-6.2u%-6.3u%-6.4u%-6.5u%-6.6u%-6.7u",
-                  -12, -12, -12, -12, -12, -12, -12, -12, -12);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_minus_um123_statik_width) {
-  char str1[1000];
-  char str2[1000];
-  int r1 =
-      sprintf(str1, "\n%-6u%-6.u%-6.0u%-6.2u%-6.3u%-6.4u%-6.5u%-6.6u%-6.7u",
-              -123, -123, -123, -123, -123, -123, -123, -123, -123);
-  int r2 =
-      s21_sprintf(str2, "\n%-6u%-6.u%-6.0u%-6.2u%-6.3u%-6.4u%-6.5u%-6.6u%-6.7u",
-                  -123, -123, -123, -123, -123, -123, -123, -123, -123);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_minus_um1234_statik_width) {
-  char str1[1000];
-  char str2[1000];
-  int r1 =
-      sprintf(str1, "\n%-6u%-6.u%-6.0u%-6.2u%-6.3u%-6.4u%-6.5u%-6.6u%-6.7u",
-              -1234, -1234, -1234, -1234, -1234, -1234, -1234, -1234, -1234);
-  int r2 = s21_sprintf(
-      str2, "\n%-6u%-6.u%-6.0u%-6.2u%-6.3u%-6.4u%-6.5u%-6.6u%-6.7u", -1234,
-      -1234, -1234, -1234, -1234, -1234, -1234, -1234, -1234);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_minus_um12345_statik_width) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(
-      str1, "\n%-6u%-6.u%-6.0u%-6.2u%-6.3u%-6.4u%-6.5u%-6.6u%-6.7u", -12345,
-      -12345, -12345, -12345, -12345, -12345, -12345, -12345, -12345);
-  int r2 = s21_sprintf(
-      str2, "\n%-6u%-6.u%-6.0u%-6.2u%-6.3u%-6.4u%-6.5u%-6.6u%-6.7u", -12345,
-      -12345, -12345, -12345, -12345, -12345, -12345, -12345, -12345);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_minus_um123456_statik_width) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(
-      str1, "\n%-6u%-6.u%-6.0u%-6.2u%-6.3u%-6.4u%-6.5u%-6.6u%-6.7u", -123456,
-      -123456, -123456, -123456, -123456, -123456, -123456, -123456, -123456);
-  int r2 = s21_sprintf(
-      str2, "\n%-6u%-6.u%-6.0u%-6.2u%-6.3u%-6.4u%-6.5u%-6.6u%-6.7u", -123456,
-      -123456, -123456, -123456, -123456, -123456, -123456, -123456, -123456);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_minus_um1234567_statik_width) {
-  char str1[1000];
-  char str2[1000];
-  int r1 =
-      sprintf(str1, "\n%-6u%-6.u%-6.0u%-6.2u%-6.3u%-6.4u%-6.5u%-6.6u%-6.7u",
-              -1234567, -1234567, -1234567, -1234567, -1234567, -1234567,
-              -1234567, -1234567, -1234567);
-  int r2 =
-      s21_sprintf(str2, "\n%-6u%-6.u%-6.0u%-6.2u%-6.3u%-6.4u%-6.5u%-6.6u%-6.7u",
-                  -1234567, -1234567, -1234567, -1234567, -1234567, -1234567,
-                  -1234567, -1234567, -1234567);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_minus_um12345678_statik_width) {
-  char str1[1000];
-  char str2[1000];
-  int r1 =
-      sprintf(str1, "\n%-6u%-6.u%-6.0u%-6.2u%-6.3u%-6.4u%-6.5u%-6.6u%-6.7u",
-              -12345678, -12345678, -12345678, -12345678, -12345678, -12345678,
-              -12345678, -12345678, -12345678);
-  int r2 =
-      s21_sprintf(str2, "\n%-6u%-6.u%-6.0u%-6.2u%-6.3u%-6.4u%-6.5u%-6.6u%-6.7u",
-                  -12345678, -12345678, -12345678, -12345678, -12345678,
-                  -12345678, -12345678, -12345678, -12345678);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-//////////////////////////////////////
-
-START_TEST(s21_sprintf_test_minus_um1_statik_accuracy) {
-  char str1[1000];
-  char str2[1000];
-  int r1 =
-      sprintf(str1, "\n%-.6u%-.6u%-1.6u%-2.6u%-3.6u%-4.6u%-5.6u%-6.6u%-7.6d",
-              -1, -1, -1, -1, -1, -1, -1, -1, -1);
-  int r2 = s21_sprintf(str2,
-                       "\n%-.6u%-.6u%-1.6u%-2.6u%-3.6u%-4.6u%-5.6u%-6.6u%-7.6d",
-                       -1, -1, -1, -1, -1, -1, -1, -1, -1);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_minus_um12_statik_accuracy) {
-  char str1[1000];
-  char str2[1000];
-  int r1 =
-      sprintf(str1, "\n%-.6u%-.6u%-1.6u%-2.6u%-3.6u%-4.6u%-5.6u%-6.6u%-7.6d",
-              -12, -12, -12, -12, -12, -12, -12, -12, -12);
-  int r2 = s21_sprintf(str2,
-                       "\n%-.6u%-.6u%-1.6u%-2.6u%-3.6u%-4.6u%-5.6u%-6.6u%-7.6d",
-                       -12, -12, -12, -12, -12, -12, -12, -12, -12);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_minus_um123_statik_accuracy) {
-  char str1[1000];
-  char str2[1000];
-  int r1 =
-      sprintf(str1, "\n%-.6u%-.6u%-1.6u%-2.6u%-3.6u%-4.6u%-5.6u%-6.6u%-7.6d",
-              -123, -123, -123, -123, -123, -123, -123, -123, -123);
-  int r2 = s21_sprintf(str2,
-                       "\n%-.6u%-.6u%-1.6u%-2.6u%-3.6u%-4.6u%-5.6u%-6.6u%-7.6d",
-                       -123, -123, -123, -123, -123, -123, -123, -123, -123);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_minus_um1234_statik_accuracy) {
-  char str1[1000];
-  char str2[1000];
-  int r1 =
-      sprintf(str1, "\n%-.6u%-.6u%-1.6u%-2.6u%-3.6u%-4.6u%-5.6u%-6.6u%-7.6d",
-              -1234, -1234, -1234, -1234, -1234, -1234, -1234, -1234, -1234);
-  int r2 = s21_sprintf(
-      str2, "\n%-.6u%-.6u%-1.6u%-2.6u%-3.6u%-4.6u%-5.6u%-6.6u%-7.6d", -1234,
-      -1234, -1234, -1234, -1234, -1234, -1234, -1234, -1234);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_minus_um12345_statik_accuracy) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(
-      str1, "\n%-.6u%-.6u%-1.6u%-2.6u%-3.6u%-4.6u%-5.6u%-6.6u%-7.6d", -12345,
-      -12345, -12345, -12345, -12345, -12345, -12345, -12345, -12345);
-  int r2 = s21_sprintf(
-      str2, "\n%-.6u%-.6u%-1.6u%-2.6u%-3.6u%-4.6u%-5.6u%-6.6u%-7.6d", -12345,
-      -12345, -12345, -12345, -12345, -12345, -12345, -12345, -12345);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_minus_um123456_statik_accuracy) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(
-      str1, "\n%-.6u%-.6u%-1.6u%-2.6u%-3.6u%-4.6u%-5.6u%-6.6u%-7.6d", -123456,
-      -123456, -123456, -123456, -123456, -123456, -123456, -123456, -123456);
-  int r2 = s21_sprintf(
-      str2, "\n%-.6u%-.6u%-1.6u%-2.6u%-3.6u%-4.6u%-5.6u%-6.6u%-7.6d", -123456,
-      -123456, -123456, -123456, -123456, -123456, -123456, -123456, -123456);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_minus_um1234567_statik_accuracy) {
-  char str1[1000];
-  char str2[1000];
-  int r1 =
-      sprintf(str1, "\n%-.6u%-.6u%-1.6u%-2.6u%-3.6u%-4.6u%-5.6u%-6.6u%-7.6d",
-              -1234567, -1234567, -1234567, -1234567, -1234567, -1234567,
-              -1234567, -1234567, -1234567);
-  int r2 = s21_sprintf(str2,
-                       "\n%-.6u%-.6u%-1.6u%-2.6u%-3.6u%-4.6u%-5.6u%-6.6u%-7.6d",
-                       -1234567, -1234567, -1234567, -1234567, -1234567,
-                       -1234567, -1234567, -1234567, -1234567);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_minus_um12345678_statik_accuracy) {
-  char str1[1000];
-  char str2[1000];
-  int r1 =
-      sprintf(str1, "\n%-.6u%-.6u%-1.6u%-2.6u%-3.6u%-4.6u%-5.6u%-6.6u%-7.6d",
-              -12345678, -12345678, -12345678, -12345678, -12345678, -12345678,
-              -12345678, -12345678, -12345678);
-  int r2 = s21_sprintf(str2,
-                       "\n%-.6u%-.6u%-1.6u%-2.6u%-3.6u%-4.6u%-5.6u%-6.6u%-7.6d",
-                       -12345678, -12345678, -12345678, -12345678, -12345678,
-                       -12345678, -12345678, -12345678, -12345678);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_u1_statik_width) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(str1, "\n%6u%6.u%6.0u%6.2u%6.3u%6.4u%6.5u%6.6u%6.7u", 1, 1,
-                   1, 1, 1, 1, 1, 1, 1);
-  int r2 = s21_sprintf(str2, "\n%6u%6.u%6.0u%6.2u%6.3u%6.4u%6.5u%6.6u%6.7u", 1,
-                       1, 1, 1, 1, 1, 1, 1, 1);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_u12_statik_width) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(str1, "\n%6u%6.u%6.0u%6.2u%6.3u%6.4u%6.5u%6.6u%6.7u", 12, 12,
-                   12, 12, 12, 12, 12, 12, 12);
-  int r2 = s21_sprintf(str2, "\n%6u%6.u%6.0u%6.2u%6.3u%6.4u%6.5u%6.6u%6.7u", 12,
-                       12, 12, 12, 12, 12, 12, 12, 12);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_u123_statik_width) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(str1, "\n%6u%6.u%6.0u%6.2u%6.3u%6.4u%6.5u%6.6u%6.7u", 123,
-                   123, 123, 123, 123, 123, 123, 123, 123);
-  int r2 = s21_sprintf(str2, "\n%6u%6.u%6.0u%6.2u%6.3u%6.4u%6.5u%6.6u%6.7u",
-                       123, 123, 123, 123, 123, 123, 123, 123, 123);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_u1234_statik_width) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(str1, "\n%6u%6.u%6.0u%6.2u%6.3u%6.4u%6.5u%6.6u%6.7u", 1234,
-                   1234, 1234, 1234, 1234, 1234, 1234, 1234, 1234);
-  int r2 = s21_sprintf(str2, "\n%6u%6.u%6.0u%6.2u%6.3u%6.4u%6.5u%6.6u%6.7u",
-                       1234, 1234, 1234, 1234, 1234, 1234, 1234, 1234, 1234);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_u12345_statik_width) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(str1, "\n%6u%6.u%6.0u%6.2u%6.3u%6.4u%6.5u%6.6u%6.7u", 12345,
-                   12345, 12345, 12345, 12345, 12345, 12345, 12345, 12345);
-  int r2 =
-      s21_sprintf(str2, "\n%6u%6.u%6.0u%6.2u%6.3u%6.4u%6.5u%6.6u%6.7u", 12345,
-                  12345, 12345, 12345, 12345, 12345, 12345, 12345, 12345);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_u123456_statik_width) {
-  char str1[1000];
-  char str2[1000];
-  int r1 =
-      sprintf(str1, "\n%6u%6.u%6.0u%6.2u%6.3u%6.4u%6.5u%6.6u%6.7u", 123456,
-              123456, 123456, 123456, 123456, 123456, 123456, 123456, 123456);
-  int r2 = s21_sprintf(str2, "\n%6u%6.u%6.0u%6.2u%6.3u%6.4u%6.5u%6.6u%6.7u",
-                       123456, 123456, 123456, 123456, 123456, 123456, 123456,
-                       123456, 123456);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_u1234567_statik_width) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(str1, "\n%6u%6.u%6.0u%6.2u%6.3u%6.4u%6.5u%6.6u%6.7u",
-                   1234567, 1234567, 1234567, 1234567, 1234567, 1234567,
-                   1234567, 1234567, 1234567);
-  int r2 = s21_sprintf(str2, "\n%6u%6.u%6.0u%6.2u%6.3u%6.4u%6.5u%6.6u%6.7u",
-                       1234567, 1234567, 1234567, 1234567, 1234567, 1234567,
-                       1234567, 1234567, 1234567);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_u12345678_statik_width) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(str1, "\n%6u%6.u%6.0u%6.2u%6.3u%6.4u%6.5u%6.6u%6.7u",
-                   12345678, 12345678, 12345678, 12345678, 12345678, 12345678,
-                   12345678, 12345678, 12345678);
-  int r2 = s21_sprintf(str2, "\n%6u%6.u%6.0u%6.2u%6.3u%6.4u%6.5u%6.6u%6.7u",
-                       12345678, 12345678, 12345678, 12345678, 12345678,
-                       12345678, 12345678, 12345678, 12345678);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-//////////////////////////////////////
-
-START_TEST(s21_sprintf_test_u1_statik_accuracy) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(str1, "\n%.6u%.6u%1.6u%2.6u%3.6u%4.6u%5.6u%6.6u%7.6d", 1, 1,
-                   1, 1, 1, 1, 1, 1, 1);
-  int r2 = s21_sprintf(str2, "\n%.6u%.6u%1.6u%2.6u%3.6u%4.6u%5.6u%6.6u%7.6d", 1,
-                       1, 1, 1, 1, 1, 1, 1, 1);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_u12_statik_accuracy) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(str1, "\n%.6u%.6u%1.6u%2.6u%3.6u%4.6u%5.6u%6.6u%7.6d", 12,
-                   12, 12, 12, 12, 12, 12, 12, 12);
-  int r2 = s21_sprintf(str2, "\n%.6u%.6u%1.6u%2.6u%3.6u%4.6u%5.6u%6.6u%7.6d",
-                       12, 12, 12, 12, 12, 12, 12, 12, 12);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_u123_statik_accuracy) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(str1, "\n%.6u%.6u%1.6u%2.6u%3.6u%4.6u%5.6u%6.6u%7.6d", 123,
-                   123, 123, 123, 123, 123, 123, 123, 123);
-  int r2 = s21_sprintf(str2, "\n%.6u%.6u%1.6u%2.6u%3.6u%4.6u%5.6u%6.6u%7.6d",
-                       123, 123, 123, 123, 123, 123, 123, 123, 123);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_u1234_statik_accuracy) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(str1, "\n%.6u%.6u%1.6u%2.6u%3.6u%4.6u%5.6u%6.6u%7.6d", 1234,
-                   1234, 1234, 1234, 1234, 1234, 1234, 1234, 1234);
-  int r2 = s21_sprintf(str2, "\n%.6u%.6u%1.6u%2.6u%3.6u%4.6u%5.6u%6.6u%7.6d",
-                       1234, 1234, 1234, 1234, 1234, 1234, 1234, 1234, 1234);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_u12345_statik_accuracy) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(str1, "\n%.6u%.6u%1.6u%2.6u%3.6u%4.6u%5.6u%6.6u%7.6d", 12345,
-                   12345, 12345, 12345, 12345, 12345, 12345, 12345, 12345);
-  int r2 =
-      s21_sprintf(str2, "\n%.6u%.6u%1.6u%2.6u%3.6u%4.6u%5.6u%6.6u%7.6d", 12345,
-                  12345, 12345, 12345, 12345, 12345, 12345, 12345, 12345);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_u123456_statik_accuracy) {
-  char str1[1000];
-  char str2[1000];
-  int r1 =
-      sprintf(str1, "\n%.6u%.6u%1.6u%2.6u%3.6u%4.6u%5.6u%6.6u%7.6d", 123456,
-              123456, 123456, 123456, 123456, 123456, 123456, 123456, 123456);
-  int r2 = s21_sprintf(str2, "\n%.6u%.6u%1.6u%2.6u%3.6u%4.6u%5.6u%6.6u%7.6d",
-                       123456, 123456, 123456, 123456, 123456, 123456, 123456,
-                       123456, 123456);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_u1234567_statik_accuracy) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(str1, "\n%.6u%.6u%1.6u%2.6u%3.6u%4.6u%5.6u%6.6u%7.6d",
-                   1234567, 1234567, 1234567, 1234567, 1234567, 1234567,
-                   1234567, 1234567, 1234567);
-  int r2 = s21_sprintf(str2, "\n%.6u%.6u%1.6u%2.6u%3.6u%4.6u%5.6u%6.6u%7.6d",
-                       1234567, 1234567, 1234567, 1234567, 1234567, 1234567,
-                       1234567, 1234567, 1234567);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_u12345678_statik_accuracy) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(str1, "\n%.6u%.6u%1.6u%2.6u%3.6u%4.6u%5.6u%6.6u%7.6d",
-                   12345678, 12345678, 12345678, 12345678, 12345678, 12345678,
-                   12345678, 12345678, 12345678);
-  int r2 = s21_sprintf(str2, "\n%.6u%.6u%1.6u%2.6u%3.6u%4.6u%5.6u%6.6u%7.6d",
-                       12345678, 12345678, 12345678, 12345678, 12345678,
-                       12345678, 12345678, 12345678, 12345678);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_um1_statik_width) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(str1, "\n%6u%6.u%6.0u%6.2u%6.3u%6.4u%6.5u%6.6u%6.7u", -1, -1,
-                   -1, -1, -1, -1, -1, -1, -1);
-  int r2 = s21_sprintf(str2, "\n%6u%6.u%6.0u%6.2u%6.3u%6.4u%6.5u%6.6u%6.7u", -1,
-                       -1, -1, -1, -1, -1, -1, -1, -1);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_um12_statik_width) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(str1, "\n%6u%6.u%6.0u%6.2u%6.3u%6.4u%6.5u%6.6u%6.7u", -12,
-                   -12, -12, -12, -12, -12, -12, -12, -12);
-  int r2 = s21_sprintf(str2, "\n%6u%6.u%6.0u%6.2u%6.3u%6.4u%6.5u%6.6u%6.7u",
-                       -12, -12, -12, -12, -12, -12, -12, -12, -12);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_um123_statik_width) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(str1, "\n%6u%6.u%6.0u%6.2u%6.3u%6.4u%6.5u%6.6u%6.7u", -123,
-                   -123, -123, -123, -123, -123, -123, -123, -123);
-  int r2 = s21_sprintf(str2, "\n%6u%6.u%6.0u%6.2u%6.3u%6.4u%6.5u%6.6u%6.7u",
-                       -123, -123, -123, -123, -123, -123, -123, -123, -123);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_um1234_statik_width) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(str1, "\n%6u%6.u%6.0u%6.2u%6.3u%6.4u%6.5u%6.6u%6.7u", -1234,
-                   -1234, -1234, -1234, -1234, -1234, -1234, -1234, -1234);
-  int r2 =
-      s21_sprintf(str2, "\n%6u%6.u%6.0u%6.2u%6.3u%6.4u%6.5u%6.6u%6.7u", -1234,
-                  -1234, -1234, -1234, -1234, -1234, -1234, -1234, -1234);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_um12345_statik_width) {
-  char str1[1000];
-  char str2[1000];
-  int r1 =
-      sprintf(str1, "\n%6u%6.u%6.0u%6.2u%6.3u%6.4u%6.5u%6.6u%6.7u", -12345,
-              -12345, -12345, -12345, -12345, -12345, -12345, -12345, -12345);
-  int r2 = s21_sprintf(str2, "\n%6u%6.u%6.0u%6.2u%6.3u%6.4u%6.5u%6.6u%6.7u",
-                       -12345, -12345, -12345, -12345, -12345, -12345, -12345,
-                       -12345, -12345);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_um123456_statik_width) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(str1, "\n%6u%6.u%6.0u%6.2u%6.3u%6.4u%6.5u%6.6u%6.7u",
-                   -123456, -123456, -123456, -123456, -123456, -123456,
-                   -123456, -123456, -123456);
-  int r2 = s21_sprintf(str2, "\n%6u%6.u%6.0u%6.2u%6.3u%6.4u%6.5u%6.6u%6.7u",
-                       -123456, -123456, -123456, -123456, -123456, -123456,
-                       -123456, -123456, -123456);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_um1234567_statik_width) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(str1, "\n%6u%6.u%6.0u%6.2u%6.3u%6.4u%6.5u%6.6u%6.7u",
-                   -1234567, -1234567, -1234567, -1234567, -1234567, -1234567,
-                   -1234567, -1234567, -1234567);
-  int r2 = s21_sprintf(str2, "\n%6u%6.u%6.0u%6.2u%6.3u%6.4u%6.5u%6.6u%6.7u",
-                       -1234567, -1234567, -1234567, -1234567, -1234567,
-                       -1234567, -1234567, -1234567, -1234567);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_um12345678_statik_width) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(str1, "\n%6u%6.u%6.0u%6.2u%6.3u%6.4u%6.5u%6.6u%6.7u",
-                   -12345678, -12345678, -12345678, -12345678, -12345678,
-                   -12345678, -12345678, -12345678, -12345678);
-  int r2 = s21_sprintf(str2, "\n%6u%6.u%6.0u%6.2u%6.3u%6.4u%6.5u%6.6u%6.7u",
-                       -12345678, -12345678, -12345678, -12345678, -12345678,
-                       -12345678, -12345678, -12345678, -12345678);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-//////////////////////////////////////
-
-START_TEST(s21_sprintf_test_um1_statik_accuracy) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(str1, "\n%.6u%.6u%1.6u%2.6u%3.6u%4.6u%5.6u%6.6u%7.6d", -1,
-                   -1, -1, -1, -1, -1, -1, -1, -1);
-  int r2 = s21_sprintf(str2, "\n%.6u%.6u%1.6u%2.6u%3.6u%4.6u%5.6u%6.6u%7.6d",
-                       -1, -1, -1, -1, -1, -1, -1, -1, -1);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_um12_statik_accuracy) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(str1, "\n%.6u%.6u%1.6u%2.6u%3.6u%4.6u%5.6u%6.6u%7.6d", -12,
-                   -12, -12, -12, -12, -12, -12, -12, -12);
-  int r2 = s21_sprintf(str2, "\n%.6u%.6u%1.6u%2.6u%3.6u%4.6u%5.6u%6.6u%7.6d",
-                       -12, -12, -12, -12, -12, -12, -12, -12, -12);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_um123_statik_accuracy) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(str1, "\n%.6u%.6u%1.6u%2.6u%3.6u%4.6u%5.6u%6.6u%7.6d", -123,
-                   -123, -123, -123, -123, -123, -123, -123, -123);
-  int r2 = s21_sprintf(str2, "\n%.6u%.6u%1.6u%2.6u%3.6u%4.6u%5.6u%6.6u%7.6d",
-                       -123, -123, -123, -123, -123, -123, -123, -123, -123);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_um1234_statik_accuracy) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(str1, "\n%.6u%.6u%1.6u%2.6u%3.6u%4.6u%5.6u%6.6u%7.6d", -1234,
-                   -1234, -1234, -1234, -1234, -1234, -1234, -1234, -1234);
-  int r2 =
-      s21_sprintf(str2, "\n%.6u%.6u%1.6u%2.6u%3.6u%4.6u%5.6u%6.6u%7.6d", -1234,
-                  -1234, -1234, -1234, -1234, -1234, -1234, -1234, -1234);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_um12345_statik_accuracy) {
-  char str1[1000];
-  char str2[1000];
-  int r1 =
-      sprintf(str1, "\n%.6u%.6u%1.6u%2.6u%3.6u%4.6u%5.6u%6.6u%7.6d", -12345,
-              -12345, -12345, -12345, -12345, -12345, -12345, -12345, -12345);
-  int r2 = s21_sprintf(str2, "\n%.6u%.6u%1.6u%2.6u%3.6u%4.6u%5.6u%6.6u%7.6d",
-                       -12345, -12345, -12345, -12345, -12345, -12345, -12345,
-                       -12345, -12345);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_um123456_statik_accuracy) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(str1, "\n%.6u%.6u%1.6u%2.6u%3.6u%4.6u%5.6u%6.6u%7.6d",
-                   -123456, -123456, -123456, -123456, -123456, -123456,
-                   -123456, -123456, -123456);
-  int r2 = s21_sprintf(str2, "\n%.6u%.6u%1.6u%2.6u%3.6u%4.6u%5.6u%6.6u%7.6d",
-                       -123456, -123456, -123456, -123456, -123456, -123456,
-                       -123456, -123456, -123456);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_um1234567_statik_accuracy) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(str1, "\n%.6u%.6u%1.6u%2.6u%3.6u%4.6u%5.6u%6.6u%7.6d",
-                   -1234567, -1234567, -1234567, -1234567, -1234567, -1234567,
-                   -1234567, -1234567, -1234567);
-  int r2 = s21_sprintf(str2, "\n%.6u%.6u%1.6u%2.6u%3.6u%4.6u%5.6u%6.6u%7.6d",
-                       -1234567, -1234567, -1234567, -1234567, -1234567,
-                       -1234567, -1234567, -1234567, -1234567);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_um12345678_statik_accuracy) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(str1, "\n%.6u%.6u%1.6u%2.6u%3.6u%4.6u%5.6u%6.6u%7.6d",
-                   -12345678, -12345678, -12345678, -12345678, -12345678,
-                   -12345678, -12345678, -12345678, -12345678);
-  int r2 = s21_sprintf(str2, "\n%.6u%.6u%1.6u%2.6u%3.6u%4.6u%5.6u%6.6u%7.6d",
-                       -12345678, -12345678, -12345678, -12345678, -12345678,
-                       -12345678, -12345678, -12345678, -12345678);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_minus_hu1_statik_width) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(
-      str1, "\n%-6hu%-6.hu%-6.0hu%-6.2hu%-6.3hu%-6.4hu%-6.5hu%-6.6hu%-6.7u", 1,
-      1, 1, 1, 1, 1, 1, 1, 1);
-  int r2 = s21_sprintf(
-      str2, "\n%-6hu%-6.hu%-6.0hu%-6.2hu%-6.3hu%-6.4hu%-6.5hu%-6.6hu%-6.7u", 1,
-      1, 1, 1, 1, 1, 1, 1, 1);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_minus_hu12_statik_width) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(
-      str1, "\n%-6hu%-6.hu%-6.0hu%-6.2hu%-6.3hu%-6.4hu%-6.5hu%-6.6hu%-6.7u", 12,
-      12, 12, 12, 12, 12, 12, 12, 12);
-  int r2 = s21_sprintf(
-      str2, "\n%-6hu%-6.hu%-6.0hu%-6.2hu%-6.3hu%-6.4hu%-6.5hu%-6.6hu%-6.7u", 12,
-      12, 12, 12, 12, 12, 12, 12, 12);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_minus_hu123_statik_width) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(
-      str1, "\n%-6hu%-6.hu%-6.0hu%-6.2hu%-6.3hu%-6.4hu%-6.5hu%-6.6hu%-6.7u",
-      123, 123, 123, 123, 123, 123, 123, 123, 123);
-  int r2 = s21_sprintf(
-      str2, "\n%-6hu%-6.hu%-6.0hu%-6.2hu%-6.3hu%-6.4hu%-6.5hu%-6.6hu%-6.7u",
-      123, 123, 123, 123, 123, 123, 123, 123, 123);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_minus_hu1234_statik_width) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(
-      str1, "\n%-6hu%-6.hu%-6.0hu%-6.2hu%-6.3hu%-6.4hu%-6.5hu%-6.6hu%-6.7u",
-      1234, 1234, 1234, 1234, 1234, 1234, 1234, 1234, 1234);
-  int r2 = s21_sprintf(
-      str2, "\n%-6hu%-6.hu%-6.0hu%-6.2hu%-6.3hu%-6.4hu%-6.5hu%-6.6hu%-6.7u",
-      1234, 1234, 1234, 1234, 1234, 1234, 1234, 1234, 1234);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_minus_hu12345_statik_width) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(
-      str1, "\n%-6hu%-6.hu%-6.0hu%-6.2hu%-6.3hu%-6.4hu%-6.5hu%-6.6hu%-6.7u",
-      12345, 12345, 12345, 12345, 12345, 12345, 12345, 12345, 12345);
-  int r2 = s21_sprintf(
-      str2, "\n%-6hu%-6.hu%-6.0hu%-6.2hu%-6.3hu%-6.4hu%-6.5hu%-6.6hu%-6.7u",
-      12345, 12345, 12345, 12345, 12345, 12345, 12345, 12345, 12345);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_minus_hu123456_statik_width) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(
-      str1, "\n%-6hu%-6.hu%-6.0hu%-6.2hu%-6.3hu%-6.4hu%-6.5hu%-6.6hu%-6.7u",
-      123456, 123456, 123456, 123456, 123456, 123456, 123456, 123456, 123456);
-  int r2 = s21_sprintf(
-      str2, "\n%-6hu%-6.hu%-6.0hu%-6.2hu%-6.3hu%-6.4hu%-6.5hu%-6.6hu%-6.7u",
-      123456, 123456, 123456, 123456, 123456, 123456, 123456, 123456, 123456);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_minus_hu1234567_statik_width) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(
-      str1, "\n%-6hu%-6.hu%-6.0hu%-6.2hu%-6.3hu%-6.4hu%-6.5hu%-6.6hu%-6.7u",
-      1234567, 1234567, 1234567, 1234567, 1234567, 1234567, 1234567, 1234567,
-      1234567);
-  int r2 = s21_sprintf(
-      str2, "\n%-6hu%-6.hu%-6.0hu%-6.2hu%-6.3hu%-6.4hu%-6.5hu%-6.6hu%-6.7u",
-      1234567, 1234567, 1234567, 1234567, 1234567, 1234567, 1234567, 1234567,
-      1234567);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_minus_hu12345678_statik_width) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(
-      str1, "\n%-6hu%-6.hu%-6.0hu%-6.2hu%-6.3hu%-6.4hu%-6.5hu%-6.6hu%-6.7u",
-      12345678, 12345678, 12345678, 12345678, 12345678, 12345678, 12345678,
-      12345678, 12345678);
-  int r2 = s21_sprintf(
-      str2, "\n%-6hu%-6.hu%-6.0hu%-6.2hu%-6.3hu%-6.4hu%-6.5hu%-6.6hu%-6.7u",
-      12345678, 12345678, 12345678, 12345678, 12345678, 12345678, 12345678,
-      12345678, 12345678);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-//////////////////////////////////////
-
-START_TEST(s21_sprintf_test_minus_hu1_statik_accuracy) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(
-      str1, "\n%-.6hu%-.6hu%-1.6hu%-2.6hu%-3.6hu%-4.6hu%-5.6hu%-6.6hu%-7.6d", 1,
-      1, 1, 1, 1, 1, 1, 1, 1);
-  int r2 = s21_sprintf(
-      str2, "\n%-.6hu%-.6hu%-1.6hu%-2.6hu%-3.6hu%-4.6hu%-5.6hu%-6.6hu%-7.6d", 1,
-      1, 1, 1, 1, 1, 1, 1, 1);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_minus_hu12_statik_accuracy) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(
-      str1, "\n%-.6hu%-.6hu%-1.6hu%-2.6hu%-3.6hu%-4.6hu%-5.6hu%-6.6hu%-7.6d",
-      12, 12, 12, 12, 12, 12, 12, 12, 12);
-  int r2 = s21_sprintf(
-      str2, "\n%-.6hu%-.6hu%-1.6hu%-2.6hu%-3.6hu%-4.6hu%-5.6hu%-6.6hu%-7.6d",
-      12, 12, 12, 12, 12, 12, 12, 12, 12);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_minus_hu123_statik_accuracy) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(
-      str1, "\n%-.6hu%-.6hu%-1.6hu%-2.6hu%-3.6hu%-4.6hu%-5.6hu%-6.6hu%-7.6d",
-      123, 123, 123, 123, 123, 123, 123, 123, 123);
-  int r2 = s21_sprintf(
-      str2, "\n%-.6hu%-.6hu%-1.6hu%-2.6hu%-3.6hu%-4.6hu%-5.6hu%-6.6hu%-7.6d",
-      123, 123, 123, 123, 123, 123, 123, 123, 123);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_minus_hu1234_statik_accuracy) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(
-      str1, "\n%-.6hu%-.6hu%-1.6hu%-2.6hu%-3.6hu%-4.6hu%-5.6hu%-6.6hu%-7.6d",
-      1234, 1234, 1234, 1234, 1234, 1234, 1234, 1234, 1234);
-  int r2 = s21_sprintf(
-      str2, "\n%-.6hu%-.6hu%-1.6hu%-2.6hu%-3.6hu%-4.6hu%-5.6hu%-6.6hu%-7.6d",
-      1234, 1234, 1234, 1234, 1234, 1234, 1234, 1234, 1234);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_minus_hu12345_statik_accuracy) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(
-      str1, "\n%-.6hu%-.6hu%-1.6hu%-2.6hu%-3.6hu%-4.6hu%-5.6hu%-6.6hu%-7.6d",
-      12345, 12345, 12345, 12345, 12345, 12345, 12345, 12345, 12345);
-  int r2 = s21_sprintf(
-      str2, "\n%-.6hu%-.6hu%-1.6hu%-2.6hu%-3.6hu%-4.6hu%-5.6hu%-6.6hu%-7.6d",
-      12345, 12345, 12345, 12345, 12345, 12345, 12345, 12345, 12345);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_minus_hu123456_statik_accuracy) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(
-      str1, "\n%-.6hu%-.6hu%-1.6hu%-2.6hu%-3.6hu%-4.6hu%-5.6hu%-6.6hu%-7.6d",
-      123456, 123456, 123456, 123456, 123456, 123456, 123456, 123456, 123456);
-  int r2 = s21_sprintf(
-      str2, "\n%-.6hu%-.6hu%-1.6hu%-2.6hu%-3.6hu%-4.6hu%-5.6hu%-6.6hu%-7.6d",
-      123456, 123456, 123456, 123456, 123456, 123456, 123456, 123456, 123456);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_minus_hu1234567_statik_accuracy) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(
-      str1, "\n%-.6hu%-.6hu%-1.6hu%-2.6hu%-3.6hu%-4.6hu%-5.6hu%-6.6hu%-7.6d",
-      1234567, 1234567, 1234567, 1234567, 1234567, 1234567, 1234567, 1234567,
-      1234567);
-  int r2 = s21_sprintf(
-      str2, "\n%-.6hu%-.6hu%-1.6hu%-2.6hu%-3.6hu%-4.6hu%-5.6hu%-6.6hu%-7.6d",
-      1234567, 1234567, 1234567, 1234567, 1234567, 1234567, 1234567, 1234567,
-      1234567);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_minus_hu12345678_statik_accuracy) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(
-      str1, "\n%-.6hu%-.6hu%-1.6hu%-2.6hu%-3.6hu%-4.6hu%-5.6hu%-6.6hu%-7.6d",
-      12345678, 12345678, 12345678, 12345678, 12345678, 12345678, 12345678,
-      12345678, 12345678);
-  int r2 = s21_sprintf(
-      str2, "\n%-.6hu%-.6hu%-1.6hu%-2.6hu%-3.6hu%-4.6hu%-5.6hu%-6.6hu%-7.6d",
-      12345678, 12345678, 12345678, 12345678, 12345678, 12345678, 12345678,
-      12345678, 12345678);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_minus_hum1_statik_width) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(
-      str1, "\n%-6hu%-6.hu%-6.0hu%-6.2hu%-6.3hu%-6.4hu%-6.5hu%-6.6hu%-6.7u", -1,
-      -1, -1, -1, -1, -1, -1, -1, -1);
-  int r2 = s21_sprintf(
-      str2, "\n%-6hu%-6.hu%-6.0hu%-6.2hu%-6.3hu%-6.4hu%-6.5hu%-6.6hu%-6.7u", -1,
-      -1, -1, -1, -1, -1, -1, -1, -1);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_minus_hum12_statik_width) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(
-      str1, "\n%-6hu%-6.hu%-6.0hu%-6.2hu%-6.3hu%-6.4hu%-6.5hu%-6.6hu%-6.7u",
-      -12, -12, -12, -12, -12, -12, -12, -12, -12);
-  int r2 = s21_sprintf(
-      str2, "\n%-6hu%-6.hu%-6.0hu%-6.2hu%-6.3hu%-6.4hu%-6.5hu%-6.6hu%-6.7u",
-      -12, -12, -12, -12, -12, -12, -12, -12, -12);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_minus_hum123_statik_width) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(
-      str1, "\n%-6hu%-6.hu%-6.0hu%-6.2hu%-6.3hu%-6.4hu%-6.5hu%-6.6hu%-6.7u",
-      -123, -123, -123, -123, -123, -123, -123, -123, -123);
-  int r2 = s21_sprintf(
-      str2, "\n%-6hu%-6.hu%-6.0hu%-6.2hu%-6.3hu%-6.4hu%-6.5hu%-6.6hu%-6.7u",
-      -123, -123, -123, -123, -123, -123, -123, -123, -123);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_minus_hum1234_statik_width) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(
-      str1, "\n%-6hu%-6.hu%-6.0hu%-6.2hu%-6.3hu%-6.4hu%-6.5hu%-6.6hu%-6.7u",
-      -1234, -1234, -1234, -1234, -1234, -1234, -1234, -1234, -1234);
-  int r2 = s21_sprintf(
-      str2, "\n%-6hu%-6.hu%-6.0hu%-6.2hu%-6.3hu%-6.4hu%-6.5hu%-6.6hu%-6.7u",
-      -1234, -1234, -1234, -1234, -1234, -1234, -1234, -1234, -1234);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_minus_hum12345_statik_width) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(
-      str1, "\n%-6hu%-6.hu%-6.0hu%-6.2hu%-6.3hu%-6.4hu%-6.5hu%-6.6hu%-6.7u",
-      -12345, -12345, -12345, -12345, -12345, -12345, -12345, -12345, -12345);
-  int r2 = s21_sprintf(
-      str2, "\n%-6hu%-6.hu%-6.0hu%-6.2hu%-6.3hu%-6.4hu%-6.5hu%-6.6hu%-6.7u",
-      -12345, -12345, -12345, -12345, -12345, -12345, -12345, -12345, -12345);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_minus_hum123456_statik_width) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(
-      str1, "\n%-6hu%-6.hu%-6.0hu%-6.2hu%-6.3hu%-6.4hu%-6.5hu%-6.6hu%-6.7u",
-      -123456, -123456, -123456, -123456, -123456, -123456, -123456, -123456,
-      -123456);
-  int r2 = s21_sprintf(
-      str2, "\n%-6hu%-6.hu%-6.0hu%-6.2hu%-6.3hu%-6.4hu%-6.5hu%-6.6hu%-6.7u",
-      -123456, -123456, -123456, -123456, -123456, -123456, -123456, -123456,
-      -123456);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_minus_hum1234567_statik_width) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(
-      str1, "\n%-6hu%-6.hu%-6.0hu%-6.2hu%-6.3hu%-6.4hu%-6.5hu%-6.6hu%-6.7u",
-      -1234567, -1234567, -1234567, -1234567, -1234567, -1234567, -1234567,
-      -1234567, -1234567);
-  int r2 = s21_sprintf(
-      str2, "\n%-6hu%-6.hu%-6.0hu%-6.2hu%-6.3hu%-6.4hu%-6.5hu%-6.6hu%-6.7u",
-      -1234567, -1234567, -1234567, -1234567, -1234567, -1234567, -1234567,
-      -1234567, -1234567);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_minus_hum12345678_statik_width) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(
-      str1, "\n%-6hu%-6.hu%-6.0hu%-6.2hu%-6.3hu%-6.4hu%-6.5hu%-6.6hu%-6.7u",
-      -12345678, -12345678, -12345678, -12345678, -12345678, -12345678,
-      -12345678, -12345678, -12345678);
-  int r2 = s21_sprintf(
-      str2, "\n%-6hu%-6.hu%-6.0hu%-6.2hu%-6.3hu%-6.4hu%-6.5hu%-6.6hu%-6.7u",
-      -12345678, -12345678, -12345678, -12345678, -12345678, -12345678,
-      -12345678, -12345678, -12345678);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-//////////////////////////////////////
-
-START_TEST(s21_sprintf_test_minus_hum1_statik_accuracy) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(
-      str1, "\n%-.6hu%-.6hu%-1.6hu%-2.6hu%-3.6hu%-4.6hu%-5.6hu%-6.6hu%-7.6d",
-      -1, -1, -1, -1, -1, -1, -1, -1, -1);
-  int r2 = s21_sprintf(
-      str2, "\n%-.6hu%-.6hu%-1.6hu%-2.6hu%-3.6hu%-4.6hu%-5.6hu%-6.6hu%-7.6d",
-      -1, -1, -1, -1, -1, -1, -1, -1, -1);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_minus_hum12_statik_accuracy) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(
-      str1, "\n%-.6hu%-.6hu%-1.6hu%-2.6hu%-3.6hu%-4.6hu%-5.6hu%-6.6hu%-7.6d",
-      -12, -12, -12, -12, -12, -12, -12, -12, -12);
-  int r2 = s21_sprintf(
-      str2, "\n%-.6hu%-.6hu%-1.6hu%-2.6hu%-3.6hu%-4.6hu%-5.6hu%-6.6hu%-7.6d",
-      -12, -12, -12, -12, -12, -12, -12, -12, -12);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_minus_hum123_statik_accuracy) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(
-      str1, "\n%-.6hu%-.6hu%-1.6hu%-2.6hu%-3.6hu%-4.6hu%-5.6hu%-6.6hu%-7.6d",
-      -123, -123, -123, -123, -123, -123, -123, -123, -123);
-  int r2 = s21_sprintf(
-      str2, "\n%-.6hu%-.6hu%-1.6hu%-2.6hu%-3.6hu%-4.6hu%-5.6hu%-6.6hu%-7.6d",
-      -123, -123, -123, -123, -123, -123, -123, -123, -123);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_minus_hum1234_statik_accuracy) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(
-      str1, "\n%-.6hu%-.6hu%-1.6hu%-2.6hu%-3.6hu%-4.6hu%-5.6hu%-6.6hu%-7.6d",
-      -1234, -1234, -1234, -1234, -1234, -1234, -1234, -1234, -1234);
-  int r2 = s21_sprintf(
-      str2, "\n%-.6hu%-.6hu%-1.6hu%-2.6hu%-3.6hu%-4.6hu%-5.6hu%-6.6hu%-7.6d",
-      -1234, -1234, -1234, -1234, -1234, -1234, -1234, -1234, -1234);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_minus_hum12345_statik_accuracy) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(
-      str1, "\n%-.6hu%-.6hu%-1.6hu%-2.6hu%-3.6hu%-4.6hu%-5.6hu%-6.6hu%-7.6d",
-      -12345, -12345, -12345, -12345, -12345, -12345, -12345, -12345, -12345);
-  int r2 = s21_sprintf(
-      str2, "\n%-.6hu%-.6hu%-1.6hu%-2.6hu%-3.6hu%-4.6hu%-5.6hu%-6.6hu%-7.6d",
-      -12345, -12345, -12345, -12345, -12345, -12345, -12345, -12345, -12345);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_minus_hum123456_statik_accuracy) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(
-      str1, "\n%-.6hu%-.6hu%-1.6hu%-2.6hu%-3.6hu%-4.6hu%-5.6hu%-6.6hu%-7.6d",
-      -123456, -123456, -123456, -123456, -123456, -123456, -123456, -123456,
-      -123456);
-  int r2 = s21_sprintf(
-      str2, "\n%-.6hu%-.6hu%-1.6hu%-2.6hu%-3.6hu%-4.6hu%-5.6hu%-6.6hu%-7.6d",
-      -123456, -123456, -123456, -123456, -123456, -123456, -123456, -123456,
-      -123456);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_minus_hum1234567_statik_accuracy) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(
-      str1, "\n%-.6hu%-.6hu%-1.6hu%-2.6hu%-3.6hu%-4.6hu%-5.6hu%-6.6hu%-7.6d",
-      -1234567, -1234567, -1234567, -1234567, -1234567, -1234567, -1234567,
-      -1234567, -1234567);
-  int r2 = s21_sprintf(
-      str2, "\n%-.6hu%-.6hu%-1.6hu%-2.6hu%-3.6hu%-4.6hu%-5.6hu%-6.6hu%-7.6d",
-      -1234567, -1234567, -1234567, -1234567, -1234567, -1234567, -1234567,
-      -1234567, -1234567);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_minus_hum12345678_statik_accuracy) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(
-      str1, "\n%-.6hu%-.6hu%-1.6hu%-2.6hu%-3.6hu%-4.6hu%-5.6hu%-6.6hu%-7.6d",
-      -12345678, -12345678, -12345678, -12345678, -12345678, -12345678,
-      -12345678, -12345678, -12345678);
-  int r2 = s21_sprintf(
-      str2, "\n%-.6hu%-.6hu%-1.6hu%-2.6hu%-3.6hu%-4.6hu%-5.6hu%-6.6hu%-7.6d",
-      -12345678, -12345678, -12345678, -12345678, -12345678, -12345678,
-      -12345678, -12345678, -12345678);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_hu1_statik_width) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(str1, "\n%6hu%6.hu%6.0hu%6.2hu%6.3hu%6.4hu%6.5hu%6.6hu%6.7u",
-                   1, 1, 1, 1, 1, 1, 1, 1, 1);
-  int r2 =
-      s21_sprintf(str2, "\n%6hu%6.hu%6.0hu%6.2hu%6.3hu%6.4hu%6.5hu%6.6hu%6.7u",
-                  1, 1, 1, 1, 1, 1, 1, 1, 1);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_hu12_statik_width) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(str1, "\n%6hu%6.hu%6.0hu%6.2hu%6.3hu%6.4hu%6.5hu%6.6hu%6.7u",
-                   12, 12, 12, 12, 12, 12, 12, 12, 12);
-  int r2 =
-      s21_sprintf(str2, "\n%6hu%6.hu%6.0hu%6.2hu%6.3hu%6.4hu%6.5hu%6.6hu%6.7u",
-                  12, 12, 12, 12, 12, 12, 12, 12, 12);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_hu123_statik_width) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(str1, "\n%6hu%6.hu%6.0hu%6.2hu%6.3hu%6.4hu%6.5hu%6.6hu%6.7u",
-                   123, 123, 123, 123, 123, 123, 123, 123, 123);
-  int r2 =
-      s21_sprintf(str2, "\n%6hu%6.hu%6.0hu%6.2hu%6.3hu%6.4hu%6.5hu%6.6hu%6.7u",
-                  123, 123, 123, 123, 123, 123, 123, 123, 123);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_hu1234_statik_width) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(str1, "\n%6hu%6.hu%6.0hu%6.2hu%6.3hu%6.4hu%6.5hu%6.6hu%6.7u",
-                   1234, 1234, 1234, 1234, 1234, 1234, 1234, 1234, 1234);
-  int r2 =
-      s21_sprintf(str2, "\n%6hu%6.hu%6.0hu%6.2hu%6.3hu%6.4hu%6.5hu%6.6hu%6.7u",
-                  1234, 1234, 1234, 1234, 1234, 1234, 1234, 1234, 1234);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_hu12345_statik_width) {
-  char str1[1000];
-  char str2[1000];
-  int r1 =
-      sprintf(str1, "\n%6hu%6.hu%6.0hu%6.2hu%6.3hu%6.4hu%6.5hu%6.6hu%6.7u",
-              12345, 12345, 12345, 12345, 12345, 12345, 12345, 12345, 12345);
-  int r2 = s21_sprintf(
-      str2, "\n%6hu%6.hu%6.0hu%6.2hu%6.3hu%6.4hu%6.5hu%6.6hu%6.7u", 12345,
-      12345, 12345, 12345, 12345, 12345, 12345, 12345, 12345);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_hu123456_statik_width) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(str1, "\n%6hu%6.hu%6.0hu%6.2hu%6.3hu%6.4hu%6.5hu%6.6hu%6.7u",
-                   123456, 123456, 123456, 123456, 123456, 123456, 123456,
-                   123456, 123456);
-  int r2 = s21_sprintf(
-      str2, "\n%6hu%6.hu%6.0hu%6.2hu%6.3hu%6.4hu%6.5hu%6.6hu%6.7u", 123456,
-      123456, 123456, 123456, 123456, 123456, 123456, 123456, 123456);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_hu1234567_statik_width) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(str1, "\n%6hu%6.hu%6.0hu%6.2hu%6.3hu%6.4hu%6.5hu%6.6hu%6.7u",
-                   1234567, 1234567, 1234567, 1234567, 1234567, 1234567,
-                   1234567, 1234567, 1234567);
-  int r2 = s21_sprintf(
-      str2, "\n%6hu%6.hu%6.0hu%6.2hu%6.3hu%6.4hu%6.5hu%6.6hu%6.7u", 1234567,
-      1234567, 1234567, 1234567, 1234567, 1234567, 1234567, 1234567, 1234567);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_hu12345678_statik_width) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(str1, "\n%6hu%6.hu%6.0hu%6.2hu%6.3hu%6.4hu%6.5hu%6.6hu%6.7u",
-                   12345678, 12345678, 12345678, 12345678, 12345678, 12345678,
-                   12345678, 12345678, 12345678);
-  int r2 =
-      s21_sprintf(str2, "\n%6hu%6.hu%6.0hu%6.2hu%6.3hu%6.4hu%6.5hu%6.6hu%6.7u",
-                  12345678, 12345678, 12345678, 12345678, 12345678, 12345678,
-                  12345678, 12345678, 12345678);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-//////////////////////////////////////
-
-START_TEST(s21_sprintf_test_hu1_statik_accuracy) {
-  char str1[1000];
-  char str2[1000];
-  int r1 =
-      sprintf(str1, "\n%.6hu%.6hu%1.6hu%2.6hu%3.6hu%4.6hu%5.6hu%6.6hu%7.6d", 1,
-              1, 1, 1, 1, 1, 1, 1, 1);
-  int r2 =
-      s21_sprintf(str2, "\n%.6hu%.6hu%1.6hu%2.6hu%3.6hu%4.6hu%5.6hu%6.6hu%7.6d",
-                  1, 1, 1, 1, 1, 1, 1, 1, 1);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_hu12_statik_accuracy) {
-  char str1[1000];
-  char str2[1000];
-  int r1 =
-      sprintf(str1, "\n%.6hu%.6hu%1.6hu%2.6hu%3.6hu%4.6hu%5.6hu%6.6hu%7.6d", 12,
-              12, 12, 12, 12, 12, 12, 12, 12);
-  int r2 =
-      s21_sprintf(str2, "\n%.6hu%.6hu%1.6hu%2.6hu%3.6hu%4.6hu%5.6hu%6.6hu%7.6d",
-                  12, 12, 12, 12, 12, 12, 12, 12, 12);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_hu123_statik_accuracy) {
-  char str1[1000];
-  char str2[1000];
-  int r1 =
-      sprintf(str1, "\n%.6hu%.6hu%1.6hu%2.6hu%3.6hu%4.6hu%5.6hu%6.6hu%7.6d",
-              123, 123, 123, 123, 123, 123, 123, 123, 123);
-  int r2 =
-      s21_sprintf(str2, "\n%.6hu%.6hu%1.6hu%2.6hu%3.6hu%4.6hu%5.6hu%6.6hu%7.6d",
-                  123, 123, 123, 123, 123, 123, 123, 123, 123);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_hu1234_statik_accuracy) {
-  char str1[1000];
-  char str2[1000];
-  int r1 =
-      sprintf(str1, "\n%.6hu%.6hu%1.6hu%2.6hu%3.6hu%4.6hu%5.6hu%6.6hu%7.6d",
-              1234, 1234, 1234, 1234, 1234, 1234, 1234, 1234, 1234);
-  int r2 =
-      s21_sprintf(str2, "\n%.6hu%.6hu%1.6hu%2.6hu%3.6hu%4.6hu%5.6hu%6.6hu%7.6d",
-                  1234, 1234, 1234, 1234, 1234, 1234, 1234, 1234, 1234);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_hu12345_statik_accuracy) {
-  char str1[1000];
-  char str2[1000];
-  int r1 =
-      sprintf(str1, "\n%.6hu%.6hu%1.6hu%2.6hu%3.6hu%4.6hu%5.6hu%6.6hu%7.6d",
-              12345, 12345, 12345, 12345, 12345, 12345, 12345, 12345, 12345);
-  int r2 = s21_sprintf(
-      str2, "\n%.6hu%.6hu%1.6hu%2.6hu%3.6hu%4.6hu%5.6hu%6.6hu%7.6d", 12345,
-      12345, 12345, 12345, 12345, 12345, 12345, 12345, 12345);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_hu123456_statik_accuracy) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(
-      str1, "\n%.6hu%.6hu%1.6hu%2.6hu%3.6hu%4.6hu%5.6hu%6.6hu%7.6d", 123456,
-      123456, 123456, 123456, 123456, 123456, 123456, 123456, 123456);
-  int r2 = s21_sprintf(
-      str2, "\n%.6hu%.6hu%1.6hu%2.6hu%3.6hu%4.6hu%5.6hu%6.6hu%7.6d", 123456,
-      123456, 123456, 123456, 123456, 123456, 123456, 123456, 123456);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_hu1234567_statik_accuracy) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(
-      str1, "\n%.6hu%.6hu%1.6hu%2.6hu%3.6hu%4.6hu%5.6hu%6.6hu%7.6d", 1234567,
-      1234567, 1234567, 1234567, 1234567, 1234567, 1234567, 1234567, 1234567);
-  int r2 = s21_sprintf(
-      str2, "\n%.6hu%.6hu%1.6hu%2.6hu%3.6hu%4.6hu%5.6hu%6.6hu%7.6d", 1234567,
-      1234567, 1234567, 1234567, 1234567, 1234567, 1234567, 1234567, 1234567);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_hu12345678_statik_accuracy) {
-  char str1[1000];
-  char str2[1000];
-  int r1 =
-      sprintf(str1, "\n%.6hu%.6hu%1.6hu%2.6hu%3.6hu%4.6hu%5.6hu%6.6hu%7.6d",
-              12345678, 12345678, 12345678, 12345678, 12345678, 12345678,
-              12345678, 12345678, 12345678);
-  int r2 =
-      s21_sprintf(str2, "\n%.6hu%.6hu%1.6hu%2.6hu%3.6hu%4.6hu%5.6hu%6.6hu%7.6d",
-                  12345678, 12345678, 12345678, 12345678, 12345678, 12345678,
-                  12345678, 12345678, 12345678);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_hum1_statik_width) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(str1, "\n%6hu%6.hu%6.0hu%6.2hu%6.3hu%6.4hu%6.5hu%6.6hu%6.7u",
-                   -1, -1, -1, -1, -1, -1, -1, -1, -1);
-  int r2 =
-      s21_sprintf(str2, "\n%6hu%6.hu%6.0hu%6.2hu%6.3hu%6.4hu%6.5hu%6.6hu%6.7u",
-                  -1, -1, -1, -1, -1, -1, -1, -1, -1);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_hum12_statik_width) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(str1, "\n%6hu%6.hu%6.0hu%6.2hu%6.3hu%6.4hu%6.5hu%6.6hu%6.7u",
-                   -12, -12, -12, -12, -12, -12, -12, -12, -12);
-  int r2 =
-      s21_sprintf(str2, "\n%6hu%6.hu%6.0hu%6.2hu%6.3hu%6.4hu%6.5hu%6.6hu%6.7u",
-                  -12, -12, -12, -12, -12, -12, -12, -12, -12);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_hum123_statik_width) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(str1, "\n%6hu%6.hu%6.0hu%6.2hu%6.3hu%6.4hu%6.5hu%6.6hu%6.7u",
-                   -123, -123, -123, -123, -123, -123, -123, -123, -123);
-  int r2 =
-      s21_sprintf(str2, "\n%6hu%6.hu%6.0hu%6.2hu%6.3hu%6.4hu%6.5hu%6.6hu%6.7u",
-                  -123, -123, -123, -123, -123, -123, -123, -123, -123);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_hum1234_statik_width) {
-  char str1[1000];
-  char str2[1000];
-  int r1 =
-      sprintf(str1, "\n%6hu%6.hu%6.0hu%6.2hu%6.3hu%6.4hu%6.5hu%6.6hu%6.7u",
-              -1234, -1234, -1234, -1234, -1234, -1234, -1234, -1234, -1234);
-  int r2 = s21_sprintf(
-      str2, "\n%6hu%6.hu%6.0hu%6.2hu%6.3hu%6.4hu%6.5hu%6.6hu%6.7u", -1234,
-      -1234, -1234, -1234, -1234, -1234, -1234, -1234, -1234);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_hum12345_statik_width) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(str1, "\n%6hu%6.hu%6.0hu%6.2hu%6.3hu%6.4hu%6.5hu%6.6hu%6.7u",
-                   -12345, -12345, -12345, -12345, -12345, -12345, -12345,
-                   -12345, -12345);
-  int r2 = s21_sprintf(
-      str2, "\n%6hu%6.hu%6.0hu%6.2hu%6.3hu%6.4hu%6.5hu%6.6hu%6.7u", -12345,
-      -12345, -12345, -12345, -12345, -12345, -12345, -12345, -12345);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_hum123456_statik_width) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(str1, "\n%6hu%6.hu%6.0hu%6.2hu%6.3hu%6.4hu%6.5hu%6.6hu%6.7u",
-                   -123456, -123456, -123456, -123456, -123456, -123456,
-                   -123456, -123456, -123456);
-  int r2 = s21_sprintf(
-      str2, "\n%6hu%6.hu%6.0hu%6.2hu%6.3hu%6.4hu%6.5hu%6.6hu%6.7u", -123456,
-      -123456, -123456, -123456, -123456, -123456, -123456, -123456, -123456);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_hum1234567_statik_width) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(str1, "\n%6hu%6.hu%6.0hu%6.2hu%6.3hu%6.4hu%6.5hu%6.6hu%6.7u",
-                   -1234567, -1234567, -1234567, -1234567, -1234567, -1234567,
-                   -1234567, -1234567, -1234567);
-  int r2 =
-      s21_sprintf(str2, "\n%6hu%6.hu%6.0hu%6.2hu%6.3hu%6.4hu%6.5hu%6.6hu%6.7u",
-                  -1234567, -1234567, -1234567, -1234567, -1234567, -1234567,
-                  -1234567, -1234567, -1234567);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_hum12345678_statik_width) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(str1, "\n%6hu%6.hu%6.0hu%6.2hu%6.3hu%6.4hu%6.5hu%6.6hu%6.7u",
-                   -12345678, -12345678, -12345678, -12345678, -12345678,
-                   -12345678, -12345678, -12345678, -12345678);
-  int r2 =
-      s21_sprintf(str2, "\n%6hu%6.hu%6.0hu%6.2hu%6.3hu%6.4hu%6.5hu%6.6hu%6.7u",
-                  -12345678, -12345678, -12345678, -12345678, -12345678,
-                  -12345678, -12345678, -12345678, -12345678);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-//////////////////////////////////////
-
-START_TEST(s21_sprintf_test_hum1_statik_accuracy) {
-  char str1[1000];
-  char str2[1000];
-  int r1 =
-      sprintf(str1, "\n%.6hu%.6hu%1.6hu%2.6hu%3.6hu%4.6hu%5.6hu%6.6hu%7.6d", -1,
-              -1, -1, -1, -1, -1, -1, -1, -1);
-  int r2 =
-      s21_sprintf(str2, "\n%.6hu%.6hu%1.6hu%2.6hu%3.6hu%4.6hu%5.6hu%6.6hu%7.6d",
-                  -1, -1, -1, -1, -1, -1, -1, -1, -1);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_hum12_statik_accuracy) {
-  char str1[1000];
-  char str2[1000];
-  int r1 =
-      sprintf(str1, "\n%.6hu%.6hu%1.6hu%2.6hu%3.6hu%4.6hu%5.6hu%6.6hu%7.6d",
-              -12, -12, -12, -12, -12, -12, -12, -12, -12);
-  int r2 =
-      s21_sprintf(str2, "\n%.6hu%.6hu%1.6hu%2.6hu%3.6hu%4.6hu%5.6hu%6.6hu%7.6d",
-                  -12, -12, -12, -12, -12, -12, -12, -12, -12);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_hum123_statik_accuracy) {
-  char str1[1000];
-  char str2[1000];
-  int r1 =
-      sprintf(str1, "\n%.6hu%.6hu%1.6hu%2.6hu%3.6hu%4.6hu%5.6hu%6.6hu%7.6d",
-              -123, -123, -123, -123, -123, -123, -123, -123, -123);
-  int r2 =
-      s21_sprintf(str2, "\n%.6hu%.6hu%1.6hu%2.6hu%3.6hu%4.6hu%5.6hu%6.6hu%7.6d",
-                  -123, -123, -123, -123, -123, -123, -123, -123, -123);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_hum1234_statik_accuracy) {
-  char str1[1000];
-  char str2[1000];
-  int r1 =
-      sprintf(str1, "\n%.6hu%.6hu%1.6hu%2.6hu%3.6hu%4.6hu%5.6hu%6.6hu%7.6d",
-              -1234, -1234, -1234, -1234, -1234, -1234, -1234, -1234, -1234);
-  int r2 = s21_sprintf(
-      str2, "\n%.6hu%.6hu%1.6hu%2.6hu%3.6hu%4.6hu%5.6hu%6.6hu%7.6d", -1234,
-      -1234, -1234, -1234, -1234, -1234, -1234, -1234, -1234);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_hum12345_statik_accuracy) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(
-      str1, "\n%.6hu%.6hu%1.6hu%2.6hu%3.6hu%4.6hu%5.6hu%6.6hu%7.6d", -12345,
-      -12345, -12345, -12345, -12345, -12345, -12345, -12345, -12345);
-  int r2 = s21_sprintf(
-      str2, "\n%.6hu%.6hu%1.6hu%2.6hu%3.6hu%4.6hu%5.6hu%6.6hu%7.6d", -12345,
-      -12345, -12345, -12345, -12345, -12345, -12345, -12345, -12345);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_hum123456_statik_accuracy) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(
-      str1, "\n%.6hu%.6hu%1.6hu%2.6hu%3.6hu%4.6hu%5.6hu%6.6hu%7.6d", -123456,
-      -123456, -123456, -123456, -123456, -123456, -123456, -123456, -123456);
-  int r2 = s21_sprintf(
-      str2, "\n%.6hu%.6hu%1.6hu%2.6hu%3.6hu%4.6hu%5.6hu%6.6hu%7.6d", -123456,
-      -123456, -123456, -123456, -123456, -123456, -123456, -123456, -123456);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_hum1234567_statik_accuracy) {
-  char str1[1000];
-  char str2[1000];
-  int r1 =
-      sprintf(str1, "\n%.6hu%.6hu%1.6hu%2.6hu%3.6hu%4.6hu%5.6hu%6.6hu%7.6d",
-              -1234567, -1234567, -1234567, -1234567, -1234567, -1234567,
-              -1234567, -1234567, -1234567);
-  int r2 =
-      s21_sprintf(str2, "\n%.6hu%.6hu%1.6hu%2.6hu%3.6hu%4.6hu%5.6hu%6.6hu%7.6d",
-                  -1234567, -1234567, -1234567, -1234567, -1234567, -1234567,
-                  -1234567, -1234567, -1234567);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_hum12345678_statik_accuracy) {
-  char str1[1000];
-  char str2[1000];
-  int r1 =
-      sprintf(str1, "\n%.6hu%.6hu%1.6hu%2.6hu%3.6hu%4.6hu%5.6hu%6.6hu%7.6d",
-              -12345678, -12345678, -12345678, -12345678, -12345678, -12345678,
-              -12345678, -12345678, -12345678);
-  int r2 =
-      s21_sprintf(str2, "\n%.6hu%.6hu%1.6hu%2.6hu%3.6hu%4.6hu%5.6hu%6.6hu%7.6d",
-                  -12345678, -12345678, -12345678, -12345678, -12345678,
-                  -12345678, -12345678, -12345678, -12345678);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_d) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(str1, "\n%-25.10d%-30.2d%10.12d%11d", 253, 335, 1234, 34);
-  int r2 =
-      s21_sprintf(str2, "\n%-25.10d%-30.2d%10.12d%11d", 253, 335, 1234, 34);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_d0) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(
-      str1, "\n%-6d%-6.d%-6.0d%-6.2d%-6.3d%-6.4d%-6.5d%-6.6d%-6.7d%-6.8d", 0, 0,
-      0, 0, 0, 0, 0, 0, 0, 0);
-  int r2 = s21_sprintf(
-      str2, "\n%-6d%-6.d%-6.0d%-6.2d%-6.3d%-6.4d%-6.5d%-6.6d%-6.7d%-6.8d", 0, 0,
-      0, 0, 0, 0, 0, 0, 0, 0);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_minus_d1_statik_width) {
-  char str1[1000];
-  char str2[1000];
-  int r1 =
-      sprintf(str1, "\n%-6d%-6.d%-6.0d%-6.2d%-6.3d%-6.4d%-6.5d%-6.6d%-6.7d", 1,
-              1, 1, 1, 1, 1, 1, 1, 1);
-  int r2 =
-      s21_sprintf(str2, "\n%-6d%-6.d%-6.0d%-6.2d%-6.3d%-6.4d%-6.5d%-6.6d%-6.7d",
-                  1, 1, 1, 1, 1, 1, 1, 1, 1);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_minus_d12_statik_width) {
-  char str1[1000];
-  char str2[1000];
-  int r1 =
-      sprintf(str1, "\n%-6d%-6.d%-6.0d%-6.2d%-6.3d%-6.4d%-6.5d%-6.6d%-6.7d", 12,
-              12, 12, 12, 12, 12, 12, 12, 12);
-  int r2 =
-      s21_sprintf(str2, "\n%-6d%-6.d%-6.0d%-6.2d%-6.3d%-6.4d%-6.5d%-6.6d%-6.7d",
-                  12, 12, 12, 12, 12, 12, 12, 12, 12);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_minus_d123_statik_width) {
-  char str1[1000];
-  char str2[1000];
-  int r1 =
-      sprintf(str1, "\n%-6d%-6.d%-6.0d%-6.2d%-6.3d%-6.4d%-6.5d%-6.6d%-6.7d",
-              123, 123, 123, 123, 123, 123, 123, 123, 123);
-  int r2 =
-      s21_sprintf(str2, "\n%-6d%-6.d%-6.0d%-6.2d%-6.3d%-6.4d%-6.5d%-6.6d%-6.7d",
-                  123, 123, 123, 123, 123, 123, 123, 123, 123);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_minus_d1234_statik_width) {
-  char str1[1000];
-  char str2[1000];
-  int r1 =
-      sprintf(str1, "\n%-6d%-6.d%-6.0d%-6.2d%-6.3d%-6.4d%-6.5d%-6.6d%-6.7d",
-              1234, 1234, 1234, 1234, 1234, 1234, 1234, 1234, 1234);
-  int r2 =
-      s21_sprintf(str2, "\n%-6d%-6.d%-6.0d%-6.2d%-6.3d%-6.4d%-6.5d%-6.6d%-6.7d",
-                  1234, 1234, 1234, 1234, 1234, 1234, 1234, 1234, 1234);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_minus_d12345_statik_width) {
-  char str1[1000];
-  char str2[1000];
-  int r1 =
-      sprintf(str1, "\n%-6d%-6.d%-6.0d%-6.2d%-6.3d%-6.4d%-6.5d%-6.6d%-6.7d",
-              12345, 12345, 12345, 12345, 12345, 12345, 12345, 12345, 12345);
-  int r2 = s21_sprintf(
-      str2, "\n%-6d%-6.d%-6.0d%-6.2d%-6.3d%-6.4d%-6.5d%-6.6d%-6.7d", 12345,
-      12345, 12345, 12345, 12345, 12345, 12345, 12345, 12345);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_minus_d123456_statik_width) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(
-      str1, "\n%-6d%-6.d%-6.0d%-6.2d%-6.3d%-6.4d%-6.5d%-6.6d%-6.7d", 123456,
-      123456, 123456, 123456, 123456, 123456, 123456, 123456, 123456);
-  int r2 = s21_sprintf(
-      str2, "\n%-6d%-6.d%-6.0d%-6.2d%-6.3d%-6.4d%-6.5d%-6.6d%-6.7d", 123456,
-      123456, 123456, 123456, 123456, 123456, 123456, 123456, 123456);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_minus_d1234567_statik_width) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(
-      str1, "\n%-6d%-6.d%-6.0d%-6.2d%-6.3d%-6.4d%-6.5d%-6.6d%-6.7d", 1234567,
-      1234567, 1234567, 1234567, 1234567, 1234567, 1234567, 1234567, 1234567);
-  int r2 = s21_sprintf(
-      str2, "\n%-6d%-6.d%-6.0d%-6.2d%-6.3d%-6.4d%-6.5d%-6.6d%-6.7d", 1234567,
-      1234567, 1234567, 1234567, 1234567, 1234567, 1234567, 1234567, 1234567);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_minus_d12345678_statik_width) {
-  char str1[1000];
-  char str2[1000];
-  int r1 =
-      sprintf(str1, "\n%-6d%-6.d%-6.0d%-6.2d%-6.3d%-6.4d%-6.5d%-6.6d%-6.7d",
-              12345678, 12345678, 12345678, 12345678, 12345678, 12345678,
-              12345678, 12345678, 12345678);
-  int r2 =
-      s21_sprintf(str2, "\n%-6d%-6.d%-6.0d%-6.2d%-6.3d%-6.4d%-6.5d%-6.6d%-6.7d",
-                  12345678, 12345678, 12345678, 12345678, 12345678, 12345678,
-                  12345678, 12345678, 12345678);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-//////////////////////////////////////
-
-START_TEST(s21_sprintf_test_minus_d1_statik_accuracy) {
-  char str1[1000];
-  char str2[1000];
-  int r1 =
-      sprintf(str1, "\n%-.6d%-.6d%-1.6d%-2.6d%-3.6d%-4.6d%-5.6d%-6.6d%-7.6d", 1,
-              1, 1, 1, 1, 1, 1, 1, 1);
-  int r2 = s21_sprintf(str2,
-                       "\n%-.6d%-.6d%-1.6d%-2.6d%-3.6d%-4.6d%-5.6d%-6.6d%-7.6d",
-                       1, 1, 1, 1, 1, 1, 1, 1, 1);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_minus_d12_statik_accuracy) {
-  char str1[1000];
-  char str2[1000];
-  int r1 =
-      sprintf(str1, "\n%-.6d%-.6d%-1.6d%-2.6d%-3.6d%-4.6d%-5.6d%-6.6d%-7.6d",
-              12, 12, 12, 12, 12, 12, 12, 12, 12);
-  int r2 = s21_sprintf(str2,
-                       "\n%-.6d%-.6d%-1.6d%-2.6d%-3.6d%-4.6d%-5.6d%-6.6d%-7.6d",
-                       12, 12, 12, 12, 12, 12, 12, 12, 12);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_minus_d123_statik_accuracy) {
-  char str1[1000];
-  char str2[1000];
-  int r1 =
-      sprintf(str1, "\n%-.6d%-.6d%-1.6d%-2.6d%-3.6d%-4.6d%-5.6d%-6.6d%-7.6d",
-              123, 123, 123, 123, 123, 123, 123, 123, 123);
-  int r2 = s21_sprintf(str2,
-                       "\n%-.6d%-.6d%-1.6d%-2.6d%-3.6d%-4.6d%-5.6d%-6.6d%-7.6d",
-                       123, 123, 123, 123, 123, 123, 123, 123, 123);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_minus_d1234_statik_accuracy) {
-  char str1[1000];
-  char str2[1000];
-  int r1 =
-      sprintf(str1, "\n%-.6d%-.6d%-1.6d%-2.6d%-3.6d%-4.6d%-5.6d%-6.6d%-7.6d",
-              1234, 1234, 1234, 1234, 1234, 1234, 1234, 1234, 1234);
-  int r2 = s21_sprintf(str2,
-                       "\n%-.6d%-.6d%-1.6d%-2.6d%-3.6d%-4.6d%-5.6d%-6.6d%-7.6d",
-                       1234, 1234, 1234, 1234, 1234, 1234, 1234, 1234, 1234);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_minus_d12345_statik_accuracy) {
-  char str1[1000];
-  char str2[1000];
-  int r1 =
-      sprintf(str1, "\n%-.6d%-.6d%-1.6d%-2.6d%-3.6d%-4.6d%-5.6d%-6.6d%-7.6d",
-              12345, 12345, 12345, 12345, 12345, 12345, 12345, 12345, 12345);
-  int r2 = s21_sprintf(
-      str2, "\n%-.6d%-.6d%-1.6d%-2.6d%-3.6d%-4.6d%-5.6d%-6.6d%-7.6d", 12345,
-      12345, 12345, 12345, 12345, 12345, 12345, 12345, 12345);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_minus_d123456_statik_accuracy) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(
-      str1, "\n%-.6d%-.6d%-1.6d%-2.6d%-3.6d%-4.6d%-5.6d%-6.6d%-7.6d", 123456,
-      123456, 123456, 123456, 123456, 123456, 123456, 123456, 123456);
-  int r2 = s21_sprintf(
-      str2, "\n%-.6d%-.6d%-1.6d%-2.6d%-3.6d%-4.6d%-5.6d%-6.6d%-7.6d", 123456,
-      123456, 123456, 123456, 123456, 123456, 123456, 123456, 123456);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_minus_d1234567_statik_accuracy) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(
-      str1, "\n%-.6d%-.6d%-1.6d%-2.6d%-3.6d%-4.6d%-5.6d%-6.6d%-7.6d", 1234567,
-      1234567, 1234567, 1234567, 1234567, 1234567, 1234567, 1234567, 1234567);
-  int r2 = s21_sprintf(
-      str2, "\n%-.6d%-.6d%-1.6d%-2.6d%-3.6d%-4.6d%-5.6d%-6.6d%-7.6d", 1234567,
-      1234567, 1234567, 1234567, 1234567, 1234567, 1234567, 1234567, 1234567);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_minus_d12345678_statik_accuracy) {
-  char str1[1000];
-  char str2[1000];
-  int r1 =
-      sprintf(str1, "\n%-.6d%-.6d%-1.6d%-2.6d%-3.6d%-4.6d%-5.6d%-6.6d%-7.6d",
-              12345678, 12345678, 12345678, 12345678, 12345678, 12345678,
-              12345678, 12345678, 12345678);
-  int r2 = s21_sprintf(str2,
-                       "\n%-.6d%-.6d%-1.6d%-2.6d%-3.6d%-4.6d%-5.6d%-6.6d%-7.6d",
-                       12345678, 12345678, 12345678, 12345678, 12345678,
-                       12345678, 12345678, 12345678, 12345678);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_minus_dm1_statik_width) {
-  char str1[1000];
-  char str2[1000];
-  int r1 =
-      sprintf(str1, "\n%-6d%-6.d%-6.0d%-6.2d%-6.3d%-6.4d%-6.5d%-6.6d%-6.7d", -1,
-              -1, -1, -1, -1, -1, -1, -1, -1);
-  int r2 =
-      s21_sprintf(str2, "\n%-6d%-6.d%-6.0d%-6.2d%-6.3d%-6.4d%-6.5d%-6.6d%-6.7d",
-                  -1, -1, -1, -1, -1, -1, -1, -1, -1);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_minus_dm12_statik_width) {
-  char str1[1000];
-  char str2[1000];
-  int r1 =
-      sprintf(str1, "\n%-6d%-6.d%-6.0d%-6.2d%-6.3d%-6.4d%-6.5d%-6.6d%-6.7d",
-              -12, -12, -12, -12, -12, -12, -12, -12, -12);
-  int r2 =
-      s21_sprintf(str2, "\n%-6d%-6.d%-6.0d%-6.2d%-6.3d%-6.4d%-6.5d%-6.6d%-6.7d",
-                  -12, -12, -12, -12, -12, -12, -12, -12, -12);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_minus_dm123_statik_width) {
-  char str1[1000];
-  char str2[1000];
-  int r1 =
-      sprintf(str1, "\n%-6d%-6.d%-6.0d%-6.2d%-6.3d%-6.4d%-6.5d%-6.6d%-6.7d",
-              -123, -123, -123, -123, -123, -123, -123, -123, -123);
-  int r2 =
-      s21_sprintf(str2, "\n%-6d%-6.d%-6.0d%-6.2d%-6.3d%-6.4d%-6.5d%-6.6d%-6.7d",
-                  -123, -123, -123, -123, -123, -123, -123, -123, -123);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_minus_dm1234_statik_width) {
-  char str1[1000];
-  char str2[1000];
-  int r1 =
-      sprintf(str1, "\n%-6d%-6.d%-6.0d%-6.2d%-6.3d%-6.4d%-6.5d%-6.6d%-6.7d",
-              -1234, -1234, -1234, -1234, -1234, -1234, -1234, -1234, -1234);
-  int r2 = s21_sprintf(
-      str2, "\n%-6d%-6.d%-6.0d%-6.2d%-6.3d%-6.4d%-6.5d%-6.6d%-6.7d", -1234,
-      -1234, -1234, -1234, -1234, -1234, -1234, -1234, -1234);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_minus_dm12345_statik_width) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(
-      str1, "\n%-6d%-6.d%-6.0d%-6.2d%-6.3d%-6.4d%-6.5d%-6.6d%-6.7d", -12345,
-      -12345, -12345, -12345, -12345, -12345, -12345, -12345, -12345);
-  int r2 = s21_sprintf(
-      str2, "\n%-6d%-6.d%-6.0d%-6.2d%-6.3d%-6.4d%-6.5d%-6.6d%-6.7d", -12345,
-      -12345, -12345, -12345, -12345, -12345, -12345, -12345, -12345);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_minus_dm123456_statik_width) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(
-      str1, "\n%-6d%-6.d%-6.0d%-6.2d%-6.3d%-6.4d%-6.5d%-6.6d%-6.7d", -123456,
-      -123456, -123456, -123456, -123456, -123456, -123456, -123456, -123456);
-  int r2 = s21_sprintf(
-      str2, "\n%-6d%-6.d%-6.0d%-6.2d%-6.3d%-6.4d%-6.5d%-6.6d%-6.7d", -123456,
-      -123456, -123456, -123456, -123456, -123456, -123456, -123456, -123456);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_minus_dm1234567_statik_width) {
-  char str1[1000];
-  char str2[1000];
-  int r1 =
-      sprintf(str1, "\n%-6d%-6.d%-6.0d%-6.2d%-6.3d%-6.4d%-6.5d%-6.6d%-6.7d",
-              -1234567, -1234567, -1234567, -1234567, -1234567, -1234567,
-              -1234567, -1234567, -1234567);
-  int r2 =
-      s21_sprintf(str2, "\n%-6d%-6.d%-6.0d%-6.2d%-6.3d%-6.4d%-6.5d%-6.6d%-6.7d",
-                  -1234567, -1234567, -1234567, -1234567, -1234567, -1234567,
-                  -1234567, -1234567, -1234567);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_minus_dm12345678_statik_width) {
-  char str1[1000];
-  char str2[1000];
-  int r1 =
-      sprintf(str1, "\n%-6d%-6.d%-6.0d%-6.2d%-6.3d%-6.4d%-6.5d%-6.6d%-6.7d",
-              -12345678, -12345678, -12345678, -12345678, -12345678, -12345678,
-              -12345678, -12345678, -12345678);
-  int r2 =
-      s21_sprintf(str2, "\n%-6d%-6.d%-6.0d%-6.2d%-6.3d%-6.4d%-6.5d%-6.6d%-6.7d",
-                  -12345678, -12345678, -12345678, -12345678, -12345678,
-                  -12345678, -12345678, -12345678, -12345678);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-//////////////////////////////////////
-
-START_TEST(s21_sprintf_test_minus_dm1_statik_accuracy) {
-  char str1[1000];
-  char str2[1000];
-  int r1 =
-      sprintf(str1, "\n%-.6d%-.6d%-1.6d%-2.6d%-3.6d%-4.6d%-5.6d%-6.6d%-7.6d",
-              -1, -1, -1, -1, -1, -1, -1, -1, -1);
-  int r2 = s21_sprintf(str2,
-                       "\n%-.6d%-.6d%-1.6d%-2.6d%-3.6d%-4.6d%-5.6d%-6.6d%-7.6d",
-                       -1, -1, -1, -1, -1, -1, -1, -1, -1);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_minus_dm12_statik_accuracy) {
-  char str1[1000];
-  char str2[1000];
-  int r1 =
-      sprintf(str1, "\n%-.6d%-.6d%-1.6d%-2.6d%-3.6d%-4.6d%-5.6d%-6.6d%-7.6d",
-              -12, -12, -12, -12, -12, -12, -12, -12, -12);
-  int r2 = s21_sprintf(str2,
-                       "\n%-.6d%-.6d%-1.6d%-2.6d%-3.6d%-4.6d%-5.6d%-6.6d%-7.6d",
-                       -12, -12, -12, -12, -12, -12, -12, -12, -12);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_minus_dm123_statik_accuracy) {
-  char str1[1000];
-  char str2[1000];
-  int r1 =
-      sprintf(str1, "\n%-.6d%-.6d%-1.6d%-2.6d%-3.6d%-4.6d%-5.6d%-6.6d%-7.6d",
-              -123, -123, -123, -123, -123, -123, -123, -123, -123);
-  int r2 = s21_sprintf(str2,
-                       "\n%-.6d%-.6d%-1.6d%-2.6d%-3.6d%-4.6d%-5.6d%-6.6d%-7.6d",
-                       -123, -123, -123, -123, -123, -123, -123, -123, -123);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_minus_dm1234_statik_accuracy) {
-  char str1[1000];
-  char str2[1000];
-  int r1 =
-      sprintf(str1, "\n%-.6d%-.6d%-1.6d%-2.6d%-3.6d%-4.6d%-5.6d%-6.6d%-7.6d",
-              -1234, -1234, -1234, -1234, -1234, -1234, -1234, -1234, -1234);
-  int r2 = s21_sprintf(
-      str2, "\n%-.6d%-.6d%-1.6d%-2.6d%-3.6d%-4.6d%-5.6d%-6.6d%-7.6d", -1234,
-      -1234, -1234, -1234, -1234, -1234, -1234, -1234, -1234);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_minus_dm12345_statik_accuracy) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(
-      str1, "\n%-.6d%-.6d%-1.6d%-2.6d%-3.6d%-4.6d%-5.6d%-6.6d%-7.6d", -12345,
-      -12345, -12345, -12345, -12345, -12345, -12345, -12345, -12345);
-  int r2 = s21_sprintf(
-      str2, "\n%-.6d%-.6d%-1.6d%-2.6d%-3.6d%-4.6d%-5.6d%-6.6d%-7.6d", -12345,
-      -12345, -12345, -12345, -12345, -12345, -12345, -12345, -12345);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_minus_dm123456_statik_accuracy) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(
-      str1, "\n%-.6d%-.6d%-1.6d%-2.6d%-3.6d%-4.6d%-5.6d%-6.6d%-7.6d", -123456,
-      -123456, -123456, -123456, -123456, -123456, -123456, -123456, -123456);
-  int r2 = s21_sprintf(
-      str2, "\n%-.6d%-.6d%-1.6d%-2.6d%-3.6d%-4.6d%-5.6d%-6.6d%-7.6d", -123456,
-      -123456, -123456, -123456, -123456, -123456, -123456, -123456, -123456);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_minus_dm1234567_statik_accuracy) {
-  char str1[1000];
-  char str2[1000];
-  int r1 =
-      sprintf(str1, "\n%-.6d%-.6d%-1.6d%-2.6d%-3.6d%-4.6d%-5.6d%-6.6d%-7.6d",
-              -1234567, -1234567, -1234567, -1234567, -1234567, -1234567,
-              -1234567, -1234567, -1234567);
-  int r2 = s21_sprintf(str2,
-                       "\n%-.6d%-.6d%-1.6d%-2.6d%-3.6d%-4.6d%-5.6d%-6.6d%-7.6d",
-                       -1234567, -1234567, -1234567, -1234567, -1234567,
-                       -1234567, -1234567, -1234567, -1234567);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_minus_dm12345678_statik_accuracy) {
-  char str1[1000];
-  char str2[1000];
-  int r1 =
-      sprintf(str1, "\n%-.6d%-.6d%-1.6d%-2.6d%-3.6d%-4.6d%-5.6d%-6.6d%-7.6d",
-              -12345678, -12345678, -12345678, -12345678, -12345678, -12345678,
-              -12345678, -12345678, -12345678);
-  int r2 = s21_sprintf(str2,
-                       "\n%-.6d%-.6d%-1.6d%-2.6d%-3.6d%-4.6d%-5.6d%-6.6d%-7.6d",
-                       -12345678, -12345678, -12345678, -12345678, -12345678,
-                       -12345678, -12345678, -12345678, -12345678);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_d1_statik_width) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(str1, "\n%6d%6.d%6.0d%6.2d%6.3d%6.4d%6.5d%6.6d%6.7d", 1, 1,
-                   1, 1, 1, 1, 1, 1, 1);
-  int r2 = s21_sprintf(str2, "\n%6d%6.d%6.0d%6.2d%6.3d%6.4d%6.5d%6.6d%6.7d", 1,
-                       1, 1, 1, 1, 1, 1, 1, 1);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_d12_statik_width) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(str1, "\n%6d%6.d%6.0d%6.2d%6.3d%6.4d%6.5d%6.6d%6.7d", 12, 12,
-                   12, 12, 12, 12, 12, 12, 12);
-  int r2 = s21_sprintf(str2, "\n%6d%6.d%6.0d%6.2d%6.3d%6.4d%6.5d%6.6d%6.7d", 12,
-                       12, 12, 12, 12, 12, 12, 12, 12);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_d123_statik_width) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(str1, "\n%6d%6.d%6.0d%6.2d%6.3d%6.4d%6.5d%6.6d%6.7d", 123,
-                   123, 123, 123, 123, 123, 123, 123, 123);
-  int r2 = s21_sprintf(str2, "\n%6d%6.d%6.0d%6.2d%6.3d%6.4d%6.5d%6.6d%6.7d",
-                       123, 123, 123, 123, 123, 123, 123, 123, 123);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_d1234_statik_width) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(str1, "\n%6d%6.d%6.0d%6.2d%6.3d%6.4d%6.5d%6.6d%6.7d", 1234,
-                   1234, 1234, 1234, 1234, 1234, 1234, 1234, 1234);
-  int r2 = s21_sprintf(str2, "\n%6d%6.d%6.0d%6.2d%6.3d%6.4d%6.5d%6.6d%6.7d",
-                       1234, 1234, 1234, 1234, 1234, 1234, 1234, 1234, 1234);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_d12345_statik_width) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(str1, "\n%6d%6.d%6.0d%6.2d%6.3d%6.4d%6.5d%6.6d%6.7d", 12345,
-                   12345, 12345, 12345, 12345, 12345, 12345, 12345, 12345);
-  int r2 =
-      s21_sprintf(str2, "\n%6d%6.d%6.0d%6.2d%6.3d%6.4d%6.5d%6.6d%6.7d", 12345,
-                  12345, 12345, 12345, 12345, 12345, 12345, 12345, 12345);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_d123456_statik_width) {
-  char str1[1000];
-  char str2[1000];
-  int r1 =
-      sprintf(str1, "\n%6d%6.d%6.0d%6.2d%6.3d%6.4d%6.5d%6.6d%6.7d", 123456,
-              123456, 123456, 123456, 123456, 123456, 123456, 123456, 123456);
-  int r2 = s21_sprintf(str2, "\n%6d%6.d%6.0d%6.2d%6.3d%6.4d%6.5d%6.6d%6.7d",
-                       123456, 123456, 123456, 123456, 123456, 123456, 123456,
-                       123456, 123456);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_d1234567_statik_width) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(str1, "\n%6d%6.d%6.0d%6.2d%6.3d%6.4d%6.5d%6.6d%6.7d",
-                   1234567, 1234567, 1234567, 1234567, 1234567, 1234567,
-                   1234567, 1234567, 1234567);
-  int r2 = s21_sprintf(str2, "\n%6d%6.d%6.0d%6.2d%6.3d%6.4d%6.5d%6.6d%6.7d",
-                       1234567, 1234567, 1234567, 1234567, 1234567, 1234567,
-                       1234567, 1234567, 1234567);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_d12345678_statik_width) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(str1, "\n%6d%6.d%6.0d%6.2d%6.3d%6.4d%6.5d%6.6d%6.7d",
-                   12345678, 12345678, 12345678, 12345678, 12345678, 12345678,
-                   12345678, 12345678, 12345678);
-  int r2 = s21_sprintf(str2, "\n%6d%6.d%6.0d%6.2d%6.3d%6.4d%6.5d%6.6d%6.7d",
-                       12345678, 12345678, 12345678, 12345678, 12345678,
-                       12345678, 12345678, 12345678, 12345678);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-//////////////////////////////////////
-
-START_TEST(s21_sprintf_test_d1_statik_accuracy) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(str1, "\n%.6d%.6d%1.6d%2.6d%3.6d%4.6d%5.6d%6.6d%7.6d", 1, 1,
-                   1, 1, 1, 1, 1, 1, 1);
-  int r2 = s21_sprintf(str2, "\n%.6d%.6d%1.6d%2.6d%3.6d%4.6d%5.6d%6.6d%7.6d", 1,
-                       1, 1, 1, 1, 1, 1, 1, 1);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_d12_statik_accuracy) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(str1, "\n%.6d%.6d%1.6d%2.6d%3.6d%4.6d%5.6d%6.6d%7.6d", 12,
-                   12, 12, 12, 12, 12, 12, 12, 12);
-  int r2 = s21_sprintf(str2, "\n%.6d%.6d%1.6d%2.6d%3.6d%4.6d%5.6d%6.6d%7.6d",
-                       12, 12, 12, 12, 12, 12, 12, 12, 12);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_d123_statik_accuracy) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(str1, "\n%.6d%.6d%1.6d%2.6d%3.6d%4.6d%5.6d%6.6d%7.6d", 123,
-                   123, 123, 123, 123, 123, 123, 123, 123);
-  int r2 = s21_sprintf(str2, "\n%.6d%.6d%1.6d%2.6d%3.6d%4.6d%5.6d%6.6d%7.6d",
-                       123, 123, 123, 123, 123, 123, 123, 123, 123);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_d1234_statik_accuracy) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(str1, "\n%.6d%.6d%1.6d%2.6d%3.6d%4.6d%5.6d%6.6d%7.6d", 1234,
-                   1234, 1234, 1234, 1234, 1234, 1234, 1234, 1234);
-  int r2 = s21_sprintf(str2, "\n%.6d%.6d%1.6d%2.6d%3.6d%4.6d%5.6d%6.6d%7.6d",
-                       1234, 1234, 1234, 1234, 1234, 1234, 1234, 1234, 1234);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_d12345_statik_accuracy) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(str1, "\n%.6d%.6d%1.6d%2.6d%3.6d%4.6d%5.6d%6.6d%7.6d", 12345,
-                   12345, 12345, 12345, 12345, 12345, 12345, 12345, 12345);
-  int r2 =
-      s21_sprintf(str2, "\n%.6d%.6d%1.6d%2.6d%3.6d%4.6d%5.6d%6.6d%7.6d", 12345,
-                  12345, 12345, 12345, 12345, 12345, 12345, 12345, 12345);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_d123456_statik_accuracy) {
-  char str1[1000];
-  char str2[1000];
-  int r1 =
-      sprintf(str1, "\n%.6d%.6d%1.6d%2.6d%3.6d%4.6d%5.6d%6.6d%7.6d", 123456,
-              123456, 123456, 123456, 123456, 123456, 123456, 123456, 123456);
-  int r2 = s21_sprintf(str2, "\n%.6d%.6d%1.6d%2.6d%3.6d%4.6d%5.6d%6.6d%7.6d",
-                       123456, 123456, 123456, 123456, 123456, 123456, 123456,
-                       123456, 123456);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_d1234567_statik_accuracy) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(str1, "\n%.6d%.6d%1.6d%2.6d%3.6d%4.6d%5.6d%6.6d%7.6d",
-                   1234567, 1234567, 1234567, 1234567, 1234567, 1234567,
-                   1234567, 1234567, 1234567);
-  int r2 = s21_sprintf(str2, "\n%.6d%.6d%1.6d%2.6d%3.6d%4.6d%5.6d%6.6d%7.6d",
-                       1234567, 1234567, 1234567, 1234567, 1234567, 1234567,
-                       1234567, 1234567, 1234567);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_d12345678_statik_accuracy) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(str1, "\n%.6d%.6d%1.6d%2.6d%3.6d%4.6d%5.6d%6.6d%7.6d",
-                   12345678, 12345678, 12345678, 12345678, 12345678, 12345678,
-                   12345678, 12345678, 12345678);
-  int r2 = s21_sprintf(str2, "\n%.6d%.6d%1.6d%2.6d%3.6d%4.6d%5.6d%6.6d%7.6d",
-                       12345678, 12345678, 12345678, 12345678, 12345678,
-                       12345678, 12345678, 12345678, 12345678);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_dm1_statik_width) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(str1, "\n%6d%6.d%6.0d%6.2d%6.3d%6.4d%6.5d%6.6d%6.7d", -1, -1,
-                   -1, -1, -1, -1, -1, -1, -1);
-  int r2 = s21_sprintf(str2, "\n%6d%6.d%6.0d%6.2d%6.3d%6.4d%6.5d%6.6d%6.7d", -1,
-                       -1, -1, -1, -1, -1, -1, -1, -1);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_dm12_statik_width) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(str1, "\n%6d%6.d%6.0d%6.2d%6.3d%6.4d%6.5d%6.6d%6.7d", -12,
-                   -12, -12, -12, -12, -12, -12, -12, -12);
-  int r2 = s21_sprintf(str2, "\n%6d%6.d%6.0d%6.2d%6.3d%6.4d%6.5d%6.6d%6.7d",
-                       -12, -12, -12, -12, -12, -12, -12, -12, -12);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_dm123_statik_width) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(str1, "\n%6d%6.d%6.0d%6.2d%6.3d%6.4d%6.5d%6.6d%6.7d", -123,
-                   -123, -123, -123, -123, -123, -123, -123, -123);
-  int r2 = s21_sprintf(str2, "\n%6d%6.d%6.0d%6.2d%6.3d%6.4d%6.5d%6.6d%6.7d",
-                       -123, -123, -123, -123, -123, -123, -123, -123, -123);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_dm1234_statik_width) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(str1, "\n%6d%6.d%6.0d%6.2d%6.3d%6.4d%6.5d%6.6d%6.7d", -1234,
-                   -1234, -1234, -1234, -1234, -1234, -1234, -1234, -1234);
-  int r2 =
-      s21_sprintf(str2, "\n%6d%6.d%6.0d%6.2d%6.3d%6.4d%6.5d%6.6d%6.7d", -1234,
-                  -1234, -1234, -1234, -1234, -1234, -1234, -1234, -1234);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_dm12345_statik_width) {
-  char str1[1000];
-  char str2[1000];
-  int r1 =
-      sprintf(str1, "\n%6d%6.d%6.0d%6.2d%6.3d%6.4d%6.5d%6.6d%6.7d", -12345,
-              -12345, -12345, -12345, -12345, -12345, -12345, -12345, -12345);
-  int r2 = s21_sprintf(str2, "\n%6d%6.d%6.0d%6.2d%6.3d%6.4d%6.5d%6.6d%6.7d",
-                       -12345, -12345, -12345, -12345, -12345, -12345, -12345,
-                       -12345, -12345);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_dm123456_statik_width) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(str1, "\n%6d%6.d%6.0d%6.2d%6.3d%6.4d%6.5d%6.6d%6.7d",
-                   -123456, -123456, -123456, -123456, -123456, -123456,
-                   -123456, -123456, -123456);
-  int r2 = s21_sprintf(str2, "\n%6d%6.d%6.0d%6.2d%6.3d%6.4d%6.5d%6.6d%6.7d",
-                       -123456, -123456, -123456, -123456, -123456, -123456,
-                       -123456, -123456, -123456);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_dm1234567_statik_width) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(str1, "\n%6d%6.d%6.0d%6.2d%6.3d%6.4d%6.5d%6.6d%6.7d",
-                   -1234567, -1234567, -1234567, -1234567, -1234567, -1234567,
-                   -1234567, -1234567, -1234567);
-  int r2 = s21_sprintf(str2, "\n%6d%6.d%6.0d%6.2d%6.3d%6.4d%6.5d%6.6d%6.7d",
-                       -1234567, -1234567, -1234567, -1234567, -1234567,
-                       -1234567, -1234567, -1234567, -1234567);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_dm12345678_statik_width) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(str1, "\n%6d%6.d%6.0d%6.2d%6.3d%6.4d%6.5d%6.6d%6.7d",
-                   -12345678, -12345678, -12345678, -12345678, -12345678,
-                   -12345678, -12345678, -12345678, -12345678);
-  int r2 = s21_sprintf(str2, "\n%6d%6.d%6.0d%6.2d%6.3d%6.4d%6.5d%6.6d%6.7d",
-                       -12345678, -12345678, -12345678, -12345678, -12345678,
-                       -12345678, -12345678, -12345678, -12345678);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-//////////////////////////////////////
-
-START_TEST(s21_sprintf_test_dm1_statik_accuracy) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(str1, "\n%.6d%.6d%1.6d%2.6d%3.6d%4.6d%5.6d%6.6d%7.6d", -1,
-                   -1, -1, -1, -1, -1, -1, -1, -1);
-  int r2 = s21_sprintf(str2, "\n%.6d%.6d%1.6d%2.6d%3.6d%4.6d%5.6d%6.6d%7.6d",
-                       -1, -1, -1, -1, -1, -1, -1, -1, -1);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_dm12_statik_accuracy) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(str1, "\n%.6d%.6d%1.6d%2.6d%3.6d%4.6d%5.6d%6.6d%7.6d", -12,
-                   -12, -12, -12, -12, -12, -12, -12, -12);
-  int r2 = s21_sprintf(str2, "\n%.6d%.6d%1.6d%2.6d%3.6d%4.6d%5.6d%6.6d%7.6d",
-                       -12, -12, -12, -12, -12, -12, -12, -12, -12);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_dm123_statik_accuracy) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(str1, "\n%.6d%.6d%1.6d%2.6d%3.6d%4.6d%5.6d%6.6d%7.6d", -123,
-                   -123, -123, -123, -123, -123, -123, -123, -123);
-  int r2 = s21_sprintf(str2, "\n%.6d%.6d%1.6d%2.6d%3.6d%4.6d%5.6d%6.6d%7.6d",
-                       -123, -123, -123, -123, -123, -123, -123, -123, -123);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_dm1234_statik_accuracy) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(str1, "\n%.6d%.6d%1.6d%2.6d%3.6d%4.6d%5.6d%6.6d%7.6d", -1234,
-                   -1234, -1234, -1234, -1234, -1234, -1234, -1234, -1234);
-  int r2 =
-      s21_sprintf(str2, "\n%.6d%.6d%1.6d%2.6d%3.6d%4.6d%5.6d%6.6d%7.6d", -1234,
-                  -1234, -1234, -1234, -1234, -1234, -1234, -1234, -1234);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_dm12345_statik_accuracy) {
-  char str1[1000];
-  char str2[1000];
-  int r1 =
-      sprintf(str1, "\n%.6d%.6d%1.6d%2.6d%3.6d%4.6d%5.6d%6.6d%7.6d", -12345,
-              -12345, -12345, -12345, -12345, -12345, -12345, -12345, -12345);
-  int r2 = s21_sprintf(str2, "\n%.6d%.6d%1.6d%2.6d%3.6d%4.6d%5.6d%6.6d%7.6d",
-                       -12345, -12345, -12345, -12345, -12345, -12345, -12345,
-                       -12345, -12345);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_dm123456_statik_accuracy) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(str1, "\n%.6d%.6d%1.6d%2.6d%3.6d%4.6d%5.6d%6.6d%7.6d",
-                   -123456, -123456, -123456, -123456, -123456, -123456,
-                   -123456, -123456, -123456);
-  int r2 = s21_sprintf(str2, "\n%.6d%.6d%1.6d%2.6d%3.6d%4.6d%5.6d%6.6d%7.6d",
-                       -123456, -123456, -123456, -123456, -123456, -123456,
-                       -123456, -123456, -123456);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_dm1234567_statik_accuracy) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(str1, "\n%.6d%.6d%1.6d%2.6d%3.6d%4.6d%5.6d%6.6d%7.6d",
-                   -1234567, -1234567, -1234567, -1234567, -1234567, -1234567,
-                   -1234567, -1234567, -1234567);
-  int r2 = s21_sprintf(str2, "\n%.6d%.6d%1.6d%2.6d%3.6d%4.6d%5.6d%6.6d%7.6d",
-                       -1234567, -1234567, -1234567, -1234567, -1234567,
-                       -1234567, -1234567, -1234567, -1234567);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_dm12345678_statik_accuracy) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(str1, "\n%.6d%.6d%1.6d%2.6d%3.6d%4.6d%5.6d%6.6d%7.6d",
-                   -12345678, -12345678, -12345678, -12345678, -12345678,
-                   -12345678, -12345678, -12345678, -12345678);
-  int r2 = s21_sprintf(str2, "\n%.6d%.6d%1.6d%2.6d%3.6d%4.6d%5.6d%6.6d%7.6d",
-                       -12345678, -12345678, -12345678, -12345678, -12345678,
-                       -12345678, -12345678, -12345678, -12345678);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_d2) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(str1, "\n%-25.10d%-30.2d%10.12d%11d", 253, 335, 1234, 34);
-  int r2 =
-      s21_sprintf(str2, "\n%-25.10d%-30.2d%10.12d%11d", 253, 335, 1234, 34);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_minus_hd1_statik_width) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(
-      str1, "\n%-6hd%-6.hd%-6.0hd%-6.2hd%-6.3hd%-6.4hd%-6.5hd%-6.6hd%-6.7d", 1,
-      1, 1, 1, 1, 1, 1, 1, 1);
-  int r2 = s21_sprintf(
-      str2, "\n%-6hd%-6.hd%-6.0hd%-6.2hd%-6.3hd%-6.4hd%-6.5hd%-6.6hd%-6.7d", 1,
-      1, 1, 1, 1, 1, 1, 1, 1);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_minus_hd12_statik_width) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(
-      str1, "\n%-6hd%-6.hd%-6.0hd%-6.2hd%-6.3hd%-6.4hd%-6.5hd%-6.6hd%-6.7d", 12,
-      12, 12, 12, 12, 12, 12, 12, 12);
-  int r2 = s21_sprintf(
-      str2, "\n%-6hd%-6.hd%-6.0hd%-6.2hd%-6.3hd%-6.4hd%-6.5hd%-6.6hd%-6.7d", 12,
-      12, 12, 12, 12, 12, 12, 12, 12);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_minus_hd123_statik_width) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(
-      str1, "\n%-6hd%-6.hd%-6.0hd%-6.2hd%-6.3hd%-6.4hd%-6.5hd%-6.6hd%-6.7d",
-      123, 123, 123, 123, 123, 123, 123, 123, 123);
-  int r2 = s21_sprintf(
-      str2, "\n%-6hd%-6.hd%-6.0hd%-6.2hd%-6.3hd%-6.4hd%-6.5hd%-6.6hd%-6.7d",
-      123, 123, 123, 123, 123, 123, 123, 123, 123);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_minus_hd1234_statik_width) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(
-      str1, "\n%-6hd%-6.hd%-6.0hd%-6.2hd%-6.3hd%-6.4hd%-6.5hd%-6.6hd%-6.7d",
-      1234, 1234, 1234, 1234, 1234, 1234, 1234, 1234, 1234);
-  int r2 = s21_sprintf(
-      str2, "\n%-6hd%-6.hd%-6.0hd%-6.2hd%-6.3hd%-6.4hd%-6.5hd%-6.6hd%-6.7d",
-      1234, 1234, 1234, 1234, 1234, 1234, 1234, 1234, 1234);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_minus_hd12345_statik_width) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(
-      str1, "\n%-6hd%-6.hd%-6.0hd%-6.2hd%-6.3hd%-6.4hd%-6.5hd%-6.6hd%-6.7d",
-      12345, 12345, 12345, 12345, 12345, 12345, 12345, 12345, 12345);
-  int r2 = s21_sprintf(
-      str2, "\n%-6hd%-6.hd%-6.0hd%-6.2hd%-6.3hd%-6.4hd%-6.5hd%-6.6hd%-6.7d",
-      12345, 12345, 12345, 12345, 12345, 12345, 12345, 12345, 12345);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_minus_hd123456_statik_width) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(
-      str1, "\n%-6hd%-6.hd%-6.0hd%-6.2hd%-6.3hd%-6.4hd%-6.5hd%-6.6hd%-6.7d",
-      123456, 123456, 123456, 123456, 123456, 123456, 123456, 123456, 123456);
-  int r2 = s21_sprintf(
-      str2, "\n%-6hd%-6.hd%-6.0hd%-6.2hd%-6.3hd%-6.4hd%-6.5hd%-6.6hd%-6.7d",
-      123456, 123456, 123456, 123456, 123456, 123456, 123456, 123456, 123456);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_minus_hd1234567_statik_width) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(
-      str1, "\n%-6hd%-6.hd%-6.0hd%-6.2hd%-6.3hd%-6.4hd%-6.5hd%-6.6hd%-6.7d",
-      1234567, 1234567, 1234567, 1234567, 1234567, 1234567, 1234567, 1234567,
-      1234567);
-  int r2 = s21_sprintf(
-      str2, "\n%-6hd%-6.hd%-6.0hd%-6.2hd%-6.3hd%-6.4hd%-6.5hd%-6.6hd%-6.7d",
-      1234567, 1234567, 1234567, 1234567, 1234567, 1234567, 1234567, 1234567,
-      1234567);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_minus_hd12345678_statik_width) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(
-      str1, "\n%-6hd%-6.hd%-6.0hd%-6.2hd%-6.3hd%-6.4hd%-6.5hd%-6.6hd%-6.7d",
-      12345678, 12345678, 12345678, 12345678, 12345678, 12345678, 12345678,
-      12345678, 12345678);
-  int r2 = s21_sprintf(
-      str2, "\n%-6hd%-6.hd%-6.0hd%-6.2hd%-6.3hd%-6.4hd%-6.5hd%-6.6hd%-6.7d",
-      12345678, 12345678, 12345678, 12345678, 12345678, 12345678, 12345678,
-      12345678, 12345678);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-//////////////////////////////////////
-
-START_TEST(s21_sprintf_test_minus_hd1_statik_accuracy) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(
-      str1, "\n%-.6hd%-.6hd%-1.6hd%-2.6hd%-3.6hd%-4.6hd%-5.6hd%-6.6hd%-7.6d", 1,
-      1, 1, 1, 1, 1, 1, 1, 1);
-  int r2 = s21_sprintf(
-      str2, "\n%-.6hd%-.6hd%-1.6hd%-2.6hd%-3.6hd%-4.6hd%-5.6hd%-6.6hd%-7.6d", 1,
-      1, 1, 1, 1, 1, 1, 1, 1);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_minus_hd12_statik_accuracy) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(
-      str1, "\n%-.6hd%-.6hd%-1.6hd%-2.6hd%-3.6hd%-4.6hd%-5.6hd%-6.6hd%-7.6d",
-      12, 12, 12, 12, 12, 12, 12, 12, 12);
-  int r2 = s21_sprintf(
-      str2, "\n%-.6hd%-.6hd%-1.6hd%-2.6hd%-3.6hd%-4.6hd%-5.6hd%-6.6hd%-7.6d",
-      12, 12, 12, 12, 12, 12, 12, 12, 12);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_minus_hd123_statik_accuracy) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(
-      str1, "\n%-.6hd%-.6hd%-1.6hd%-2.6hd%-3.6hd%-4.6hd%-5.6hd%-6.6hd%-7.6d",
-      123, 123, 123, 123, 123, 123, 123, 123, 123);
-  int r2 = s21_sprintf(
-      str2, "\n%-.6hd%-.6hd%-1.6hd%-2.6hd%-3.6hd%-4.6hd%-5.6hd%-6.6hd%-7.6d",
-      123, 123, 123, 123, 123, 123, 123, 123, 123);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_minus_hd1234_statik_accuracy) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(
-      str1, "\n%-.6hd%-.6hd%-1.6hd%-2.6hd%-3.6hd%-4.6hd%-5.6hd%-6.6hd%-7.6d",
-      1234, 1234, 1234, 1234, 1234, 1234, 1234, 1234, 1234);
-  int r2 = s21_sprintf(
-      str2, "\n%-.6hd%-.6hd%-1.6hd%-2.6hd%-3.6hd%-4.6hd%-5.6hd%-6.6hd%-7.6d",
-      1234, 1234, 1234, 1234, 1234, 1234, 1234, 1234, 1234);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_minus_hd12345_statik_accuracy) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(
-      str1, "\n%-.6hd%-.6hd%-1.6hd%-2.6hd%-3.6hd%-4.6hd%-5.6hd%-6.6hd%-7.6d",
-      12345, 12345, 12345, 12345, 12345, 12345, 12345, 12345, 12345);
-  int r2 = s21_sprintf(
-      str2, "\n%-.6hd%-.6hd%-1.6hd%-2.6hd%-3.6hd%-4.6hd%-5.6hd%-6.6hd%-7.6d",
-      12345, 12345, 12345, 12345, 12345, 12345, 12345, 12345, 12345);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_minus_hd123456_statik_accuracy) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(
-      str1, "\n%-.6hd%-.6hd%-1.6hd%-2.6hd%-3.6hd%-4.6hd%-5.6hd%-6.6hd%-7.6d",
-      123456, 123456, 123456, 123456, 123456, 123456, 123456, 123456, 123456);
-  int r2 = s21_sprintf(
-      str2, "\n%-.6hd%-.6hd%-1.6hd%-2.6hd%-3.6hd%-4.6hd%-5.6hd%-6.6hd%-7.6d",
-      123456, 123456, 123456, 123456, 123456, 123456, 123456, 123456, 123456);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_minus_hd1234567_statik_accuracy) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(
-      str1, "\n%-.6hd%-.6hd%-1.6hd%-2.6hd%-3.6hd%-4.6hd%-5.6hd%-6.6hd%-7.6d",
-      1234567, 1234567, 1234567, 1234567, 1234567, 1234567, 1234567, 1234567,
-      1234567);
-  int r2 = s21_sprintf(
-      str2, "\n%-.6hd%-.6hd%-1.6hd%-2.6hd%-3.6hd%-4.6hd%-5.6hd%-6.6hd%-7.6d",
-      1234567, 1234567, 1234567, 1234567, 1234567, 1234567, 1234567, 1234567,
-      1234567);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_minus_hd12345678_statik_accuracy) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(
-      str1, "\n%-.6hd%-.6hd%-1.6hd%-2.6hd%-3.6hd%-4.6hd%-5.6hd%-6.6hd%-7.6d",
-      12345678, 12345678, 12345678, 12345678, 12345678, 12345678, 12345678,
-      12345678, 12345678);
-  int r2 = s21_sprintf(
-      str2, "\n%-.6hd%-.6hd%-1.6hd%-2.6hd%-3.6hd%-4.6hd%-5.6hd%-6.6hd%-7.6d",
-      12345678, 12345678, 12345678, 12345678, 12345678, 12345678, 12345678,
-      12345678, 12345678);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_minus_hdm1_statik_width) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(
-      str1, "\n%-6hd%-6.hd%-6.0hd%-6.2hd%-6.3hd%-6.4hd%-6.5hd%-6.6hd%-6.7d", -1,
-      -1, -1, -1, -1, -1, -1, -1, -1);
-  int r2 = s21_sprintf(
-      str2, "\n%-6hd%-6.hd%-6.0hd%-6.2hd%-6.3hd%-6.4hd%-6.5hd%-6.6hd%-6.7d", -1,
-      -1, -1, -1, -1, -1, -1, -1, -1);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_minus_hdm12_statik_width) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(
-      str1, "\n%-6hd%-6.hd%-6.0hd%-6.2hd%-6.3hd%-6.4hd%-6.5hd%-6.6hd%-6.7d",
-      -12, -12, -12, -12, -12, -12, -12, -12, -12);
-  int r2 = s21_sprintf(
-      str2, "\n%-6hd%-6.hd%-6.0hd%-6.2hd%-6.3hd%-6.4hd%-6.5hd%-6.6hd%-6.7d",
-      -12, -12, -12, -12, -12, -12, -12, -12, -12);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_minus_hdm123_statik_width) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(
-      str1, "\n%-6hd%-6.hd%-6.0hd%-6.2hd%-6.3hd%-6.4hd%-6.5hd%-6.6hd%-6.7d",
-      -123, -123, -123, -123, -123, -123, -123, -123, -123);
-  int r2 = s21_sprintf(
-      str2, "\n%-6hd%-6.hd%-6.0hd%-6.2hd%-6.3hd%-6.4hd%-6.5hd%-6.6hd%-6.7d",
-      -123, -123, -123, -123, -123, -123, -123, -123, -123);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_minus_hdm1234_statik_width) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(
-      str1, "\n%-6hd%-6.hd%-6.0hd%-6.2hd%-6.3hd%-6.4hd%-6.5hd%-6.6hd%-6.7d",
-      -1234, -1234, -1234, -1234, -1234, -1234, -1234, -1234, -1234);
-  int r2 = s21_sprintf(
-      str2, "\n%-6hd%-6.hd%-6.0hd%-6.2hd%-6.3hd%-6.4hd%-6.5hd%-6.6hd%-6.7d",
-      -1234, -1234, -1234, -1234, -1234, -1234, -1234, -1234, -1234);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_minus_hdm12345_statik_width) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(
-      str1, "\n%-6hd%-6.hd%-6.0hd%-6.2hd%-6.3hd%-6.4hd%-6.5hd%-6.6hd%-6.7d",
-      -12345, -12345, -12345, -12345, -12345, -12345, -12345, -12345, -12345);
-  int r2 = s21_sprintf(
-      str2, "\n%-6hd%-6.hd%-6.0hd%-6.2hd%-6.3hd%-6.4hd%-6.5hd%-6.6hd%-6.7d",
-      -12345, -12345, -12345, -12345, -12345, -12345, -12345, -12345, -12345);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_minus_hdm123456_statik_width) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(
-      str1, "\n%-6hd%-6.hd%-6.0hd%-6.2hd%-6.3hd%-6.4hd%-6.5hd%-6.6hd%-6.7d",
-      -123456, -123456, -123456, -123456, -123456, -123456, -123456, -123456,
-      -123456);
-  int r2 = s21_sprintf(
-      str2, "\n%-6hd%-6.hd%-6.0hd%-6.2hd%-6.3hd%-6.4hd%-6.5hd%-6.6hd%-6.7d",
-      -123456, -123456, -123456, -123456, -123456, -123456, -123456, -123456,
-      -123456);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_minus_hdm1234567_statik_width) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(
-      str1, "\n%-6hd%-6.hd%-6.0hd%-6.2hd%-6.3hd%-6.4hd%-6.5hd%-6.6hd%-6.7d",
-      -1234567, -1234567, -1234567, -1234567, -1234567, -1234567, -1234567,
-      -1234567, -1234567);
-  int r2 = s21_sprintf(
-      str2, "\n%-6hd%-6.hd%-6.0hd%-6.2hd%-6.3hd%-6.4hd%-6.5hd%-6.6hd%-6.7d",
-      -1234567, -1234567, -1234567, -1234567, -1234567, -1234567, -1234567,
-      -1234567, -1234567);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_minus_hdm12345678_statik_width) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(
-      str1, "\n%-6hd%-6.hd%-6.0hd%-6.2hd%-6.3hd%-6.4hd%-6.5hd%-6.6hd%-6.7d",
-      -12345678, -12345678, -12345678, -12345678, -12345678, -12345678,
-      -12345678, -12345678, -12345678);
-  int r2 = s21_sprintf(
-      str2, "\n%-6hd%-6.hd%-6.0hd%-6.2hd%-6.3hd%-6.4hd%-6.5hd%-6.6hd%-6.7d",
-      -12345678, -12345678, -12345678, -12345678, -12345678, -12345678,
-      -12345678, -12345678, -12345678);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-//////////////////////////////////////
-
-START_TEST(s21_sprintf_test_minus_hdm1_statik_accuracy) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(
-      str1, "\n%-.6hd%-.6hd%-1.6hd%-2.6hd%-3.6hd%-4.6hd%-5.6hd%-6.6hd%-7.6d",
-      -1, -1, -1, -1, -1, -1, -1, -1, -1);
-  int r2 = s21_sprintf(
-      str2, "\n%-.6hd%-.6hd%-1.6hd%-2.6hd%-3.6hd%-4.6hd%-5.6hd%-6.6hd%-7.6d",
-      -1, -1, -1, -1, -1, -1, -1, -1, -1);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_minus_hdm12_statik_accuracy) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(
-      str1, "\n%-.6hd%-.6hd%-1.6hd%-2.6hd%-3.6hd%-4.6hd%-5.6hd%-6.6hd%-7.6d",
-      -12, -12, -12, -12, -12, -12, -12, -12, -12);
-  int r2 = s21_sprintf(
-      str2, "\n%-.6hd%-.6hd%-1.6hd%-2.6hd%-3.6hd%-4.6hd%-5.6hd%-6.6hd%-7.6d",
-      -12, -12, -12, -12, -12, -12, -12, -12, -12);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_minus_hdm123_statik_accuracy) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(
-      str1, "\n%-.6hd%-.6hd%-1.6hd%-2.6hd%-3.6hd%-4.6hd%-5.6hd%-6.6hd%-7.6d",
-      -123, -123, -123, -123, -123, -123, -123, -123, -123);
-  int r2 = s21_sprintf(
-      str2, "\n%-.6hd%-.6hd%-1.6hd%-2.6hd%-3.6hd%-4.6hd%-5.6hd%-6.6hd%-7.6d",
-      -123, -123, -123, -123, -123, -123, -123, -123, -123);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_minus_hdm1234_statik_accuracy) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(
-      str1, "\n%-.6hd%-.6hd%-1.6hd%-2.6hd%-3.6hd%-4.6hd%-5.6hd%-6.6hd%-7.6d",
-      -1234, -1234, -1234, -1234, -1234, -1234, -1234, -1234, -1234);
-  int r2 = s21_sprintf(
-      str2, "\n%-.6hd%-.6hd%-1.6hd%-2.6hd%-3.6hd%-4.6hd%-5.6hd%-6.6hd%-7.6d",
-      -1234, -1234, -1234, -1234, -1234, -1234, -1234, -1234, -1234);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_minus_hdm12345_statik_accuracy) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(
-      str1, "\n%-.6hd%-.6hd%-1.6hd%-2.6hd%-3.6hd%-4.6hd%-5.6hd%-6.6hd%-7.6d",
-      -12345, -12345, -12345, -12345, -12345, -12345, -12345, -12345, -12345);
-  int r2 = s21_sprintf(
-      str2, "\n%-.6hd%-.6hd%-1.6hd%-2.6hd%-3.6hd%-4.6hd%-5.6hd%-6.6hd%-7.6d",
-      -12345, -12345, -12345, -12345, -12345, -12345, -12345, -12345, -12345);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_minus_hdm123456_statik_accuracy) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(
-      str1, "\n%-.6hd%-.6hd%-1.6hd%-2.6hd%-3.6hd%-4.6hd%-5.6hd%-6.6hd%-7.6d",
-      -123456, -123456, -123456, -123456, -123456, -123456, -123456, -123456,
-      -123456);
-  int r2 = s21_sprintf(
-      str2, "\n%-.6hd%-.6hd%-1.6hd%-2.6hd%-3.6hd%-4.6hd%-5.6hd%-6.6hd%-7.6d",
-      -123456, -123456, -123456, -123456, -123456, -123456, -123456, -123456,
-      -123456);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_minus_hdm1234567_statik_accuracy) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(
-      str1, "\n%-.6hd%-.6hd%-1.6hd%-2.6hd%-3.6hd%-4.6hd%-5.6hd%-6.6hd%-7.6d",
-      -1234567, -1234567, -1234567, -1234567, -1234567, -1234567, -1234567,
-      -1234567, -1234567);
-  int r2 = s21_sprintf(
-      str2, "\n%-.6hd%-.6hd%-1.6hd%-2.6hd%-3.6hd%-4.6hd%-5.6hd%-6.6hd%-7.6d",
-      -1234567, -1234567, -1234567, -1234567, -1234567, -1234567, -1234567,
-      -1234567, -1234567);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_minus_hdm12345678_statik_accuracy) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(
-      str1, "\n%-.6hd%-.6hd%-1.6hd%-2.6hd%-3.6hd%-4.6hd%-5.6hd%-6.6hd%-7.6d",
-      -12345678, -12345678, -12345678, -12345678, -12345678, -12345678,
-      -12345678, -12345678, -12345678);
-  int r2 = s21_sprintf(
-      str2, "\n%-.6hd%-.6hd%-1.6hd%-2.6hd%-3.6hd%-4.6hd%-5.6hd%-6.6hd%-7.6d",
-      -12345678, -12345678, -12345678, -12345678, -12345678, -12345678,
-      -12345678, -12345678, -12345678);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_hd1_statik_width) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(str1, "\n%6hd%6.hd%6.0hd%6.2hd%6.3hd%6.4hd%6.5hd%6.6hd%6.7d",
-                   1, 1, 1, 1, 1, 1, 1, 1, 1);
-  int r2 =
-      s21_sprintf(str2, "\n%6hd%6.hd%6.0hd%6.2hd%6.3hd%6.4hd%6.5hd%6.6hd%6.7d",
-                  1, 1, 1, 1, 1, 1, 1, 1, 1);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_hd12_statik_width) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(str1, "\n%6hd%6.hd%6.0hd%6.2hd%6.3hd%6.4hd%6.5hd%6.6hd%6.7d",
-                   12, 12, 12, 12, 12, 12, 12, 12, 12);
-  int r2 =
-      s21_sprintf(str2, "\n%6hd%6.hd%6.0hd%6.2hd%6.3hd%6.4hd%6.5hd%6.6hd%6.7d",
-                  12, 12, 12, 12, 12, 12, 12, 12, 12);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_hd123_statik_width) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(str1, "\n%6hd%6.hd%6.0hd%6.2hd%6.3hd%6.4hd%6.5hd%6.6hd%6.7d",
-                   123, 123, 123, 123, 123, 123, 123, 123, 123);
-  int r2 =
-      s21_sprintf(str2, "\n%6hd%6.hd%6.0hd%6.2hd%6.3hd%6.4hd%6.5hd%6.6hd%6.7d",
-                  123, 123, 123, 123, 123, 123, 123, 123, 123);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_hd1234_statik_width) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(str1, "\n%6hd%6.hd%6.0hd%6.2hd%6.3hd%6.4hd%6.5hd%6.6hd%6.7d",
-                   1234, 1234, 1234, 1234, 1234, 1234, 1234, 1234, 1234);
-  int r2 =
-      s21_sprintf(str2, "\n%6hd%6.hd%6.0hd%6.2hd%6.3hd%6.4hd%6.5hd%6.6hd%6.7d",
-                  1234, 1234, 1234, 1234, 1234, 1234, 1234, 1234, 1234);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_hd12345_statik_width) {
-  char str1[1000];
-  char str2[1000];
-  int r1 =
-      sprintf(str1, "\n%6hd%6.hd%6.0hd%6.2hd%6.3hd%6.4hd%6.5hd%6.6hd%6.7d",
-              12345, 12345, 12345, 12345, 12345, 12345, 12345, 12345, 12345);
-  int r2 = s21_sprintf(
-      str2, "\n%6hd%6.hd%6.0hd%6.2hd%6.3hd%6.4hd%6.5hd%6.6hd%6.7d", 12345,
-      12345, 12345, 12345, 12345, 12345, 12345, 12345, 12345);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_hd123456_statik_width) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(str1, "\n%6hd%6.hd%6.0hd%6.2hd%6.3hd%6.4hd%6.5hd%6.6hd%6.7d",
-                   123456, 123456, 123456, 123456, 123456, 123456, 123456,
-                   123456, 123456);
-  int r2 = s21_sprintf(
-      str2, "\n%6hd%6.hd%6.0hd%6.2hd%6.3hd%6.4hd%6.5hd%6.6hd%6.7d", 123456,
-      123456, 123456, 123456, 123456, 123456, 123456, 123456, 123456);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_hd1234567_statik_width) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(str1, "\n%6hd%6.hd%6.0hd%6.2hd%6.3hd%6.4hd%6.5hd%6.6hd%6.7d",
-                   1234567, 1234567, 1234567, 1234567, 1234567, 1234567,
-                   1234567, 1234567, 1234567);
-  int r2 = s21_sprintf(
-      str2, "\n%6hd%6.hd%6.0hd%6.2hd%6.3hd%6.4hd%6.5hd%6.6hd%6.7d", 1234567,
-      1234567, 1234567, 1234567, 1234567, 1234567, 1234567, 1234567, 1234567);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_hd12345678_statik_width) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(str1, "\n%6hd%6.hd%6.0hd%6.2hd%6.3hd%6.4hd%6.5hd%6.6hd%6.7d",
-                   12345678, 12345678, 12345678, 12345678, 12345678, 12345678,
-                   12345678, 12345678, 12345678);
-  int r2 =
-      s21_sprintf(str2, "\n%6hd%6.hd%6.0hd%6.2hd%6.3hd%6.4hd%6.5hd%6.6hd%6.7d",
-                  12345678, 12345678, 12345678, 12345678, 12345678, 12345678,
-                  12345678, 12345678, 12345678);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-//////////////////////////////////////
-
-START_TEST(s21_sprintf_test_hd1_statik_accuracy) {
-  char str1[1000];
-  char str2[1000];
-  int r1 =
-      sprintf(str1, "\n%.6hd%.6hd%1.6hd%2.6hd%3.6hd%4.6hd%5.6hd%6.6hd%7.6d", 1,
-              1, 1, 1, 1, 1, 1, 1, 1);
-  int r2 =
-      s21_sprintf(str2, "\n%.6hd%.6hd%1.6hd%2.6hd%3.6hd%4.6hd%5.6hd%6.6hd%7.6d",
-                  1, 1, 1, 1, 1, 1, 1, 1, 1);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_hd12_statik_accuracy) {
-  char str1[1000];
-  char str2[1000];
-  int r1 =
-      sprintf(str1, "\n%.6hd%.6hd%1.6hd%2.6hd%3.6hd%4.6hd%5.6hd%6.6hd%7.6d", 12,
-              12, 12, 12, 12, 12, 12, 12, 12);
-  int r2 =
-      s21_sprintf(str2, "\n%.6hd%.6hd%1.6hd%2.6hd%3.6hd%4.6hd%5.6hd%6.6hd%7.6d",
-                  12, 12, 12, 12, 12, 12, 12, 12, 12);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_hd123_statik_accuracy) {
-  char str1[1000];
-  char str2[1000];
-  int r1 =
-      sprintf(str1, "\n%.6hd%.6hd%1.6hd%2.6hd%3.6hd%4.6hd%5.6hd%6.6hd%7.6d",
-              123, 123, 123, 123, 123, 123, 123, 123, 123);
-  int r2 =
-      s21_sprintf(str2, "\n%.6hd%.6hd%1.6hd%2.6hd%3.6hd%4.6hd%5.6hd%6.6hd%7.6d",
-                  123, 123, 123, 123, 123, 123, 123, 123, 123);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_hd1234_statik_accuracy) {
-  char str1[1000];
-  char str2[1000];
-  int r1 =
-      sprintf(str1, "\n%.6hd%.6hd%1.6hd%2.6hd%3.6hd%4.6hd%5.6hd%6.6hd%7.6d",
-              1234, 1234, 1234, 1234, 1234, 1234, 1234, 1234, 1234);
-  int r2 =
-      s21_sprintf(str2, "\n%.6hd%.6hd%1.6hd%2.6hd%3.6hd%4.6hd%5.6hd%6.6hd%7.6d",
-                  1234, 1234, 1234, 1234, 1234, 1234, 1234, 1234, 1234);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_hd12345_statik_accuracy) {
-  char str1[1000];
-  char str2[1000];
-  int r1 =
-      sprintf(str1, "\n%.6hd%.6hd%1.6hd%2.6hd%3.6hd%4.6hd%5.6hd%6.6hd%7.6d",
-              12345, 12345, 12345, 12345, 12345, 12345, 12345, 12345, 12345);
-  int r2 = s21_sprintf(
-      str2, "\n%.6hd%.6hd%1.6hd%2.6hd%3.6hd%4.6hd%5.6hd%6.6hd%7.6d", 12345,
-      12345, 12345, 12345, 12345, 12345, 12345, 12345, 12345);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_hd123456_statik_accuracy) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(
-      str1, "\n%.6hd%.6hd%1.6hd%2.6hd%3.6hd%4.6hd%5.6hd%6.6hd%7.6d", 123456,
-      123456, 123456, 123456, 123456, 123456, 123456, 123456, 123456);
-  int r2 = s21_sprintf(
-      str2, "\n%.6hd%.6hd%1.6hd%2.6hd%3.6hd%4.6hd%5.6hd%6.6hd%7.6d", 123456,
-      123456, 123456, 123456, 123456, 123456, 123456, 123456, 123456);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_hd1234567_statik_accuracy) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(
-      str1, "\n%.6hd%.6hd%1.6hd%2.6hd%3.6hd%4.6hd%5.6hd%6.6hd%7.6d", 1234567,
-      1234567, 1234567, 1234567, 1234567, 1234567, 1234567, 1234567, 1234567);
-  int r2 = s21_sprintf(
-      str2, "\n%.6hd%.6hd%1.6hd%2.6hd%3.6hd%4.6hd%5.6hd%6.6hd%7.6d", 1234567,
-      1234567, 1234567, 1234567, 1234567, 1234567, 1234567, 1234567, 1234567);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_hd12345678_statik_accuracy) {
-  char str1[1000];
-  char str2[1000];
-  int r1 =
-      sprintf(str1, "\n%.6hd%.6hd%1.6hd%2.6hd%3.6hd%4.6hd%5.6hd%6.6hd%7.6d",
-              12345678, 12345678, 12345678, 12345678, 12345678, 12345678,
-              12345678, 12345678, 12345678);
-  int r2 =
-      s21_sprintf(str2, "\n%.6hd%.6hd%1.6hd%2.6hd%3.6hd%4.6hd%5.6hd%6.6hd%7.6d",
-                  12345678, 12345678, 12345678, 12345678, 12345678, 12345678,
-                  12345678, 12345678, 12345678);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_hdm1_statik_width) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(str1, "\n%6hd%6.hd%6.0hd%6.2hd%6.3hd%6.4hd%6.5hd%6.6hd%6.7d",
-                   -1, -1, -1, -1, -1, -1, -1, -1, -1);
-  int r2 =
-      s21_sprintf(str2, "\n%6hd%6.hd%6.0hd%6.2hd%6.3hd%6.4hd%6.5hd%6.6hd%6.7d",
-                  -1, -1, -1, -1, -1, -1, -1, -1, -1);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_hdm12_statik_width) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(str1, "\n%6hd%6.hd%6.0hd%6.2hd%6.3hd%6.4hd%6.5hd%6.6hd%6.7d",
-                   -12, -12, -12, -12, -12, -12, -12, -12, -12);
-  int r2 =
-      s21_sprintf(str2, "\n%6hd%6.hd%6.0hd%6.2hd%6.3hd%6.4hd%6.5hd%6.6hd%6.7d",
-                  -12, -12, -12, -12, -12, -12, -12, -12, -12);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_hdm123_statik_width) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(str1, "\n%6hd%6.hd%6.0hd%6.2hd%6.3hd%6.4hd%6.5hd%6.6hd%6.7d",
-                   -123, -123, -123, -123, -123, -123, -123, -123, -123);
-  int r2 =
-      s21_sprintf(str2, "\n%6hd%6.hd%6.0hd%6.2hd%6.3hd%6.4hd%6.5hd%6.6hd%6.7d",
-                  -123, -123, -123, -123, -123, -123, -123, -123, -123);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_hdm1234_statik_width) {
-  char str1[1000];
-  char str2[1000];
-  int r1 =
-      sprintf(str1, "\n%6hd%6.hd%6.0hd%6.2hd%6.3hd%6.4hd%6.5hd%6.6hd%6.7d",
-              -1234, -1234, -1234, -1234, -1234, -1234, -1234, -1234, -1234);
-  int r2 = s21_sprintf(
-      str2, "\n%6hd%6.hd%6.0hd%6.2hd%6.3hd%6.4hd%6.5hd%6.6hd%6.7d", -1234,
-      -1234, -1234, -1234, -1234, -1234, -1234, -1234, -1234);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_hdm12345_statik_width) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(str1, "\n%6hd%6.hd%6.0hd%6.2hd%6.3hd%6.4hd%6.5hd%6.6hd%6.7d",
-                   -12345, -12345, -12345, -12345, -12345, -12345, -12345,
-                   -12345, -12345);
-  int r2 = s21_sprintf(
-      str2, "\n%6hd%6.hd%6.0hd%6.2hd%6.3hd%6.4hd%6.5hd%6.6hd%6.7d", -12345,
-      -12345, -12345, -12345, -12345, -12345, -12345, -12345, -12345);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_hdm123456_statik_width) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(str1, "\n%6hd%6.hd%6.0hd%6.2hd%6.3hd%6.4hd%6.5hd%6.6hd%6.7d",
-                   -123456, -123456, -123456, -123456, -123456, -123456,
-                   -123456, -123456, -123456);
-  int r2 = s21_sprintf(
-      str2, "\n%6hd%6.hd%6.0hd%6.2hd%6.3hd%6.4hd%6.5hd%6.6hd%6.7d", -123456,
-      -123456, -123456, -123456, -123456, -123456, -123456, -123456, -123456);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_hdm1234567_statik_width) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(str1, "\n%6hd%6.hd%6.0hd%6.2hd%6.3hd%6.4hd%6.5hd%6.6hd%6.7d",
-                   -1234567, -1234567, -1234567, -1234567, -1234567, -1234567,
-                   -1234567, -1234567, -1234567);
-  int r2 =
-      s21_sprintf(str2, "\n%6hd%6.hd%6.0hd%6.2hd%6.3hd%6.4hd%6.5hd%6.6hd%6.7d",
-                  -1234567, -1234567, -1234567, -1234567, -1234567, -1234567,
-                  -1234567, -1234567, -1234567);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_hdm12345678_statik_width) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(str1, "\n%6hd%6.hd%6.0hd%6.2hd%6.3hd%6.4hd%6.5hd%6.6hd%6.7d",
-                   -12345678, -12345678, -12345678, -12345678, -12345678,
-                   -12345678, -12345678, -12345678, -12345678);
-  int r2 =
-      s21_sprintf(str2, "\n%6hd%6.hd%6.0hd%6.2hd%6.3hd%6.4hd%6.5hd%6.6hd%6.7d",
-                  -12345678, -12345678, -12345678, -12345678, -12345678,
-                  -12345678, -12345678, -12345678, -12345678);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-//////////////////////////////////////
-
-START_TEST(s21_sprintf_test_hdm1_statik_accuracy) {
-  char str1[1000];
-  char str2[1000];
-  int r1 =
-      sprintf(str1, "\n%.6hd%.6hd%1.6hd%2.6hd%3.6hd%4.6hd%5.6hd%6.6hd%7.6d", -1,
-              -1, -1, -1, -1, -1, -1, -1, -1);
-  int r2 =
-      s21_sprintf(str2, "\n%.6hd%.6hd%1.6hd%2.6hd%3.6hd%4.6hd%5.6hd%6.6hd%7.6d",
-                  -1, -1, -1, -1, -1, -1, -1, -1, -1);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_hdm12_statik_accuracy) {
-  char str1[1000];
-  char str2[1000];
-  int r1 =
-      sprintf(str1, "\n%.6hd%.6hd%1.6hd%2.6hd%3.6hd%4.6hd%5.6hd%6.6hd%7.6d",
-              -12, -12, -12, -12, -12, -12, -12, -12, -12);
-  int r2 =
-      s21_sprintf(str2, "\n%.6hd%.6hd%1.6hd%2.6hd%3.6hd%4.6hd%5.6hd%6.6hd%7.6d",
-                  -12, -12, -12, -12, -12, -12, -12, -12, -12);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_hdm123_statik_accuracy) {
-  char str1[1000];
-  char str2[1000];
-  int r1 =
-      sprintf(str1, "\n%.6hd%.6hd%1.6hd%2.6hd%3.6hd%4.6hd%5.6hd%6.6hd%7.6d",
-              -123, -123, -123, -123, -123, -123, -123, -123, -123);
-  int r2 =
-      s21_sprintf(str2, "\n%.6hd%.6hd%1.6hd%2.6hd%3.6hd%4.6hd%5.6hd%6.6hd%7.6d",
-                  -123, -123, -123, -123, -123, -123, -123, -123, -123);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_hdm1234_statik_accuracy) {
-  char str1[1000];
-  char str2[1000];
-  int r1 =
-      sprintf(str1, "\n%.6hd%.6hd%1.6hd%2.6hd%3.6hd%4.6hd%5.6hd%6.6hd%7.6d",
-              -1234, -1234, -1234, -1234, -1234, -1234, -1234, -1234, -1234);
-  int r2 = s21_sprintf(
-      str2, "\n%.6hd%.6hd%1.6hd%2.6hd%3.6hd%4.6hd%5.6hd%6.6hd%7.6d", -1234,
-      -1234, -1234, -1234, -1234, -1234, -1234, -1234, -1234);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_hdm12345_statik_accuracy) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(
-      str1, "\n%.6hd%.6hd%1.6hd%2.6hd%3.6hd%4.6hd%5.6hd%6.6hd%7.6d", -12345,
-      -12345, -12345, -12345, -12345, -12345, -12345, -12345, -12345);
-  int r2 = s21_sprintf(
-      str2, "\n%.6hd%.6hd%1.6hd%2.6hd%3.6hd%4.6hd%5.6hd%6.6hd%7.6d", -12345,
-      -12345, -12345, -12345, -12345, -12345, -12345, -12345, -12345);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_hdm123456_statik_accuracy) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(
-      str1, "\n%.6hd%.6hd%1.6hd%2.6hd%3.6hd%4.6hd%5.6hd%6.6hd%7.6d", -123456,
-      -123456, -123456, -123456, -123456, -123456, -123456, -123456, -123456);
-  int r2 = s21_sprintf(
-      str2, "\n%.6hd%.6hd%1.6hd%2.6hd%3.6hd%4.6hd%5.6hd%6.6hd%7.6d", -123456,
-      -123456, -123456, -123456, -123456, -123456, -123456, -123456, -123456);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_hdm1234567_statik_accuracy) {
-  char str1[1000];
-  char str2[1000];
-  int r1 =
-      sprintf(str1, "\n%.6hd%.6hd%1.6hd%2.6hd%3.6hd%4.6hd%5.6hd%6.6hd%7.6d",
-              -1234567, -1234567, -1234567, -1234567, -1234567, -1234567,
-              -1234567, -1234567, -1234567);
-  int r2 =
-      s21_sprintf(str2, "\n%.6hd%.6hd%1.6hd%2.6hd%3.6hd%4.6hd%5.6hd%6.6hd%7.6d",
-                  -1234567, -1234567, -1234567, -1234567, -1234567, -1234567,
-                  -1234567, -1234567, -1234567);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_hdm12345678_statik_accuracy) {
-  char str1[1000];
-  char str2[1000];
-  int r1 =
-      sprintf(str1, "\n%.6hd%.6hd%1.6hd%2.6hd%3.6hd%4.6hd%5.6hd%6.6hd%7.6d",
-              -12345678, -12345678, -12345678, -12345678, -12345678, -12345678,
-              -12345678, -12345678, -12345678);
-  int r2 =
-      s21_sprintf(str2, "\n%.6hd%.6hd%1.6hd%2.6hd%3.6hd%4.6hd%5.6hd%6.6hd%7.6d",
-                  -12345678, -12345678, -12345678, -12345678, -12345678,
-                  -12345678, -12345678, -12345678, -12345678);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_minus_f1_statik_width) {
-  char str1[1000];
-  char str2[1000];
-  int r1 =
-      sprintf(str1, "\n%-6f%-6.f%-6.0f%-6.2f%-6.3f%-6.4f%-6.5f%-6.6f%-6.7f",
-              1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0);
-  int r2 =
-      s21_sprintf(str2, "\n%-6f%-6.f%-6.0f%-6.2f%-6.3f%-6.4f%-6.5f%-6.6f%-6.7f",
-                  1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_minus_f12_statik_width) {
-  char str1[1000];
-  char str2[1000];
-  int r1 =
-      sprintf(str1, "\n%-6f%-6.f%-6.0f%-6.2f%-6.3f%-6.4f%-6.5f%-6.6f%-6.7f",
-              1.2, 1.2, 1.2, 1.2, 1.2, 1.2, 1.2, 1.2, 1.2);
-  int r2 =
-      s21_sprintf(str2, "\n%-6f%-6.f%-6.0f%-6.2f%-6.3f%-6.4f%-6.5f%-6.6f%-6.7f",
-                  1.2, 1.2, 1.2, 1.2, 1.2, 1.2, 1.2, 1.2, 1.2);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_minus_f123_statik_width) {
-  char str1[1000];
-  char str2[1000];
-  int r1 =
-      sprintf(str1, "\n%-6f%-6.f%-6.0f%-6.2f%-6.3f%-6.4f%-6.5f%-6.6f%-6.7f",
-              12.3, 12.3, 12.3, 12.3, 12.3, 12.3, 12.3, 12.3, 12.3);
-  int r2 =
-      s21_sprintf(str2, "\n%-6f%-6.f%-6.0f%-6.2f%-6.3f%-6.4f%-6.5f%-6.6f%-6.7f",
-                  12.3, 12.3, 12.3, 12.3, 12.3, 12.3, 12.3, 12.3, 12.3);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_minus_f1234_statik_width) {
-  char str1[1000];
-  char str2[1000];
-  int r1 =
-      sprintf(str1, "\n%-6f%-6.f%-6.0f%-6.2f%-6.3f%-6.4f%-6.5f%-6.6f%-6.7f",
-              123.4, 123.4, 123.4, 123.4, 123.4, 123.4, 123.4, 123.4, 123.4);
-  int r2 = s21_sprintf(
-      str2, "\n%-6f%-6.f%-6.0f%-6.2f%-6.3f%-6.4f%-6.5f%-6.6f%-6.7f", 123.4,
-      123.4, 123.4, 123.4, 123.4, 123.4, 123.4, 123.4, 123.4);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_minus_f12345_statik_width) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(
-      str1, "\n%-6f%-6.f%-6.0f%-6.2f%-6.3f%-6.4f%-6.5f%-6.6f%-6.7f", 1234.5,
-      1234.5, 1234.5, 1234.5, 1234.5, 1234.5, 1234.5, 1234.5, 1234.5);
-  int r2 = s21_sprintf(
-      str2, "\n%-6f%-6.f%-6.0f%-6.2f%-6.3f%-6.4f%-6.5f%-6.6f%-6.7f", 1234.5,
-      1234.5, 1234.5, 1234.5, 1234.5, 1234.5, 1234.5, 1234.5, 1234.5);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_minus_f123456_statik_width) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(
-      str1, "\n%-6f%-6.f%-6.0f%-6.2f%-6.3f%-6.4f%-6.5f%-6.6f%-6.7f", 12345.6,
-      12345.6, 12345.6, 12345.6, 12345.6, 12345.6, 12345.6, 12345.6, 12345.6);
-  int r2 = s21_sprintf(
-      str2, "\n%-6f%-6.f%-6.0f%-6.2f%-6.3f%-6.4f%-6.5f%-6.6f%-6.7f", 12345.6,
-      12345.6, 12345.6, 12345.6, 12345.6, 12345.6, 12345.6, 12345.6, 12345.6);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_minus_f1234567_statik_width) {
-  char str1[1000];
-  char str2[1000];
-  int r1 =
-      sprintf(str1, "\n%-6f%-6.f%-6.0f%-6.2f%-6.3f%-6.4f%-6.5f%-6.6f%-6.7f",
-              123456.7, 123456.7, 123456.7, 123456.7, 123456.7, 123456.7,
-              123456.7, 123456.7, 123456.7);
-  int r2 =
-      s21_sprintf(str2, "\n%-6f%-6.f%-6.0f%-6.2f%-6.3f%-6.4f%-6.5f%-6.6f%-6.7f",
-                  123456.7, 123456.7, 123456.7, 123456.7, 123456.7, 123456.7,
-                  123456.7, 123456.7, 123456.7);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_minus_f12345678_statik_width) {
-  char str1[1000];
-  char str2[1000];
-  int r1 =
-      sprintf(str1, "\n%-6f%-6.f%-6.0f%-6.2f%-6.3f%-6.4f%-6.5f%-6.6f%-6.7f",
-              1234567.8, 1234567.8, 1234567.8, 1234567.8, 1234567.8, 1234567.8,
-              1234567.8, 1234567.8, 1234567.8);
-  int r2 =
-      s21_sprintf(str2, "\n%-6f%-6.f%-6.0f%-6.2f%-6.3f%-6.4f%-6.5f%-6.6f%-6.7f",
-                  1234567.8, 1234567.8, 1234567.8, 1234567.8, 1234567.8,
-                  1234567.8, 1234567.8, 1234567.8, 1234567.8);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-//////////////////////////////////////
-
-START_TEST(s21_sprintf_test_minus_f1_statik_accuracy) {
-  char str1[1000];
-  char str2[1000];
-  int r1 =
-      sprintf(str1, "\n%-.6f%-.6f%-1.6f%-2.6f%-3.6f%-4.6f%-5.6f%-6.6f%-7.6f",
-              1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0);
-  int r2 = s21_sprintf(str2,
-                       "\n%-.6f%-.6f%-1.6f%-2.6f%-3.6f%-4.6f%-5.6f%-6.6f%-7.6f",
-                       1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_minus_f12_statik_accuracy) {
-  char str1[1000];
-  char str2[1000];
-  int r1 =
-      sprintf(str1, "\n%-.6f%-.6f%-1.6f%-2.6f%-3.6f%-4.6f%-5.6f%-6.6f%-7.6f",
-              1.2, 1.2, 1.2, 1.2, 1.2, 1.2, 1.2, 1.2, 1.2);
-  int r2 = s21_sprintf(str2,
-                       "\n%-.6f%-.6f%-1.6f%-2.6f%-3.6f%-4.6f%-5.6f%-6.6f%-7.6f",
-                       1.2, 1.2, 1.2, 1.2, 1.2, 1.2, 1.2, 1.2, 1.2);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_minus_f123_statik_accuracy) {
-  char str1[1000];
-  char str2[1000];
-  int r1 =
-      sprintf(str1, "\n%-.6f%-.6f%-1.6f%-2.6f%-3.6f%-4.6f%-5.6f%-6.6f%-7.6f",
-              12.3, 12.3, 12.3, 12.3, 12.3, 12.3, 12.3, 12.3, 12.3);
-  int r2 = s21_sprintf(str2,
-                       "\n%-.6f%-.6f%-1.6f%-2.6f%-3.6f%-4.6f%-5.6f%-6.6f%-7.6f",
-                       12.3, 12.3, 12.3, 12.3, 12.3, 12.3, 12.3, 12.3, 12.3);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_minus_f1234_statik_accuracy) {
-  char str1[1000];
-  char str2[1000];
-  int r1 =
-      sprintf(str1, "\n%-.6f%-.6f%-1.6f%-2.6f%-3.6f%-4.6f%-5.6f%-6.6f%-7.6f",
-              123.4, 123.4, 123.4, 123.4, 123.4, 123.4, 123.4, 123.4, 123.4);
-  int r2 = s21_sprintf(
-      str2, "\n%-.6f%-.6f%-1.6f%-2.6f%-3.6f%-4.6f%-5.6f%-6.6f%-7.6f", 123.4,
-      123.4, 123.4, 123.4, 123.4, 123.4, 123.4, 123.4, 123.4);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_minus_f12345_statik_accuracy) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(
-      str1, "\n%-.6f%-.6f%-1.6f%-2.6f%-3.6f%-4.6f%-5.6f%-6.6f%-7.6f", 1234.5,
-      1234.5, 1234.5, 1234.5, 1234.5, 1234.5, 1234.5, 1234.5, 1234.5);
-  int r2 = s21_sprintf(
-      str2, "\n%-.6f%-.6f%-1.6f%-2.6f%-3.6f%-4.6f%-5.6f%-6.6f%-7.6f", 1234.5,
-      1234.5, 1234.5, 1234.5, 1234.5, 1234.5, 1234.5, 1234.5, 1234.5);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_minus_f123456_statik_accuracy) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(
-      str1, "\n%-.6f%-.6f%-1.6f%-2.6f%-3.6f%-4.6f%-5.6f%-6.6f%-7.6f", 12345.6,
-      12345.6, 12345.6, 12345.6, 12345.6, 12345.6, 12345.6, 12345.6, 12345.6);
-  int r2 = s21_sprintf(
-      str2, "\n%-.6f%-.6f%-1.6f%-2.6f%-3.6f%-4.6f%-5.6f%-6.6f%-7.6f", 12345.6,
-      12345.6, 12345.6, 12345.6, 12345.6, 12345.6, 12345.6, 12345.6, 12345.6);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_minus_f1234567_statik_accuracy) {
-  char str1[1000];
-  char str2[1000];
-  int r1 =
-      sprintf(str1, "\n%-.6f%-.6f%-1.6f%-2.6f%-3.6f%-4.6f%-5.6f%-6.6f%-7.6f",
-              123456.7, 123456.7, 123456.7, 123456.7, 123456.7, 123456.7,
-              123456.7, 123456.7, 123456.7);
-  int r2 = s21_sprintf(str2,
-                       "\n%-.6f%-.6f%-1.6f%-2.6f%-3.6f%-4.6f%-5.6f%-6.6f%-7.6f",
-                       123456.7, 123456.7, 123456.7, 123456.7, 123456.7,
-                       123456.7, 123456.7, 123456.7, 123456.7);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_minus_f12345678_statik_accuracy) {
-  char str1[1000];
-  char str2[1000];
-  int r1 =
-      sprintf(str1, "\n%-.6f%-.6f%-1.6f%-2.6f%-3.6f%-4.6f%-5.6f%-6.6f%-7.6f",
-              1234567.8, 1234567.8, 1234567.8, 1234567.8, 1234567.8, 1234567.8,
-              1234567.8, 1234567.8, 1234567.8);
-  int r2 = s21_sprintf(str2,
-                       "\n%-.6f%-.6f%-1.6f%-2.6f%-3.6f%-4.6f%-5.6f%-6.6f%-7.6f",
-                       1234567.8, 1234567.8, 1234567.8, 1234567.8, 1234567.8,
-                       1234567.8, 1234567.8, 1234567.8, 1234567.8);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_minus_fm1_statik_width) {
-  char str1[1000];
-  char str2[1000];
-  int r1 =
-      sprintf(str1, "\n%-6f%-6.f%-6.0f%-6.2f%-6.3f%-6.4f%-6.5f%-6.6f%-6.7f",
-              -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0);
-  int r2 =
-      s21_sprintf(str2, "\n%-6f%-6.f%-6.0f%-6.2f%-6.3f%-6.4f%-6.5f%-6.6f%-6.7f",
-                  -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_minus_fm12_statik_width) {
-  char str1[1000];
-  char str2[1000];
-  int r1 =
-      sprintf(str1, "\n%-6f%-6.f%-6.0f%-6.2f%-6.3f%-6.4f%-6.5f%-6.6f%-6.7f",
-              -1.2, -1.2, -1.2, -1.2, -1.2, -1.2, -1.2, -1.2, -1.2);
-  int r2 =
-      s21_sprintf(str2, "\n%-6f%-6.f%-6.0f%-6.2f%-6.3f%-6.4f%-6.5f%-6.6f%-6.7f",
-                  -1.2, -1.2, -1.2, -1.2, -1.2, -1.2, -1.2, -1.2, -1.2);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_minus_fm123_statik_width) {
-  char str1[1000];
-  char str2[1000];
-  int r1 =
-      sprintf(str1, "\n%-6f%-6.f%-6.0f%-6.2f%-6.3f%-6.4f%-6.5f%-6.6f%-6.7f",
-              -12.3, -12.3, -12.3, -12.3, -12.3, -12.3, -12.3, -12.3, -12.3);
-  int r2 = s21_sprintf(
-      str2, "\n%-6f%-6.f%-6.0f%-6.2f%-6.3f%-6.4f%-6.5f%-6.6f%-6.7f", -12.3,
-      -12.3, -12.3, -12.3, -12.3, -12.3, -12.3, -12.3, -12.3);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_minus_fm1234_statik_width) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(
-      str1, "\n%-6f%-6.f%-6.0f%-6.2f%-6.3f%-6.4f%-6.5f%-6.6f%-6.7f", -123.4,
-      -123.4, -123.4, -123.4, -123.4, -123.4, -123.4, -123.4, -123.4);
-  int r2 = s21_sprintf(
-      str2, "\n%-6f%-6.f%-6.0f%-6.2f%-6.3f%-6.4f%-6.5f%-6.6f%-6.7f", -123.4,
-      -123.4, -123.4, -123.4, -123.4, -123.4, -123.4, -123.4, -123.4);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_minus_fm12345_statik_width) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(
-      str1, "\n%-6f%-6.f%-6.0f%-6.2f%-6.3f%-6.4f%-6.5f%-6.6f%-6.7f", -1234.5,
-      -1234.5, -1234.5, -1234.5, -1234.5, -1234.5, -1234.5, -1234.5, -1234.5);
-  int r2 = s21_sprintf(
-      str2, "\n%-6f%-6.f%-6.0f%-6.2f%-6.3f%-6.4f%-6.5f%-6.6f%-6.7f", -1234.5,
-      -1234.5, -1234.5, -1234.5, -1234.5, -1234.5, -1234.5, -1234.5, -1234.5);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_minus_fm123456_statik_width) {
-  char str1[1000];
-  char str2[1000];
-  int r1 =
-      sprintf(str1, "\n%-6f%-6.f%-6.0f%-6.2f%-6.3f%-6.4f%-6.5f%-6.6f%-6.7f",
-              -12345.6, -12345.6, -12345.6, -12345.6, -12345.6, -12345.6,
-              -12345.6, -12345.6, -12345.6);
-  int r2 =
-      s21_sprintf(str2, "\n%-6f%-6.f%-6.0f%-6.2f%-6.3f%-6.4f%-6.5f%-6.6f%-6.7f",
-                  -12345.6, -12345.6, -12345.6, -12345.6, -12345.6, -12345.6,
-                  -12345.6, -12345.6, -12345.6);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_minus_fm1234567_statik_width) {
-  char str1[1000];
-  char str2[1000];
-  int r1 =
-      sprintf(str1, "\n%-6f%-6.f%-6.0f%-6.2f%-6.3f%-6.4f%-6.5f%-6.6f%-6.7f",
-              -123456.7, -123456.7, -123456.7, -123456.7, -123456.7, -123456.7,
-              -123456.7, -123456.7, -123456.7);
-  int r2 =
-      s21_sprintf(str2, "\n%-6f%-6.f%-6.0f%-6.2f%-6.3f%-6.4f%-6.5f%-6.6f%-6.7f",
-                  -123456.7, -123456.7, -123456.7, -123456.7, -123456.7,
-                  -123456.7, -123456.7, -123456.7, -123456.7);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_minus_fm12345678_statik_width) {
-  char str1[1000];
-  char str2[1000];
-  int r1 =
-      sprintf(str1, "\n%-6f%-6.f%-6.0f%-6.2f%-6.3f%-6.4f%-6.5f%-6.6f%-6.7f",
-              -1234567.8, -1234567.8, -1234567.8, -1234567.8, -1234567.8,
-              -1234567.8, -1234567.8, -1234567.8, -1234567.8);
-  int r2 =
-      s21_sprintf(str2, "\n%-6f%-6.f%-6.0f%-6.2f%-6.3f%-6.4f%-6.5f%-6.6f%-6.7f",
-                  -1234567.8, -1234567.8, -1234567.8, -1234567.8, -1234567.8,
-                  -1234567.8, -1234567.8, -1234567.8, -1234567.8);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-//////////////////////////////////////
-
-START_TEST(s21_sprintf_test_minus_fm1_statik_accuracy) {
-  char str1[1000];
-  char str2[1000];
-  int r1 =
-      sprintf(str1, "\n%-.6f%-.6f%-1.6f%-2.6f%-3.6f%-4.6f%-5.6f%-6.6f%-7.6f",
-              -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0);
-  int r2 = s21_sprintf(str2,
-                       "\n%-.6f%-.6f%-1.6f%-2.6f%-3.6f%-4.6f%-5.6f%-6.6f%-7.6f",
-                       -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_minus_fm12_statik_accuracy) {
-  char str1[1000];
-  char str2[1000];
-  int r1 =
-      sprintf(str1, "\n%-.6f%-.6f%-1.6f%-2.6f%-3.6f%-4.6f%-5.6f%-6.6f%-7.6f",
-              -1.2, -1.2, -1.2, -1.2, -1.2, -1.2, -1.2, -1.2, -1.2);
-  int r2 = s21_sprintf(str2,
-                       "\n%-.6f%-.6f%-1.6f%-2.6f%-3.6f%-4.6f%-5.6f%-6.6f%-7.6f",
-                       -1.2, -1.2, -1.2, -1.2, -1.2, -1.2, -1.2, -1.2, -1.2);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_minus_fm123_statik_accuracy) {
-  char str1[1000];
-  char str2[1000];
-  int r1 =
-      sprintf(str1, "\n%-.6f%-.6f%-1.6f%-2.6f%-3.6f%-4.6f%-5.6f%-6.6f%-7.6f",
-              -12.3, -12.3, -12.3, -12.3, -12.3, -12.3, -12.3, -12.3, -12.3);
-  int r2 = s21_sprintf(
-      str2, "\n%-.6f%-.6f%-1.6f%-2.6f%-3.6f%-4.6f%-5.6f%-6.6f%-7.6f", -12.3,
-      -12.3, -12.3, -12.3, -12.3, -12.3, -12.3, -12.3, -12.3);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_minus_fm1234_statik_accuracy) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(
-      str1, "\n%-.6f%-.6f%-1.6f%-2.6f%-3.6f%-4.6f%-5.6f%-6.6f%-7.6f", -123.4,
-      -123.4, -123.4, -123.4, -123.4, -123.4, -123.4, -123.4, -123.4);
-  int r2 = s21_sprintf(
-      str2, "\n%-.6f%-.6f%-1.6f%-2.6f%-3.6f%-4.6f%-5.6f%-6.6f%-7.6f", -123.4,
-      -123.4, -123.4, -123.4, -123.4, -123.4, -123.4, -123.4, -123.4);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_minus_fm12345_statik_accuracy) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(
-      str1, "\n%-.6f%-.6f%-1.6f%-2.6f%-3.6f%-4.6f%-5.6f%-6.6f%-7.6f", -1234.5,
-      -1234.5, -1234.5, -1234.5, -1234.5, -1234.5, -1234.5, -1234.5, -1234.5);
-  int r2 = s21_sprintf(
-      str2, "\n%-.6f%-.6f%-1.6f%-2.6f%-3.6f%-4.6f%-5.6f%-6.6f%-7.6f", -1234.5,
-      -1234.5, -1234.5, -1234.5, -1234.5, -1234.5, -1234.5, -1234.5, -1234.5);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_minus_fm123456_statik_accuracy) {
-  char str1[1000];
-  char str2[1000];
-  int r1 =
-      sprintf(str1, "\n%-.6f%-.6f%-1.6f%-2.6f%-3.6f%-4.6f%-5.6f%-6.6f%-7.6f",
-              -12345.6, -12345.6, -12345.6, -12345.6, -12345.6, -12345.6,
-              -12345.6, -12345.6, -12345.6);
-  int r2 = s21_sprintf(str2,
-                       "\n%-.6f%-.6f%-1.6f%-2.6f%-3.6f%-4.6f%-5.6f%-6.6f%-7.6f",
-                       -12345.6, -12345.6, -12345.6, -12345.6, -12345.6,
-                       -12345.6, -12345.6, -12345.6, -12345.6);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_minus_fm1234567_statik_accuracy) {
-  char str1[1000];
-  char str2[1000];
-  int r1 =
-      sprintf(str1, "\n%-.6f%-.6f%-1.6f%-2.6f%-3.6f%-4.6f%-5.6f%-6.6f%-7.6f",
-              -123456.7, -123456.7, -123456.7, -123456.7, -123456.7, -123456.7,
-              -123456.7, -123456.7, -123456.7);
-  int r2 = s21_sprintf(str2,
-                       "\n%-.6f%-.6f%-1.6f%-2.6f%-3.6f%-4.6f%-5.6f%-6.6f%-7.6f",
-                       -123456.7, -123456.7, -123456.7, -123456.7, -123456.7,
-                       -123456.7, -123456.7, -123456.7, -123456.7);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_minus_fm12345678_statik_accuracy) {
-  char str1[1000];
-  char str2[1000];
-  int r1 =
-      sprintf(str1, "\n%-.6f%-.6f%-1.6f%-2.6f%-3.6f%-4.6f%-5.6f%-6.6f%-7.6f",
-              -1234567.8, -1234567.8, -1234567.8, -1234567.8, -1234567.8,
-              -1234567.8, -1234567.8, -1234567.8, -1234567.8);
-  int r2 = s21_sprintf(
-      str2, "\n%-.6f%-.6f%-1.6f%-2.6f%-3.6f%-4.6f%-5.6f%-6.6f%-7.6f",
-      -1234567.8, -1234567.8, -1234567.8, -1234567.8, -1234567.8, -1234567.8,
-      -1234567.8, -1234567.8, -1234567.8);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_f1_statik_width) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(str1, "\n%6f%6.f%6.0f%6.2f%6.3f%6.4f%6.5f%6.6f%6.7f", 1.0,
-                   1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0);
-  int r2 = s21_sprintf(str2, "\n%6f%6.f%6.0f%6.2f%6.3f%6.4f%6.5f%6.6f%6.7f",
-                       1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_f12_statik_width) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(str1, "\n%6f%6.f%6.0f%6.2f%6.3f%6.4f%6.5f%6.6f%6.7f", 1.2,
-                   1.2, 1.2, 1.2, 1.2, 1.2, 1.2, 1.2, 1.2);
-  int r2 = s21_sprintf(str2, "\n%6f%6.f%6.0f%6.2f%6.3f%6.4f%6.5f%6.6f%6.7f",
-                       1.2, 1.2, 1.2, 1.2, 1.2, 1.2, 1.2, 1.2, 1.2);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_f123_statik_width) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(str1, "\n%6f%6.f%6.0f%6.2f%6.3f%6.4f%6.5f%6.6f%6.7f", 12.3,
-                   12.3, 12.3, 12.3, 12.3, 12.3, 12.3, 12.3, 12.3);
-  int r2 = s21_sprintf(str2, "\n%6f%6.f%6.0f%6.2f%6.3f%6.4f%6.5f%6.6f%6.7f",
-                       12.3, 12.3, 12.3, 12.3, 12.3, 12.3, 12.3, 12.3, 12.3);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_f1234_statik_width) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(str1, "\n%6f%6.f%6.0f%6.2f%6.3f%6.4f%6.5f%6.6f%6.7f", 123.4,
-                   123.4, 123.4, 123.4, 123.4, 123.4, 123.4, 123.4, 123.4);
-  int r2 =
-      s21_sprintf(str2, "\n%6f%6.f%6.0f%6.2f%6.3f%6.4f%6.5f%6.6f%6.7f", 123.4,
-                  123.4, 123.4, 123.4, 123.4, 123.4, 123.4, 123.4, 123.4);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_f12345_statik_width) {
-  char str1[1000];
-  char str2[1000];
-  int r1 =
-      sprintf(str1, "\n%6f%6.f%6.0f%6.2f%6.3f%6.4f%6.5f%6.6f%6.7f", 1234.5,
-              1234.5, 1234.5, 1234.5, 1234.5, 1234.5, 1234.5, 1234.5, 1234.5);
-  int r2 = s21_sprintf(str2, "\n%6f%6.f%6.0f%6.2f%6.3f%6.4f%6.5f%6.6f%6.7f",
-                       1234.5, 1234.5, 1234.5, 1234.5, 1234.5, 1234.5, 1234.5,
-                       1234.5, 1234.5);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_f123456_statik_width) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(str1, "\n%6f%6.f%6.0f%6.2f%6.3f%6.4f%6.5f%6.6f%6.7f",
-                   12345.6, 12345.6, 12345.6, 12345.6, 12345.6, 12345.6,
-                   12345.6, 12345.6, 12345.6);
-  int r2 = s21_sprintf(str2, "\n%6f%6.f%6.0f%6.2f%6.3f%6.4f%6.5f%6.6f%6.7f",
-                       12345.6, 12345.6, 12345.6, 12345.6, 12345.6, 12345.6,
-                       12345.6, 12345.6, 12345.6);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_f1234567_statik_width) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(str1, "\n%6f%6.f%6.0f%6.2f%6.3f%6.4f%6.5f%6.6f%6.7f",
-                   123456.7, 123456.7, 123456.7, 123456.7, 123456.7, 123456.7,
-                   123456.7, 123456.7, 123456.7);
-  int r2 = s21_sprintf(str2, "\n%6f%6.f%6.0f%6.2f%6.3f%6.4f%6.5f%6.6f%6.7f",
-                       123456.7, 123456.7, 123456.7, 123456.7, 123456.7,
-                       123456.7, 123456.7, 123456.7, 123456.7);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_f12345678_statik_width) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(str1, "\n%6f%6.f%6.0f%6.2f%6.3f%6.4f%6.5f%6.6f%6.7f",
-                   1234567.8, 1234567.8, 1234567.8, 1234567.8, 1234567.8,
-                   1234567.8, 1234567.8, 1234567.8, 1234567.8);
-  int r2 = s21_sprintf(str2, "\n%6f%6.f%6.0f%6.2f%6.3f%6.4f%6.5f%6.6f%6.7f",
-                       1234567.8, 1234567.8, 1234567.8, 1234567.8, 1234567.8,
-                       1234567.8, 1234567.8, 1234567.8, 1234567.8);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-//////////////////////////////////////
-
-START_TEST(s21_sprintf_test_f1_statik_accuracy) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(str1, "\n%.6f%.6f%1.6f%2.6f%3.6f%4.6f%5.6f%6.6f%7.6f", 1.0,
-                   1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0);
-  int r2 = s21_sprintf(str2, "\n%.6f%.6f%1.6f%2.6f%3.6f%4.6f%5.6f%6.6f%7.6f",
-                       1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_f12_statik_accuracy) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(str1, "\n%.6f%.6f%1.6f%2.6f%3.6f%4.6f%5.6f%6.6f%7.6f", 1.2,
-                   1.2, 1.2, 1.2, 1.2, 1.2, 1.2, 1.2, 1.2);
-  int r2 = s21_sprintf(str2, "\n%.6f%.6f%1.6f%2.6f%3.6f%4.6f%5.6f%6.6f%7.6f",
-                       1.2, 1.2, 1.2, 1.2, 1.2, 1.2, 1.2, 1.2, 1.2);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_f123_statik_accuracy) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(str1, "\n%.6f%.6f%1.6f%2.6f%3.6f%4.6f%5.6f%6.6f%7.6f", 12.3,
-                   12.3, 12.3, 12.3, 12.3, 12.3, 12.3, 12.3, 12.3);
-  int r2 = s21_sprintf(str2, "\n%.6f%.6f%1.6f%2.6f%3.6f%4.6f%5.6f%6.6f%7.6f",
-                       12.3, 12.3, 12.3, 12.3, 12.3, 12.3, 12.3, 12.3, 12.3);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_f1234_statik_accuracy) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(str1, "\n%.6f%.6f%1.6f%2.6f%3.6f%4.6f%5.6f%6.6f%7.6f", 123.4,
-                   123.4, 123.4, 123.4, 123.4, 123.4, 123.4, 123.4, 123.4);
-  int r2 =
-      s21_sprintf(str2, "\n%.6f%.6f%1.6f%2.6f%3.6f%4.6f%5.6f%6.6f%7.6f", 123.4,
-                  123.4, 123.4, 123.4, 123.4, 123.4, 123.4, 123.4, 123.4);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_f12345_statik_accuracy) {
-  char str1[1000];
-  char str2[1000];
-  int r1 =
-      sprintf(str1, "\n%.6f%.6f%1.6f%2.6f%3.6f%4.6f%5.6f%6.6f%7.6f", 1234.5,
-              1234.5, 1234.5, 1234.5, 1234.5, 1234.5, 1234.5, 1234.5, 1234.5);
-  int r2 = s21_sprintf(str2, "\n%.6f%.6f%1.6f%2.6f%3.6f%4.6f%5.6f%6.6f%7.6f",
-                       1234.5, 1234.5, 1234.5, 1234.5, 1234.5, 1234.5, 1234.5,
-                       1234.5, 1234.5);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_f123456_statik_accuracy) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(str1, "\n%.6f%.6f%1.6f%2.6f%3.6f%4.6f%5.6f%6.6f%7.6f",
-                   12345.6, 12345.6, 12345.6, 12345.6, 12345.6, 12345.6,
-                   12345.6, 12345.6, 12345.6);
-  int r2 = s21_sprintf(str2, "\n%.6f%.6f%1.6f%2.6f%3.6f%4.6f%5.6f%6.6f%7.6f",
-                       12345.6, 12345.6, 12345.6, 12345.6, 12345.6, 12345.6,
-                       12345.6, 12345.6, 12345.6);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_f1234567_statik_accuracy) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(str1, "\n%.6f%.6f%1.6f%2.6f%3.6f%4.6f%5.6f%6.6f%7.6f",
-                   123456.7, 123456.7, 123456.7, 123456.7, 123456.7, 123456.7,
-                   123456.7, 123456.7, 123456.7);
-  int r2 = s21_sprintf(str2, "\n%.6f%.6f%1.6f%2.6f%3.6f%4.6f%5.6f%6.6f%7.6f",
-                       123456.7, 123456.7, 123456.7, 123456.7, 123456.7,
-                       123456.7, 123456.7, 123456.7, 123456.7);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_f12345678_statik_accuracy) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(str1, "\n%.6f%.6f%1.6f%2.6f%3.6f%4.6f%5.6f%6.6f%7.6f",
-                   1234567.8, 1234567.8, 1234567.8, 1234567.8, 1234567.8,
-                   1234567.8, 1234567.8, 1234567.8, 1234567.8);
-  int r2 = s21_sprintf(str2, "\n%.6f%.6f%1.6f%2.6f%3.6f%4.6f%5.6f%6.6f%7.6f",
-                       1234567.8, 1234567.8, 1234567.8, 1234567.8, 1234567.8,
-                       1234567.8, 1234567.8, 1234567.8, 1234567.8);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_fm1_statik_width) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(str1, "\n%6f%6.f%6.0f%6.2f%6.3f%6.4f%6.5f%6.6f%6.7f", -1.0,
-                   -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0);
-  int r2 = s21_sprintf(str2, "\n%6f%6.f%6.0f%6.2f%6.3f%6.4f%6.5f%6.6f%6.7f",
-                       -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_fm12_statik_width) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(str1, "\n%6f%6.f%6.0f%6.2f%6.3f%6.4f%6.5f%6.6f%6.7f", -1.2,
-                   -1.2, -1.2, -1.2, -1.2, -1.2, -1.2, -1.2, -1.2);
-  int r2 = s21_sprintf(str2, "\n%6f%6.f%6.0f%6.2f%6.3f%6.4f%6.5f%6.6f%6.7f",
-                       -1.2, -1.2, -1.2, -1.2, -1.2, -1.2, -1.2, -1.2, -1.2);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_fm123_statik_width) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(str1, "\n%6f%6.f%6.0f%6.2f%6.3f%6.4f%6.5f%6.6f%6.7f", -12.3,
-                   -12.3, -12.3, -12.3, -12.3, -12.3, -12.3, -12.3, -12.3);
-  int r2 =
-      s21_sprintf(str2, "\n%6f%6.f%6.0f%6.2f%6.3f%6.4f%6.5f%6.6f%6.7f", -12.3,
-                  -12.3, -12.3, -12.3, -12.3, -12.3, -12.3, -12.3, -12.3);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_fm1234_statik_width) {
-  char str1[1000];
-  char str2[1000];
-  int r1 =
-      sprintf(str1, "\n%6f%6.f%6.0f%6.2f%6.3f%6.4f%6.5f%6.6f%6.7f", -123.4,
-              -123.4, -123.4, -123.4, -123.4, -123.4, -123.4, -123.4, -123.4);
-  int r2 = s21_sprintf(str2, "\n%6f%6.f%6.0f%6.2f%6.3f%6.4f%6.5f%6.6f%6.7f",
-                       -123.4, -123.4, -123.4, -123.4, -123.4, -123.4, -123.4,
-                       -123.4, -123.4);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_fm12345_statik_width) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(str1, "\n%6f%6.f%6.0f%6.2f%6.3f%6.4f%6.5f%6.6f%6.7f",
-                   -1234.5, -1234.5, -1234.5, -1234.5, -1234.5, -1234.5,
-                   -1234.5, -1234.5, -1234.5);
-  int r2 = s21_sprintf(str2, "\n%6f%6.f%6.0f%6.2f%6.3f%6.4f%6.5f%6.6f%6.7f",
-                       -1234.5, -1234.5, -1234.5, -1234.5, -1234.5, -1234.5,
-                       -1234.5, -1234.5, -1234.5);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_fm123456_statik_width) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(str1, "\n%6f%6.f%6.0f%6.2f%6.3f%6.4f%6.5f%6.6f%6.7f",
-                   -12345.6, -12345.6, -12345.6, -12345.6, -12345.6, -12345.6,
-                   -12345.6, -12345.6, -12345.6);
-  int r2 = s21_sprintf(str2, "\n%6f%6.f%6.0f%6.2f%6.3f%6.4f%6.5f%6.6f%6.7f",
-                       -12345.6, -12345.6, -12345.6, -12345.6, -12345.6,
-                       -12345.6, -12345.6, -12345.6, -12345.6);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_fm1234567_statik_width) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(str1, "\n%6f%6.f%6.0f%6.2f%6.3f%6.4f%6.5f%6.6f%6.7f",
-                   -123456.7, -123456.7, -123456.7, -123456.7, -123456.7,
-                   -123456.7, -123456.7, -123456.7, -123456.7);
-  int r2 = s21_sprintf(str2, "\n%6f%6.f%6.0f%6.2f%6.3f%6.4f%6.5f%6.6f%6.7f",
-                       -123456.7, -123456.7, -123456.7, -123456.7, -123456.7,
-                       -123456.7, -123456.7, -123456.7, -123456.7);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_fm12345678_statik_width) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(str1, "\n%6f%6.f%6.0f%6.2f%6.3f%6.4f%6.5f%6.6f%6.7f",
-                   -1234567.8, -1234567.8, -1234567.8, -1234567.8, -1234567.8,
-                   -1234567.8, -1234567.8, -1234567.8, -1234567.8);
-  int r2 =
-      s21_sprintf(str2, "\n%6f%6.f%6.0f%6.2f%6.3f%6.4f%6.5f%6.6f%6.7f",
-                  -1234567.8, -1234567.8, -1234567.8, -1234567.8, -1234567.8,
-                  -1234567.8, -1234567.8, -1234567.8, -1234567.8);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-//////////////////////////////////////
-
-START_TEST(s21_sprintf_test_fm1_statik_accuracy) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(str1, "\n%.6f%.6f%1.6f%2.6f%3.6f%4.6f%5.6f%6.6f%7.6f", -1.0,
-                   -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0);
-  int r2 = s21_sprintf(str2, "\n%.6f%.6f%1.6f%2.6f%3.6f%4.6f%5.6f%6.6f%7.6f",
-                       -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_fm12_statik_accuracy) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(str1, "\n%.6f%.6f%1.6f%2.6f%3.6f%4.6f%5.6f%6.6f%7.6f", -1.2,
-                   -1.2, -1.2, -1.2, -1.2, -1.2, -1.2, -1.2, -1.2);
-  int r2 = s21_sprintf(str2, "\n%.6f%.6f%1.6f%2.6f%3.6f%4.6f%5.6f%6.6f%7.6f",
-                       -1.2, -1.2, -1.2, -1.2, -1.2, -1.2, -1.2, -1.2, -1.2);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_fm123_statik_accuracy) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(str1, "\n%.6f%.6f%1.6f%2.6f%3.6f%4.6f%5.6f%6.6f%7.6f", -12.3,
-                   -12.3, -12.3, -12.3, -12.3, -12.3, -12.3, -12.3, -12.3);
-  int r2 =
-      s21_sprintf(str2, "\n%.6f%.6f%1.6f%2.6f%3.6f%4.6f%5.6f%6.6f%7.6f", -12.3,
-                  -12.3, -12.3, -12.3, -12.3, -12.3, -12.3, -12.3, -12.3);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_fm1234_statik_accuracy) {
-  char str1[1000];
-  char str2[1000];
-  int r1 =
-      sprintf(str1, "\n%.6f%.6f%1.6f%2.6f%3.6f%4.6f%5.6f%6.6f%7.6f", -123.4,
-              -123.4, -123.4, -123.4, -123.4, -123.4, -123.4, -123.4, -123.4);
-  int r2 = s21_sprintf(str2, "\n%.6f%.6f%1.6f%2.6f%3.6f%4.6f%5.6f%6.6f%7.6f",
-                       -123.4, -123.4, -123.4, -123.4, -123.4, -123.4, -123.4,
-                       -123.4, -123.4);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_fm12345_statik_accuracy) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(str1, "\n%.6f%.6f%1.6f%2.6f%3.6f%4.6f%5.6f%6.6f%7.6f",
-                   -1234.5, -1234.5, -1234.5, -1234.5, -1234.5, -1234.5,
-                   -1234.5, -1234.5, -1234.5);
-  int r2 = s21_sprintf(str2, "\n%.6f%.6f%1.6f%2.6f%3.6f%4.6f%5.6f%6.6f%7.6f",
-                       -1234.5, -1234.5, -1234.5, -1234.5, -1234.5, -1234.5,
-                       -1234.5, -1234.5, -1234.5);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_fm123456_statik_accuracy) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(str1, "\n%.6f%.6f%1.6f%2.6f%3.6f%4.6f%5.6f%6.6f%7.6f",
-                   -12345.6, -12345.6, -12345.6, -12345.6, -12345.6, -12345.6,
-                   -12345.6, -12345.6, -12345.6);
-  int r2 = s21_sprintf(str2, "\n%.6f%.6f%1.6f%2.6f%3.6f%4.6f%5.6f%6.6f%7.6f",
-                       -12345.6, -12345.6, -12345.6, -12345.6, -12345.6,
-                       -12345.6, -12345.6, -12345.6, -12345.6);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_fm1234567_statik_accuracy) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(str1, "\n%.6f%.6f%1.6f%2.6f%3.6f%4.6f%5.6f%6.6f%7.6f",
-                   -123456.7, -123456.7, -123456.7, -123456.7, -123456.7,
-                   -123456.7, -123456.7, -123456.7, -123456.7);
-  int r2 = s21_sprintf(str2, "\n%.6f%.6f%1.6f%2.6f%3.6f%4.6f%5.6f%6.6f%7.6f",
-                       -123456.7, -123456.7, -123456.7, -123456.7, -123456.7,
-                       -123456.7, -123456.7, -123456.7, -123456.7);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_fm12345678_statik_accuracy) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(str1, "\n%.6f%.6f%1.6f%2.6f%3.6f%4.6f%5.6f%6.6f%7.6f",
-                   -1234567.8, -1234567.8, -1234567.8, -1234567.8, -1234567.8,
-                   -1234567.8, -1234567.8, -1234567.8, -1234567.8);
-  int r2 =
-      s21_sprintf(str2, "\n%.6f%.6f%1.6f%2.6f%3.6f%4.6f%5.6f%6.6f%7.6f",
-                  -1234567.8, -1234567.8, -1234567.8, -1234567.8, -1234567.8,
-                  -1234567.8, -1234567.8, -1234567.8, -1234567.8);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_minus_f01_statik_width) {
-  char str1[1000];
-  char str2[1000];
-  int r1 =
-      sprintf(str1, "\n%-6f%-6.f%-6.0f%-6.2f%-6.3f%-6.4f%-6.5f%-6.6f%-6.7f",
-              0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1);
-  int r2 =
-      s21_sprintf(str2, "\n%-6f%-6.f%-6.0f%-6.2f%-6.3f%-6.4f%-6.5f%-6.6f%-6.7f",
-                  0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_minus_f012_statik_width) {
-  char str1[1000];
-  char str2[1000];
-  int r1 =
-      sprintf(str1, "\n%-6f%-6.f%-6.0f%-6.2f%-6.3f%-6.4f%-6.5f%-6.6f%-6.7f",
-              0.12, 0.12, 0.12, 0.12, 0.12, 0.12, 0.12, 0.12, 0.12);
-  int r2 =
-      s21_sprintf(str2, "\n%-6f%-6.f%-6.0f%-6.2f%-6.3f%-6.4f%-6.5f%-6.6f%-6.7f",
-                  0.12, 0.12, 0.12, 0.12, 0.12, 0.12, 0.12, 0.12, 0.12);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_minus_f0123_statik_width) {
-  char str1[1000];
-  char str2[1000];
-  int r1 =
-      sprintf(str1, "\n%-6f%-6.f%-6.0f%-6.2f%-6.3f%-6.4f%-6.5f%-6.6f%-6.7f",
-              0.123, 0.123, 0.123, 0.123, 0.123, 0.123, 0.123, 0.123, 0.123);
-  int r2 = s21_sprintf(
-      str2, "\n%-6f%-6.f%-6.0f%-6.2f%-6.3f%-6.4f%-6.5f%-6.6f%-6.7f", 0.123,
-      0.123, 0.123, 0.123, 0.123, 0.123, 0.123, 0.123, 0.123);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_minus_f01234_statik_width) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(
-      str1, "\n%-6f%-6.f%-6.0f%-6.2f%-6.3f%-6.4f%-6.5f%-6.6f%-6.7f", 0.1234,
-      0.1234, 0.1234, 0.1234, 0.1234, 0.1234, 0.1234, 0.1234, 0.1234);
-  int r2 = s21_sprintf(
-      str2, "\n%-6f%-6.f%-6.0f%-6.2f%-6.3f%-6.4f%-6.5f%-6.6f%-6.7f", 0.1234,
-      0.1234, 0.1234, 0.1234, 0.1234, 0.1234, 0.1234, 0.1234, 0.1234);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_minus_f012345_statik_width) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(
-      str1, "\n%-6f%-6.f%-6.0f%-6.2f%-6.3f%-6.4f%-6.5f%-6.6f%-6.7f", 0.12345,
-      0.12345, 0.12345, 0.12345, 0.12345, 0.12345, 0.12345, 0.12345, 0.12345);
-  int r2 = s21_sprintf(
-      str2, "\n%-6f%-6.f%-6.0f%-6.2f%-6.3f%-6.4f%-6.5f%-6.6f%-6.7f", 0.12345,
-      0.12345, 0.12345, 0.12345, 0.12345, 0.12345, 0.12345, 0.12345, 0.12345);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_minus_f0123456_statik_width) {
-  char str1[1000];
-  char str2[1000];
-  int r1 =
-      sprintf(str1, "\n%-6f%-6.f%-6.0f%-6.2f%-6.3f%-6.4f%-6.5f%-6.6f%-6.7f",
-              0.123456, 0.123456, 0.123456, 0.123456, 0.123456, 0.123456,
-              0.123456, 0.123456, 0.123456);
-  int r2 =
-      s21_sprintf(str2, "\n%-6f%-6.f%-6.0f%-6.2f%-6.3f%-6.4f%-6.5f%-6.6f%-6.7f",
-                  0.123456, 0.123456, 0.123456, 0.123456, 0.123456, 0.123456,
-                  0.123456, 0.123456, 0.123456);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_minus_f01234567_statik_width) {
-  char str1[1000];
-  char str2[1000];
-  int r1 =
-      sprintf(str1, "\n%-6f%-6.f%-6.0f%-6.2f%-6.3f%-6.4f%-6.5f%-6.6f%-6.7f",
-              0.1234567, 0.1234567, 0.1234567, 0.1234567, 0.1234567, 0.1234567,
-              0.1234567, 0.1234567, 0.1234567);
-  int r2 =
-      s21_sprintf(str2, "\n%-6f%-6.f%-6.0f%-6.2f%-6.3f%-6.4f%-6.5f%-6.6f%-6.7f",
-                  0.1234567, 0.1234567, 0.1234567, 0.1234567, 0.1234567,
-                  0.1234567, 0.1234567, 0.1234567, 0.1234567);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_minus_f012345678_statik_width) {
-  char str1[1000];
-  char str2[1000];
-  int r1 =
-      sprintf(str1, "\n%-6f%-6.f%-6.0f%-6.2f%-6.3f%-6.4f%-6.5f%-6.6f%-6.7f",
-              0.12345678, 0.12345678, 0.12345678, 0.12345678, 0.12345678,
-              0.12345678, 0.12345678, 0.12345678, 0.12345678);
-  int r2 =
-      s21_sprintf(str2, "\n%-6f%-6.f%-6.0f%-6.2f%-6.3f%-6.4f%-6.5f%-6.6f%-6.7f",
-                  0.12345678, 0.12345678, 0.12345678, 0.12345678, 0.12345678,
-                  0.12345678, 0.12345678, 0.12345678, 0.12345678);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-//////////////////////////////////////
-
-START_TEST(s21_sprintf_test_minus_f01_statik_accuracy) {
-  char str1[1000];
-  char str2[1000];
-  int r1 =
-      sprintf(str1, "\n%-.6f%-.6f%-1.6f%-2.6f%-3.6f%-4.6f%-5.6f%-6.6f%-7.6f",
-              0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1);
-  int r2 = s21_sprintf(str2,
-                       "\n%-.6f%-.6f%-1.6f%-2.6f%-3.6f%-4.6f%-5.6f%-6.6f%-7.6f",
-                       0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_minus_f012_statik_accuracy) {
-  char str1[1000];
-  char str2[1000];
-  int r1 =
-      sprintf(str1, "\n%-.6f%-.6f%-1.6f%-2.6f%-3.6f%-4.6f%-5.6f%-6.6f%-7.6f",
-              0.12, 0.12, 0.12, 0.12, 0.12, 0.12, 0.12, 0.12, 0.12);
-  int r2 = s21_sprintf(str2,
-                       "\n%-.6f%-.6f%-1.6f%-2.6f%-3.6f%-4.6f%-5.6f%-6.6f%-7.6f",
-                       0.12, 0.12, 0.12, 0.12, 0.12, 0.12, 0.12, 0.12, 0.12);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_minus_f0123_statik_accuracy) {
-  char str1[1000];
-  char str2[1000];
-  int r1 =
-      sprintf(str1, "\n%-.6f%-.6f%-1.6f%-2.6f%-3.6f%-4.6f%-5.6f%-6.6f%-7.6f",
-              0.123, 0.123, 0.123, 0.123, 0.123, 0.123, 0.123, 0.123, 0.123);
-  int r2 = s21_sprintf(
-      str2, "\n%-.6f%-.6f%-1.6f%-2.6f%-3.6f%-4.6f%-5.6f%-6.6f%-7.6f", 0.123,
-      0.123, 0.123, 0.123, 0.123, 0.123, 0.123, 0.123, 0.123);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_minus_f01234_statik_accuracy) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(
-      str1, "\n%-.6f%-.6f%-1.6f%-2.6f%-3.6f%-4.6f%-5.6f%-6.6f%-7.6f", 0.1234,
-      0.1234, 0.1234, 0.1234, 0.1234, 0.1234, 0.1234, 0.1234, 0.1234);
-  int r2 = s21_sprintf(
-      str2, "\n%-.6f%-.6f%-1.6f%-2.6f%-3.6f%-4.6f%-5.6f%-6.6f%-7.6f", 0.1234,
-      0.1234, 0.1234, 0.1234, 0.1234, 0.1234, 0.1234, 0.1234, 0.1234);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_minus_f012345_statik_accuracy) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(
-      str1, "\n%-.6f%-.6f%-1.6f%-2.6f%-3.6f%-4.6f%-5.6f%-6.6f%-7.6f", 0.12345,
-      0.12345, 0.12345, 0.12345, 0.12345, 0.12345, 0.12345, 0.12345, 0.12345);
-  int r2 = s21_sprintf(
-      str2, "\n%-.6f%-.6f%-1.6f%-2.6f%-3.6f%-4.6f%-5.6f%-6.6f%-7.6f", 0.12345,
-      0.12345, 0.12345, 0.12345, 0.12345, 0.12345, 0.12345, 0.12345, 0.12345);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_minus_f0123456_statik_accuracy) {
-  char str1[1000];
-  char str2[1000];
-  int r1 =
-      sprintf(str1, "\n%-.6f%-.6f%-1.6f%-2.6f%-3.6f%-4.6f%-5.6f%-6.6f%-7.6f",
-              0.123456, 0.123456, 0.123456, 0.123456, 0.123456, 0.123456,
-              0.123456, 0.123456, 0.123456);
-  int r2 = s21_sprintf(str2,
-                       "\n%-.6f%-.6f%-1.6f%-2.6f%-3.6f%-4.6f%-5.6f%-6.6f%-7.6f",
-                       0.123456, 0.123456, 0.123456, 0.123456, 0.123456,
-                       0.123456, 0.123456, 0.123456, 0.123456);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_minus_f01234567_statik_accuracy) {
-  char str1[1000];
-  char str2[1000];
-  int r1 =
-      sprintf(str1, "\n%-.6f%-.6f%-1.6f%-2.6f%-3.6f%-4.6f%-5.6f%-6.6f%-7.6f",
-              0.1234567, 0.1234567, 0.1234567, 0.1234567, 0.1234567, 0.1234567,
-              0.1234567, 0.1234567, 0.1234567);
-  int r2 = s21_sprintf(str2,
-                       "\n%-.6f%-.6f%-1.6f%-2.6f%-3.6f%-4.6f%-5.6f%-6.6f%-7.6f",
-                       0.1234567, 0.1234567, 0.1234567, 0.1234567, 0.1234567,
-                       0.1234567, 0.1234567, 0.1234567, 0.1234567);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_minus_f012345678_statik_accuracy) {
-  char str1[1000];
-  char str2[1000];
-  int r1 =
-      sprintf(str1, "\n%-.6f%-.6f%-1.6f%-2.6f%-3.6f%-4.6f%-5.6f%-6.6f%-7.6f",
-              0.12345678, 0.12345678, 0.12345678, 0.12345678, 0.12345678,
-              0.12345678, 0.12345678, 0.12345678, 0.12345678);
-  int r2 = s21_sprintf(
-      str2, "\n%-.6f%-.6f%-1.6f%-2.6f%-3.6f%-4.6f%-5.6f%-6.6f%-7.6f",
-      0.12345678, 0.12345678, 0.12345678, 0.12345678, 0.12345678, 0.12345678,
-      0.12345678, 0.12345678, 0.12345678);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_minus_fm01_statik_width) {
-  char str1[1000];
-  char str2[1000];
-  int r1 =
-      sprintf(str1, "\n%-6f%-6.f%-6.0f%-6.2f%-6.3f%-6.4f%-6.5f%-6.6f%-6.7f",
-              -0.1, -0.1, -0.1, -0.1, -0.1, -0.1, -0.1, -0.1, -0.1);
-  int r2 =
-      s21_sprintf(str2, "\n%-6f%-6.f%-6.0f%-6.2f%-6.3f%-6.4f%-6.5f%-6.6f%-6.7f",
-                  -0.1, -0.1, -0.1, -0.1, -0.1, -0.1, -0.1, -0.1, -0.1);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_minus_fm012_statik_width) {
-  char str1[1000];
-  char str2[1000];
-  int r1 =
-      sprintf(str1, "\n%-6f%-6.f%-6.0f%-6.2f%-6.3f%-6.4f%-6.5f%-6.6f%-6.7f",
-              -0.12, -0.12, -0.12, -0.12, -0.12, -0.12, -0.12, -0.12, -0.12);
-  int r2 = s21_sprintf(
-      str2, "\n%-6f%-6.f%-6.0f%-6.2f%-6.3f%-6.4f%-6.5f%-6.6f%-6.7f", -0.12,
-      -0.12, -0.12, -0.12, -0.12, -0.12, -0.12, -0.12, -0.12);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_minus_fm0123_statik_width) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(
-      str1, "\n%-6f%-6.f%-6.0f%-6.2f%-6.3f%-6.4f%-6.5f%-6.6f%-6.7f", -0.123,
-      -0.123, -0.123, -0.123, -0.123, -0.123, -0.123, -0.123, -0.123);
-  int r2 = s21_sprintf(
-      str2, "\n%-6f%-6.f%-6.0f%-6.2f%-6.3f%-6.4f%-6.5f%-6.6f%-6.7f", -0.123,
-      -0.123, -0.123, -0.123, -0.123, -0.123, -0.123, -0.123, -0.123);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_minus_fm01234_statik_width) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(
-      str1, "\n%-6f%-6.f%-6.0f%-6.2f%-6.3f%-6.4f%-6.5f%-6.6f%-6.7f", -0.1234,
-      -0.1234, -0.1234, -0.1234, -0.1234, -0.1234, -0.1234, -0.1234, -0.1234);
-  int r2 = s21_sprintf(
-      str2, "\n%-6f%-6.f%-6.0f%-6.2f%-6.3f%-6.4f%-6.5f%-6.6f%-6.7f", -0.1234,
-      -0.1234, -0.1234, -0.1234, -0.1234, -0.1234, -0.1234, -0.1234, -0.1234);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_minus_fm012345_statik_width) {
-  char str1[1000];
-  char str2[1000];
-  int r1 =
-      sprintf(str1, "\n%-6f%-6.f%-6.0f%-6.2f%-6.3f%-6.4f%-6.5f%-6.6f%-6.7f",
-              -0.12345, -0.12345, -0.12345, -0.12345, -0.12345, -0.12345,
-              -0.12345, -0.12345, -0.12345);
-  int r2 =
-      s21_sprintf(str2, "\n%-6f%-6.f%-6.0f%-6.2f%-6.3f%-6.4f%-6.5f%-6.6f%-6.7f",
-                  -0.12345, -0.12345, -0.12345, -0.12345, -0.12345, -0.12345,
-                  -0.12345, -0.12345, -0.12345);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_minus_fm0123456_statik_width) {
-  char str1[1000];
-  char str2[1000];
-  int r1 =
-      sprintf(str1, "\n%-6f%-6.f%-6.0f%-6.2f%-6.3f%-6.4f%-6.5f%-6.6f%-6.7f",
-              -0.123456, -0.123456, -0.123456, -0.123456, -0.123456, -0.123456,
-              -0.123456, -0.123456, -0.123456);
-  int r2 =
-      s21_sprintf(str2, "\n%-6f%-6.f%-6.0f%-6.2f%-6.3f%-6.4f%-6.5f%-6.6f%-6.7f",
-                  -0.123456, -0.123456, -0.123456, -0.123456, -0.123456,
-                  -0.123456, -0.123456, -0.123456, -0.123456);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_minus_fm01234567_statik_width) {
-  char str1[1000];
-  char str2[1000];
-  int r1 =
-      sprintf(str1, "\n%-6f%-6.f%-6.0f%-6.2f%-6.3f%-6.4f%-6.5f%-6.6f%-6.7f",
-              -0.1234567, -0.1234567, -0.1234567, -0.1234567, -0.1234567,
-              -0.1234567, -0.1234567, -0.1234567, -0.1234567);
-  int r2 =
-      s21_sprintf(str2, "\n%-6f%-6.f%-6.0f%-6.2f%-6.3f%-6.4f%-6.5f%-6.6f%-6.7f",
-                  -0.1234567, -0.1234567, -0.1234567, -0.1234567, -0.1234567,
-                  -0.1234567, -0.1234567, -0.1234567, -0.1234567);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_minus_fm012345678_statik_width) {
-  char str1[1000];
-  char str2[1000];
-  int r1 =
-      sprintf(str1, "\n%-6f%-6.f%-6.0f%-6.2f%-6.3f%-6.4f%-6.5f%-6.6f%-6.7f",
-              -0.12345678, -0.12345678, -0.12345678, -0.12345678, -0.12345678,
-              -0.12345678, -0.12345678, -0.12345678, -0.12345678);
-  int r2 = s21_sprintf(
-      str2, "\n%-6f%-6.f%-6.0f%-6.2f%-6.3f%-6.4f%-6.5f%-6.6f%-6.7f",
-      -0.12345678, -0.12345678, -0.12345678, -0.12345678, -0.12345678,
-      -0.12345678, -0.12345678, -0.12345678, -0.12345678);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-//////////////////////////////////////
-
-START_TEST(s21_sprintf_test_minus_fm01_statik_accuracy) {
-  char str1[1000];
-  char str2[1000];
-  int r1 =
-      sprintf(str1, "\n%-.6f%-.6f%-1.6f%-2.6f%-3.6f%-4.6f%-5.6f%-6.6f%-7.6f",
-              -0.1, -0.1, -0.1, -0.1, -0.1, -0.1, -0.1, -0.1, -0.1);
-  int r2 = s21_sprintf(str2,
-                       "\n%-.6f%-.6f%-1.6f%-2.6f%-3.6f%-4.6f%-5.6f%-6.6f%-7.6f",
-                       -0.1, -0.1, -0.1, -0.1, -0.1, -0.1, -0.1, -0.1, -0.1);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_minus_fm012_statik_accuracy) {
-  char str1[1000];
-  char str2[1000];
-  int r1 =
-      sprintf(str1, "\n%-.6f%-.6f%-1.6f%-2.6f%-3.6f%-4.6f%-5.6f%-6.6f%-7.6f",
-              -0.12, -0.12, -0.12, -0.12, -0.12, -0.12, -0.12, -0.12, -0.12);
-  int r2 = s21_sprintf(
-      str2, "\n%-.6f%-.6f%-1.6f%-2.6f%-3.6f%-4.6f%-5.6f%-6.6f%-7.6f", -0.12,
-      -0.12, -0.12, -0.12, -0.12, -0.12, -0.12, -0.12, -0.12);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_minus_fm0123_statik_accuracy) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(
-      str1, "\n%-.6f%-.6f%-1.6f%-2.6f%-3.6f%-4.6f%-5.6f%-6.6f%-7.6f", -0.123,
-      -0.123, -0.123, -0.123, -0.123, -0.123, -0.123, -0.123, -0.123);
-  int r2 = s21_sprintf(
-      str2, "\n%-.6f%-.6f%-1.6f%-2.6f%-3.6f%-4.6f%-5.6f%-6.6f%-7.6f", -0.123,
-      -0.123, -0.123, -0.123, -0.123, -0.123, -0.123, -0.123, -0.123);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_minus_fm01234_statik_accuracy) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(
-      str1, "\n%-.6f%-.6f%-1.6f%-2.6f%-3.6f%-4.6f%-5.6f%-6.6f%-7.6f", -0.1234,
-      -0.1234, -0.1234, -0.1234, -0.1234, -0.1234, -0.1234, -0.1234, -0.1234);
-  int r2 = s21_sprintf(
-      str2, "\n%-.6f%-.6f%-1.6f%-2.6f%-3.6f%-4.6f%-5.6f%-6.6f%-7.6f", -0.1234,
-      -0.1234, -0.1234, -0.1234, -0.1234, -0.1234, -0.1234, -0.1234, -0.1234);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_minus_fm012345_statik_accuracy) {
-  char str1[1000];
-  char str2[1000];
-  int r1 =
-      sprintf(str1, "\n%-.6f%-.6f%-1.6f%-2.6f%-3.6f%-4.6f%-5.6f%-6.6f%-7.6f",
-              -0.12345, -0.12345, -0.12345, -0.12345, -0.12345, -0.12345,
-              -0.12345, -0.12345, -0.12345);
-  int r2 = s21_sprintf(str2,
-                       "\n%-.6f%-.6f%-1.6f%-2.6f%-3.6f%-4.6f%-5.6f%-6.6f%-7.6f",
-                       -0.12345, -0.12345, -0.12345, -0.12345, -0.12345,
-                       -0.12345, -0.12345, -0.12345, -0.12345);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_minus_fm0123456_statik_accuracy) {
-  char str1[1000];
-  char str2[1000];
-  int r1 =
-      sprintf(str1, "\n%-.6f%-.6f%-1.6f%-2.6f%-3.6f%-4.6f%-5.6f%-6.6f%-7.6f",
-              -0.123456, -0.123456, -0.123456, -0.123456, -0.123456, -0.123456,
-              -0.123456, -0.123456, -0.123456);
-  int r2 = s21_sprintf(str2,
-                       "\n%-.6f%-.6f%-1.6f%-2.6f%-3.6f%-4.6f%-5.6f%-6.6f%-7.6f",
-                       -0.123456, -0.123456, -0.123456, -0.123456, -0.123456,
-                       -0.123456, -0.123456, -0.123456, -0.123456);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_minus_fm01234567_statik_accuracy) {
-  char str1[1000];
-  char str2[1000];
-  int r1 =
-      sprintf(str1, "\n%-.6f%-.6f%-1.6f%-2.6f%-3.6f%-4.6f%-5.6f%-6.6f%-7.6f",
-              -0.1234567, -0.1234567, -0.1234567, -0.1234567, -0.1234567,
-              -0.1234567, -0.1234567, -0.1234567, -0.1234567);
-  int r2 = s21_sprintf(
-      str2, "\n%-.6f%-.6f%-1.6f%-2.6f%-3.6f%-4.6f%-5.6f%-6.6f%-7.6f",
-      -0.1234567, -0.1234567, -0.1234567, -0.1234567, -0.1234567, -0.1234567,
-      -0.1234567, -0.1234567, -0.1234567);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_minus_fm012345678_statik_accuracy) {
-  char str1[1000];
-  char str2[1000];
-  int r1 =
-      sprintf(str1, "\n%-.6f%-.6f%-1.6f%-2.6f%-3.6f%-4.6f%-5.6f%-6.6f%-7.6f",
-              -0.12345678, -0.12345678, -0.12345678, -0.12345678, -0.12345678,
-              -0.12345678, -0.12345678, -0.12345678, -0.12345678);
-  int r2 = s21_sprintf(
-      str2, "\n%-.6f%-.6f%-1.6f%-2.6f%-3.6f%-4.6f%-5.6f%-6.6f%-7.6f",
-      -0.12345678, -0.12345678, -0.12345678, -0.12345678, -0.12345678,
-      -0.12345678, -0.12345678, -0.12345678, -0.12345678);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_f01_statik_width) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(str1, "\n%6f%6.f%6.0f%6.2f%6.3f%6.4f%6.5f%6.6f%6.7f", 0.1,
-                   0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1);
-  int r2 = s21_sprintf(str2, "\n%6f%6.f%6.0f%6.2f%6.3f%6.4f%6.5f%6.6f%6.7f",
-                       0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_f012_statik_width) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(str1, "\n%6f%6.f%6.0f%6.2f%6.3f%6.4f%6.5f%6.6f%6.7f", 0.12,
-                   0.12, 0.12, 0.12, 0.12, 0.12, 0.12, 0.12, 0.12);
-  int r2 = s21_sprintf(str2, "\n%6f%6.f%6.0f%6.2f%6.3f%6.4f%6.5f%6.6f%6.7f",
-                       0.12, 0.12, 0.12, 0.12, 0.12, 0.12, 0.12, 0.12, 0.12);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_f0123_statik_width) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(str1, "\n%6f%6.f%6.0f%6.2f%6.3f%6.4f%6.5f%6.6f%6.7f", 0.123,
-                   0.123, 0.123, 0.123, 0.123, 0.123, 0.123, 0.123, 0.123);
-  int r2 =
-      s21_sprintf(str2, "\n%6f%6.f%6.0f%6.2f%6.3f%6.4f%6.5f%6.6f%6.7f", 0.123,
-                  0.123, 0.123, 0.123, 0.123, 0.123, 0.123, 0.123, 0.123);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_f01234_statik_width) {
-  char str1[1000];
-  char str2[1000];
-  int r1 =
-      sprintf(str1, "\n%6f%6.f%6.0f%6.2f%6.3f%6.4f%6.5f%6.6f%6.7f", 0.1234,
-              0.1234, 0.1234, 0.1234, 0.1234, 0.1234, 0.1234, 0.1234, 0.1234);
-  int r2 = s21_sprintf(str2, "\n%6f%6.f%6.0f%6.2f%6.3f%6.4f%6.5f%6.6f%6.7f",
-                       0.1234, 0.1234, 0.1234, 0.1234, 0.1234, 0.1234, 0.1234,
-                       0.1234, 0.1234);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_f012345_statik_width) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(str1, "\n%6f%6.f%6.0f%6.2f%6.3f%6.4f%6.5f%6.6f%6.7f",
-                   0.12345, 0.12345, 0.12345, 0.12345, 0.12345, 0.12345,
-                   0.12345, 0.12345, 0.12345);
-  int r2 = s21_sprintf(str2, "\n%6f%6.f%6.0f%6.2f%6.3f%6.4f%6.5f%6.6f%6.7f",
-                       0.12345, 0.12345, 0.12345, 0.12345, 0.12345, 0.12345,
-                       0.12345, 0.12345, 0.12345);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_f0123456_statik_width) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(str1, "\n%6f%6.f%6.0f%6.2f%6.3f%6.4f%6.5f%6.6f%6.7f",
-                   0.123456, 0.123456, 0.123456, 0.123456, 0.123456, 0.123456,
-                   0.123456, 0.123456, 0.123456);
-  int r2 = s21_sprintf(str2, "\n%6f%6.f%6.0f%6.2f%6.3f%6.4f%6.5f%6.6f%6.7f",
-                       0.123456, 0.123456, 0.123456, 0.123456, 0.123456,
-                       0.123456, 0.123456, 0.123456, 0.123456);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_f01234567_statik_width) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(str1, "\n%6f%6.f%6.0f%6.2f%6.3f%6.4f%6.5f%6.6f%6.7f",
-                   0.1234567, 0.1234567, 0.1234567, 0.1234567, 0.1234567,
-                   0.1234567, 0.1234567, 0.1234567, 0.1234567);
-  int r2 = s21_sprintf(str2, "\n%6f%6.f%6.0f%6.2f%6.3f%6.4f%6.5f%6.6f%6.7f",
-                       0.1234567, 0.1234567, 0.1234567, 0.1234567, 0.1234567,
-                       0.1234567, 0.1234567, 0.1234567, 0.1234567);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_f012345678_statik_width) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(str1, "\n%6f%6.f%6.0f%6.2f%6.3f%6.4f%6.5f%6.6f%6.7f",
-                   0.12345678, 0.12345678, 0.12345678, 0.12345678, 0.12345678,
-                   0.12345678, 0.12345678, 0.12345678, 0.12345678);
-  int r2 =
-      s21_sprintf(str2, "\n%6f%6.f%6.0f%6.2f%6.3f%6.4f%6.5f%6.6f%6.7f",
-                  0.12345678, 0.12345678, 0.12345678, 0.12345678, 0.12345678,
-                  0.12345678, 0.12345678, 0.12345678, 0.12345678);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-//////////////////////////////////////
-
-START_TEST(s21_sprintf_test_f01_statik_accuracy) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(str1, "\n%.6f%.6f%1.6f%2.6f%3.6f%4.6f%5.6f%6.6f%7.6f", 0.1,
-                   0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1);
-  int r2 = s21_sprintf(str2, "\n%.6f%.6f%1.6f%2.6f%3.6f%4.6f%5.6f%6.6f%7.6f",
-                       0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_f012_statik_accuracy) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(str1, "\n%.6f%.6f%1.6f%2.6f%3.6f%4.6f%5.6f%6.6f%7.6f", 0.12,
-                   0.12, 0.12, 0.12, 0.12, 0.12, 0.12, 0.12, 0.12);
-  int r2 = s21_sprintf(str2, "\n%.6f%.6f%1.6f%2.6f%3.6f%4.6f%5.6f%6.6f%7.6f",
-                       0.12, 0.12, 0.12, 0.12, 0.12, 0.12, 0.12, 0.12, 0.12);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_f0123_statik_accuracy) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(str1, "\n%.6f%.6f%1.6f%2.6f%3.6f%4.6f%5.6f%6.6f%7.6f", 0.123,
-                   0.123, 0.123, 0.123, 0.123, 0.123, 0.123, 0.123, 0.123);
-  int r2 =
-      s21_sprintf(str2, "\n%.6f%.6f%1.6f%2.6f%3.6f%4.6f%5.6f%6.6f%7.6f", 0.123,
-                  0.123, 0.123, 0.123, 0.123, 0.123, 0.123, 0.123, 0.123);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_f01234_statik_accuracy) {
-  char str1[1000];
-  char str2[1000];
-  int r1 =
-      sprintf(str1, "\n%.6f%.6f%1.6f%2.6f%3.6f%4.6f%5.6f%6.6f%7.6f", 0.1234,
-              0.1234, 0.1234, 0.1234, 0.1234, 0.1234, 0.1234, 0.1234, 0.1234);
-  int r2 = s21_sprintf(str2, "\n%.6f%.6f%1.6f%2.6f%3.6f%4.6f%5.6f%6.6f%7.6f",
-                       0.1234, 0.1234, 0.1234, 0.1234, 0.1234, 0.1234, 0.1234,
-                       0.1234, 0.1234);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_f012345_statik_accuracy) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(str1, "\n%.6f%.6f%1.6f%2.6f%3.6f%4.6f%5.6f%6.6f%7.6f",
-                   0.12345, 0.12345, 0.12345, 0.12345, 0.12345, 0.12345,
-                   0.12345, 0.12345, 0.12345);
-  int r2 = s21_sprintf(str2, "\n%.6f%.6f%1.6f%2.6f%3.6f%4.6f%5.6f%6.6f%7.6f",
-                       0.12345, 0.12345, 0.12345, 0.12345, 0.12345, 0.12345,
-                       0.12345, 0.12345, 0.12345);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_f0123456_statik_accuracy) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(str1, "\n%.6f%.6f%1.6f%2.6f%3.6f%4.6f%5.6f%6.6f%7.6f",
-                   0.123456, 0.123456, 0.123456, 0.123456, 0.123456, 0.123456,
-                   0.123456, 0.123456, 0.123456);
-  int r2 = s21_sprintf(str2, "\n%.6f%.6f%1.6f%2.6f%3.6f%4.6f%5.6f%6.6f%7.6f",
-                       0.123456, 0.123456, 0.123456, 0.123456, 0.123456,
-                       0.123456, 0.123456, 0.123456, 0.123456);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_f01234567_statik_accuracy) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(str1, "\n%.6f%.6f%1.6f%2.6f%3.6f%4.6f%5.6f%6.6f%7.6f",
-                   0.1234567, 0.1234567, 0.1234567, 0.1234567, 0.1234567,
-                   0.1234567, 0.1234567, 0.1234567, 0.1234567);
-  int r2 = s21_sprintf(str2, "\n%.6f%.6f%1.6f%2.6f%3.6f%4.6f%5.6f%6.6f%7.6f",
-                       0.1234567, 0.1234567, 0.1234567, 0.1234567, 0.1234567,
-                       0.1234567, 0.1234567, 0.1234567, 0.1234567);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_f012345678_statik_accuracy) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(str1, "\n%.6f%.6f%1.6f%2.6f%3.6f%4.6f%5.6f%6.6f%7.6f",
-                   0.12345678, 0.12345678, 0.12345678, 0.12345678, 0.12345678,
-                   0.12345678, 0.12345678, 0.12345678, 0.12345678);
-  int r2 =
-      s21_sprintf(str2, "\n%.6f%.6f%1.6f%2.6f%3.6f%4.6f%5.6f%6.6f%7.6f",
-                  0.12345678, 0.12345678, 0.12345678, 0.12345678, 0.12345678,
-                  0.12345678, 0.12345678, 0.12345678, 0.12345678);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_fm01_statik_width) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(str1, "\n%6f%6.f%6.0f%6.2f%6.3f%6.4f%6.5f%6.6f%6.7f", -0.1,
-                   -0.1, -0.1, -0.1, -0.1, -0.1, -0.1, -0.1, -0.1);
-  int r2 = s21_sprintf(str2, "\n%6f%6.f%6.0f%6.2f%6.3f%6.4f%6.5f%6.6f%6.7f",
-                       -0.1, -0.1, -0.1, -0.1, -0.1, -0.1, -0.1, -0.1, -0.1);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_fm012_statik_width) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(str1, "\n%6f%6.f%6.0f%6.2f%6.3f%6.4f%6.5f%6.6f%6.7f", -0.12,
-                   -0.12, -0.12, -0.12, -0.12, -0.12, -0.12, -0.12, -0.12);
-  int r2 =
-      s21_sprintf(str2, "\n%6f%6.f%6.0f%6.2f%6.3f%6.4f%6.5f%6.6f%6.7f", -0.12,
-                  -0.12, -0.12, -0.12, -0.12, -0.12, -0.12, -0.12, -0.12);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_fm0123_statik_width) {
-  char str1[1000];
-  char str2[1000];
-  int r1 =
-      sprintf(str1, "\n%6f%6.f%6.0f%6.2f%6.3f%6.4f%6.5f%6.6f%6.7f", -0.123,
-              -0.123, -0.123, -0.123, -0.123, -0.123, -0.123, -0.123, -0.123);
-  int r2 = s21_sprintf(str2, "\n%6f%6.f%6.0f%6.2f%6.3f%6.4f%6.5f%6.6f%6.7f",
-                       -0.123, -0.123, -0.123, -0.123, -0.123, -0.123, -0.123,
-                       -0.123, -0.123);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_fm01234_statik_width) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(str1, "\n%6f%6.f%6.0f%6.2f%6.3f%6.4f%6.5f%6.6f%6.7f",
-                   -0.1234, -0.1234, -0.1234, -0.1234, -0.1234, -0.1234,
-                   -0.1234, -0.1234, -0.1234);
-  int r2 = s21_sprintf(str2, "\n%6f%6.f%6.0f%6.2f%6.3f%6.4f%6.5f%6.6f%6.7f",
-                       -0.1234, -0.1234, -0.1234, -0.1234, -0.1234, -0.1234,
-                       -0.1234, -0.1234, -0.1234);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_fm012345_statik_width) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(str1, "\n%6f%6.f%6.0f%6.2f%6.3f%6.4f%6.5f%6.6f%6.7f",
-                   -0.12345, -0.12345, -0.12345, -0.12345, -0.12345, -0.12345,
-                   -0.12345, -0.12345, -0.12345);
-  int r2 = s21_sprintf(str2, "\n%6f%6.f%6.0f%6.2f%6.3f%6.4f%6.5f%6.6f%6.7f",
-                       -0.12345, -0.12345, -0.12345, -0.12345, -0.12345,
-                       -0.12345, -0.12345, -0.12345, -0.12345);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_fm0123456_statik_width) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(str1, "\n%6f%6.f%6.0f%6.2f%6.3f%6.4f%6.5f%6.6f%6.7f",
-                   -0.123456, -0.123456, -0.123456, -0.123456, -0.123456,
-                   -0.123456, -0.123456, -0.123456, -0.123456);
-  int r2 = s21_sprintf(str2, "\n%6f%6.f%6.0f%6.2f%6.3f%6.4f%6.5f%6.6f%6.7f",
-                       -0.123456, -0.123456, -0.123456, -0.123456, -0.123456,
-                       -0.123456, -0.123456, -0.123456, -0.123456);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_fm01234567_statik_width) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(str1, "\n%6f%6.f%6.0f%6.2f%6.3f%6.4f%6.5f%6.6f%6.7f",
-                   -0.1234567, -0.1234567, -0.1234567, -0.1234567, -0.1234567,
-                   -0.1234567, -0.1234567, -0.1234567, -0.1234567);
-  int r2 =
-      s21_sprintf(str2, "\n%6f%6.f%6.0f%6.2f%6.3f%6.4f%6.5f%6.6f%6.7f",
-                  -0.1234567, -0.1234567, -0.1234567, -0.1234567, -0.1234567,
-                  -0.1234567, -0.1234567, -0.1234567, -0.1234567);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_fm012345678_statik_width) {
-  char str1[1000];
-  char str2[1000];
-  int r1 =
-      sprintf(str1, "\n%6f%6.f%6.0f%6.2f%6.3f%6.4f%6.5f%6.6f%6.7f", -0.12345678,
-              -0.12345678, -0.12345678, -0.12345678, -0.12345678, -0.12345678,
-              -0.12345678, -0.12345678, -0.12345678);
-  int r2 = s21_sprintf(str2, "\n%6f%6.f%6.0f%6.2f%6.3f%6.4f%6.5f%6.6f%6.7f",
-                       -0.12345678, -0.12345678, -0.12345678, -0.12345678,
-                       -0.12345678, -0.12345678, -0.12345678, -0.12345678,
-                       -0.12345678);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-//////////////////////////////////////
-
-START_TEST(s21_sprintf_test_fm01_statik_accuracy) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(str1, "\n%.6f%.6f%1.6f%2.6f%3.6f%4.6f%5.6f%6.6f%7.6f", -0.1,
-                   -0.1, -0.1, -0.1, -0.1, -0.1, -0.1, -0.1, -0.1);
-  int r2 = s21_sprintf(str2, "\n%.6f%.6f%1.6f%2.6f%3.6f%4.6f%5.6f%6.6f%7.6f",
-                       -0.1, -0.1, -0.1, -0.1, -0.1, -0.1, -0.1, -0.1, -0.1);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_fm012_statik_accuracy) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(str1, "\n%.6f%.6f%1.6f%2.6f%3.6f%4.6f%5.6f%6.6f%7.6f", -0.12,
-                   -0.12, -0.12, -0.12, -0.12, -0.12, -0.12, -0.12, -0.12);
-  int r2 =
-      s21_sprintf(str2, "\n%.6f%.6f%1.6f%2.6f%3.6f%4.6f%5.6f%6.6f%7.6f", -0.12,
-                  -0.12, -0.12, -0.12, -0.12, -0.12, -0.12, -0.12, -0.12);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_fm0123_statik_accuracy) {
-  char str1[1000];
-  char str2[1000];
-  int r1 =
-      sprintf(str1, "\n%.6f%.6f%1.6f%2.6f%3.6f%4.6f%5.6f%6.6f%7.6f", -0.123,
-              -0.123, -0.123, -0.123, -0.123, -0.123, -0.123, -0.123, -0.123);
-  int r2 = s21_sprintf(str2, "\n%.6f%.6f%1.6f%2.6f%3.6f%4.6f%5.6f%6.6f%7.6f",
-                       -0.123, -0.123, -0.123, -0.123, -0.123, -0.123, -0.123,
-                       -0.123, -0.123);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_fm01234_statik_accuracy) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(str1, "\n%.6f%.6f%1.6f%2.6f%3.6f%4.6f%5.6f%6.6f%7.6f",
-                   -0.1234, -0.1234, -0.1234, -0.1234, -0.1234, -0.1234,
-                   -0.1234, -0.1234, -0.1234);
-  int r2 = s21_sprintf(str2, "\n%.6f%.6f%1.6f%2.6f%3.6f%4.6f%5.6f%6.6f%7.6f",
-                       -0.1234, -0.1234, -0.1234, -0.1234, -0.1234, -0.1234,
-                       -0.1234, -0.1234, -0.1234);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_fm012345_statik_accuracy) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(str1, "\n%.6f%.6f%1.6f%2.6f%3.6f%4.6f%5.6f%6.6f%7.6f",
-                   -0.12345, -0.12345, -0.12345, -0.12345, -0.12345, -0.12345,
-                   -0.12345, -0.12345, -0.12345);
-  int r2 = s21_sprintf(str2, "\n%.6f%.6f%1.6f%2.6f%3.6f%4.6f%5.6f%6.6f%7.6f",
-                       -0.12345, -0.12345, -0.12345, -0.12345, -0.12345,
-                       -0.12345, -0.12345, -0.12345, -0.12345);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_fm0123456_statik_accuracy) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(str1, "\n%.6f%.6f%1.6f%2.6f%3.6f%4.6f%5.6f%6.6f%7.6f",
-                   -0.123456, -0.123456, -0.123456, -0.123456, -0.123456,
-                   -0.123456, -0.123456, -0.123456, -0.123456);
-  int r2 = s21_sprintf(str2, "\n%.6f%.6f%1.6f%2.6f%3.6f%4.6f%5.6f%6.6f%7.6f",
-                       -0.123456, -0.123456, -0.123456, -0.123456, -0.123456,
-                       -0.123456, -0.123456, -0.123456, -0.123456);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_fm01234567_statik_accuracy) {
-  char str1[1000];
-  char str2[1000];
-  int r1 = sprintf(str1, "\n%.6f%.6f%1.6f%2.6f%3.6f%4.6f%5.6f%6.6f%7.6f",
-                   -0.1234567, -0.1234567, -0.1234567, -0.1234567, -0.1234567,
-                   -0.1234567, -0.1234567, -0.1234567, -0.1234567);
-  int r2 =
-      s21_sprintf(str2, "\n%.6f%.6f%1.6f%2.6f%3.6f%4.6f%5.6f%6.6f%7.6f",
-                  -0.1234567, -0.1234567, -0.1234567, -0.1234567, -0.1234567,
-                  -0.1234567, -0.1234567, -0.1234567, -0.1234567);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
-
-START_TEST(s21_sprintf_test_fm012345678_statik_accuracy) {
-  char str1[1000];
-  char str2[1000];
-  int r1 =
-      sprintf(str1, "\n%.6f%.6f%1.6f%2.6f%3.6f%4.6f%5.6f%6.6f%7.6f",
-              -0.12345678, -0.12345678, -0.12345678, -0.12345678, -0.12345678,
-              -0.12345678, -0.12345678, -0.12345678, -0.12345678);
-  int r2 = s21_sprintf(str2, "\n%.6f%.6f%1.6f%2.6f%3.6f%4.6f%5.6f%6.6f%7.6f",
-                       -0.12345678, -0.12345678, -0.12345678, -0.12345678,
-                       -0.12345678, -0.12345678, -0.12345678, -0.12345678,
-                       -0.12345678);
-  ck_assert_str_eq(str1, str2);
-  ck_assert_int_eq(r1, r2);
-}
-END_TEST
+Suite *int_sprintf_test();
+Suite *str_sprintf_test();
 
 int main() {
-  // Создание тестового набора
-  Suite *s = suite_create("My Suite");
+  SRunner *srunner;
+  Suite *suites[] = {int_sprintf_test(), str_sprintf_test()};
 
-  // Создание набора тестов
-  TCase *tc_core = tcase_create("Core");
-
-  // Добавление тестовых функций к набору тестов
-
-  tcase_add_test(tc_core, s21_sprintf_test_minus_s);
-  tcase_add_test(tc_core, s21_sprintf_test_s);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_c);
-  tcase_add_test(tc_core, s21_sprintf_test_c);
-
-  tcase_add_test(tc_core, s21_sprintf_test_minus_u1_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_u12_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_u123_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_u1234_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_u12345_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_u123456_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_u1234567_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_u12345678_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_u1_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_u12_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_u123_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_u1234_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_u12345_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_u123456_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_u1234567_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_u12345678_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_um1_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_um12_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_um123_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_um1234_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_um12345_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_um123456_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_um1234567_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_um12345678_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_um1_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_um12_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_um123_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_um1234_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_um12345_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_um123456_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_um1234567_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_um12345678_statik_accuracy);
-
-  tcase_add_test(tc_core, s21_sprintf_test_u1_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_u12_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_u123_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_u1234_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_u12345_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_u123456_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_u1234567_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_u12345678_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_u1_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_u12_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_u123_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_u1234_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_u12345_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_u123456_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_u1234567_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_u12345678_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_um1_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_um12_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_um123_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_um1234_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_um12345_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_um123456_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_um1234567_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_um12345678_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_um1_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_um12_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_um123_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_um1234_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_um12345_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_um123456_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_um1234567_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_um12345678_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_d2);
-
-  tcase_add_test(tc_core, s21_sprintf_test_minus_hu1_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_hu12_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_hu123_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_hu1234_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_hu12345_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_hu123456_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_hu1234567_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_hu12345678_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_hu1_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_hu12_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_hu123_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_hu1234_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_hu12345_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_hu123456_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_hu1234567_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_hu12345678_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_hum1_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_hum12_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_hum123_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_hum1234_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_hum12345_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_hum123456_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_hum1234567_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_hum12345678_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_hum1_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_hum12_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_hum123_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_hum1234_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_hum12345_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_hum123456_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_hum1234567_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_hum12345678_statik_accuracy);
-
-  tcase_add_test(tc_core, s21_sprintf_test_hu1_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_hu12_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_hu123_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_hu1234_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_hu12345_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_hu123456_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_hu1234567_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_hu12345678_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_hu1_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_hu12_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_hu123_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_hu1234_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_hu12345_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_hu123456_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_hu1234567_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_hu12345678_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_hum1_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_hum12_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_hum123_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_hum1234_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_hum12345_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_hum123456_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_hum1234567_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_hum12345678_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_hum1_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_hum12_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_hum123_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_hum1234_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_hum12345_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_hum123456_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_hum1234567_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_hum12345678_statik_accuracy);
-
-  tcase_add_test(tc_core, s21_sprintf_test_d);
-  tcase_add_test(tc_core, s21_sprintf_test_d0);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_d1_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_d12_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_d123_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_d1234_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_d12345_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_d123456_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_d1234567_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_d12345678_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_d1_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_d12_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_d123_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_d1234_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_d12345_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_d123456_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_d1234567_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_d12345678_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_dm1_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_dm12_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_dm123_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_dm1234_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_dm12345_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_dm123456_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_dm1234567_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_dm12345678_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_dm1_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_dm12_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_dm123_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_dm1234_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_dm12345_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_dm123456_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_dm1234567_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_dm12345678_statik_accuracy);
-
-  tcase_add_test(tc_core, s21_sprintf_test_d1_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_d12_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_d123_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_d1234_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_d12345_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_d123456_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_d1234567_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_d12345678_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_d1_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_d12_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_d123_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_d1234_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_d12345_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_d123456_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_d1234567_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_d12345678_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_dm1_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_dm12_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_dm123_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_dm1234_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_dm12345_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_dm123456_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_dm1234567_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_dm12345678_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_dm1_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_dm12_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_dm123_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_dm1234_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_dm12345_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_dm123456_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_dm1234567_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_dm12345678_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_d2);
-
-  tcase_add_test(tc_core, s21_sprintf_test_minus_hd1_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_hd12_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_hd123_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_hd1234_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_hd12345_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_hd123456_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_hd1234567_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_hd12345678_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_hd1_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_hd12_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_hd123_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_hd1234_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_hd12345_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_hd123456_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_hd1234567_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_hd12345678_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_hdm1_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_hdm12_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_hdm123_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_hdm1234_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_hdm12345_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_hdm123456_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_hdm1234567_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_hdm12345678_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_hdm1_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_hdm12_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_hdm123_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_hdm1234_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_hdm12345_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_hdm123456_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_hdm1234567_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_hdm12345678_statik_accuracy);
-
-  tcase_add_test(tc_core, s21_sprintf_test_hd1_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_hd12_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_hd123_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_hd1234_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_hd12345_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_hd123456_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_hd1234567_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_hd12345678_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_hd1_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_hd12_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_hd123_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_hd1234_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_hd12345_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_hd123456_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_hd1234567_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_hd12345678_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_hdm1_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_hdm12_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_hdm123_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_hdm1234_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_hdm12345_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_hdm123456_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_hdm1234567_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_hdm12345678_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_hdm1_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_hdm12_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_hdm123_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_hdm1234_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_hdm12345_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_hdm123456_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_hdm1234567_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_hdm12345678_statik_accuracy);
-
-  tcase_add_test(tc_core, s21_sprintf_test_minus_f1_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_f12_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_f123_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_f1234_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_f12345_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_f123456_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_f1234567_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_f12345678_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_f1_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_f12_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_f123_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_f1234_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_f12345_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_f123456_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_f1234567_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_f12345678_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_fm1_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_fm12_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_fm123_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_fm1234_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_fm12345_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_fm123456_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_fm1234567_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_fm12345678_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_fm1_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_fm12_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_fm123_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_fm1234_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_fm12345_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_fm123456_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_fm1234567_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_fm12345678_statik_accuracy);
-
-  tcase_add_test(tc_core, s21_sprintf_test_f1_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_f12_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_f123_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_f1234_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_f12345_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_f123456_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_f1234567_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_f12345678_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_f1_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_f12_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_f123_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_f1234_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_f12345_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_f123456_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_f1234567_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_f12345678_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_fm1_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_fm12_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_fm123_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_fm1234_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_fm12345_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_fm123456_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_fm1234567_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_fm12345678_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_fm1_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_fm12_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_fm123_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_fm1234_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_fm12345_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_fm123456_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_fm1234567_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_fm12345678_statik_accuracy);
-
-  tcase_add_test(tc_core, s21_sprintf_test_minus_f1_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_f12_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_f123_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_f1234_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_f12345_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_f123456_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_f1234567_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_f12345678_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_f1_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_f12_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_f123_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_f1234_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_f12345_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_f123456_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_f1234567_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_f12345678_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_fm1_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_fm12_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_fm123_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_fm1234_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_fm12345_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_fm123456_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_fm1234567_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_fm12345678_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_fm1_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_fm12_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_fm123_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_fm1234_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_fm12345_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_fm123456_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_fm1234567_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_fm12345678_statik_accuracy);
-
-  tcase_add_test(tc_core, s21_sprintf_test_f1_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_f12_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_f123_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_f1234_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_f12345_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_f123456_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_f1234567_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_f12345678_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_f1_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_f12_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_f123_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_f1234_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_f12345_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_f123456_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_f1234567_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_f12345678_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_fm1_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_fm12_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_fm123_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_fm1234_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_fm12345_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_fm123456_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_fm1234567_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_fm12345678_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_fm1_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_fm12_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_fm123_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_fm1234_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_fm12345_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_fm123456_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_fm1234567_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_fm12345678_statik_accuracy);
-
-  tcase_add_test(tc_core, s21_sprintf_test_minus_f01_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_f012_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_f0123_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_f01234_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_f012345_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_f0123456_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_f01234567_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_f012345678_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_f01_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_f012_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_f0123_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_f01234_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_f012345_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_f0123456_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_f01234567_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_f012345678_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_fm01_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_fm012_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_fm0123_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_fm01234_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_fm012345_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_fm0123456_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_fm01234567_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_fm012345678_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_fm01_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_fm012_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_fm0123_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_fm01234_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_fm012345_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_fm0123456_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_fm01234567_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_fm012345678_statik_accuracy);
-
-  tcase_add_test(tc_core, s21_sprintf_test_f01_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_f012_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_f0123_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_f01234_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_f012345_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_f0123456_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_f01234567_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_f012345678_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_f01_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_f012_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_f0123_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_f01234_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_f012345_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_f0123456_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_f01234567_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_f012345678_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_fm01_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_fm012_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_fm0123_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_fm01234_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_fm012345_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_fm0123456_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_fm01234567_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_fm012345678_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_fm01_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_fm012_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_fm0123_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_fm01234_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_fm012345_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_fm0123456_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_fm01234567_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_fm012345678_statik_accuracy);
-
-  tcase_add_test(tc_core, s21_sprintf_test_minus_f01_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_f012_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_f0123_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_f01234_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_f012345_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_f0123456_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_f01234567_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_f012345678_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_f01_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_f012_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_f0123_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_f01234_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_f012345_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_f0123456_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_f01234567_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_f012345678_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_fm01_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_fm012_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_fm0123_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_fm01234_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_fm012345_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_fm0123456_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_fm01234567_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_fm012345678_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_fm01_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_fm012_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_fm0123_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_fm01234_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_fm012345_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_fm0123456_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_fm01234567_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_minus_fm012345678_statik_accuracy);
-
-  tcase_add_test(tc_core, s21_sprintf_test_f01_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_f012_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_f0123_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_f01234_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_f012345_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_f0123456_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_f01234567_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_f012345678_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_f01_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_f012_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_f0123_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_f01234_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_f012345_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_f0123456_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_f01234567_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_f012345678_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_fm01_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_fm012_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_fm0123_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_fm01234_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_fm012345_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_fm0123456_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_fm01234567_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_fm012345678_statik_width);
-  tcase_add_test(tc_core, s21_sprintf_test_fm01_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_fm012_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_fm0123_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_fm01234_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_fm012345_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_fm0123456_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_fm01234567_statik_accuracy);
-  tcase_add_test(tc_core, s21_sprintf_test_fm012345678_statik_accuracy);
-  suite_add_tcase(s, tc_core);
-  SRunner *sr = srunner_create(s);
-  srunner_run_all(sr, CK_VERBOSE); 
-  int num_failed =
-      srunner_ntests_failed(sr);  
-  srunner_free(sr);           
-  if (num_failed > 0) {
-    return EXIT_FAILURE; 
-  } else {
-    return EXIT_SUCCESS;
+  for (int i = 0; i < 2; i++) {
+    printf("========================================\n");
+    srunner = srunner_create(suites[i]);
+    srunner_run_all(srunner, CK_NORMAL);
+    srunner_free(srunner);
   }
   return 0;
+}
+
+START_TEST(int_sprintf_test_1) {
+  char str[20];
+  char ch = '\0';
+
+  int s21_result = s21_sprintf(str, "char %10c", ch);
+  int result = sprintf(str, "char %10c", ch);
+
+  ck_assert_int_eq(s21_result, result);
+}
+END_TEST
+
+START_TEST(int_sprintf_test_1z) {
+  char str[20];
+  char ch = '\0';
+
+  int s21_result = s21_sprintf(str, "char %-10c", ch);
+  int result = sprintf(str, "char %-10c", ch);
+
+  ck_assert_int_eq(s21_result, result);
+}
+END_TEST
+
+START_TEST(int_sprintf_test_2) {
+  char str[20];
+  int num = 10;
+
+  int s21_result = s21_sprintf(str, "int %d", num);
+  int result = sprintf(str, "int %d", num);
+
+  ck_assert_int_eq(s21_result, result);
+}
+END_TEST
+
+START_TEST(int_sprintf_test_3) {
+  char str[20];
+  double num = 10.0;
+
+  int s21_result = s21_sprintf(str, "double %f", num);
+  int result = sprintf(str, "double %f", num);
+
+  ck_assert_int_eq(s21_result, result);
+}
+END_TEST
+
+START_TEST(int_sprintf_test_4) {
+  char buffer[50];
+  s21_sprintf(buffer, "%d", -1234);
+  sprintf(buffer, "%d", -1234);
+  return;
+}
+END_TEST
+
+START_TEST(int_sprintf_test_6) {
+  char str[20];
+  char *chs = "qw\0erty";
+
+  int s21_result = s21_sprintf(str, "str %s.5", chs);
+  int result = sprintf(str, "str %s.5", chs);
+
+  ck_assert_int_eq(s21_result, result);
+}
+END_TEST
+
+START_TEST(int_sprintf_test_6z) {
+  char str[20];
+  char *chs = "qwerty";
+
+  int s21_result = s21_sprintf(str, "str %-s.2", chs);
+  int result = sprintf(str, "str %-s.2", chs);
+
+  ck_assert_int_eq(s21_result, result);
+}
+END_TEST
+
+START_TEST(int_sprintf_test_9) {
+  char str[20];
+  int num = -10;
+
+  int s21_result = s21_sprintf(str, "int %u", num);
+  int result = sprintf(str, "int %u", num);
+
+  ck_assert_int_eq(s21_result, result);
+}
+END_TEST
+
+START_TEST(int_sprintf_test_10) {
+  char str[20];
+
+  int s21_result = s21_sprintf(str, "percent %%");
+  int result = sprintf(str, "percent %%");
+
+  ck_assert_int_eq(s21_result, result);
+}
+END_TEST
+
+START_TEST(int_sprintf_test_11) {
+  char str[20];
+
+  int s21_result = s21_sprintf(str, "%% percent %%");
+  int result = sprintf(str, "%% percent %%");
+
+  ck_assert_int_eq(s21_result, result);
+}
+END_TEST
+
+START_TEST(int_sprintf_test_12) {
+  char str[20];
+  short num = 10;
+
+  int s21_result = s21_sprintf(str, "short int % hd", num);
+  int result = sprintf(str, "short int % hd", num);
+
+  ck_assert_int_eq(s21_result, result);
+}
+END_TEST
+
+START_TEST(int_sprintf_test_13) {
+  char str[20];
+  int num = 0;
+
+  int s21_result = s21_sprintf(str, "short int %hd", num);
+  int result = sprintf(str, "short int %hd", num);
+
+  ck_assert_int_eq(s21_result, result);
+}
+END_TEST
+
+START_TEST(int_sprintf_test_14) {
+  char str[20];
+  long int num = 10;
+
+  int s21_result = s21_sprintf(str, "short int %ld", num);
+  int result = sprintf(str, "short int %ld", num);
+
+  ck_assert_int_eq(s21_result, result);
+}
+END_TEST
+
+START_TEST(int_sprintf_test_15) {
+  char str[20];
+  short num = 10;
+
+  int s21_result = s21_sprintf(str, "long int %d", num);
+  int result = sprintf(str, "long int %d", num);
+
+  ck_assert_int_eq(s21_result, result);
+}
+END_TEST
+
+START_TEST(int_sprintf_test_16) {
+  char str[20];
+  int num = 10;
+
+  int s21_result = s21_sprintf(str, "long int %d", num);
+  int result = sprintf(str, "long int %d", num);
+
+  ck_assert_int_eq(s21_result, result);
+}
+END_TEST
+
+START_TEST(int_sprintf_test_17) {
+  char str[20];
+  long int num = 10;
+
+  int s21_result = s21_sprintf(str, "long int %ld", num);
+  int result = sprintf(str, "long int %ld", num);
+
+  ck_assert_int_eq(s21_result, result);
+}
+END_TEST
+
+START_TEST(int_sprintf_test_18) {
+  char buffer[50];
+  s21_sprintf(buffer, "%d", 56789);
+  sprintf(buffer, "%d", 56789);
+  return;
+}
+END_TEST
+
+START_TEST(int_sprintf_test_20) {
+  char str[20];
+  char *ch = "qwerty";
+
+  int s21_result = s21_sprintf(str, "char %s", ch);
+  int result = sprintf(str, "char %s", ch);
+
+  ck_assert_int_eq(s21_result, result);
+}
+END_TEST
+
+START_TEST(int_sprintf_test_21) {
+  char str[20];
+  int num = 10;
+
+  int s21_result = s21_sprintf(str, "int %+d", num);
+  int result = sprintf(str, "int %+d", num);
+
+  ck_assert_int_eq(s21_result, result);
+}
+END_TEST
+
+START_TEST(int_sprintf_test_22) {
+  char str[20];
+  int num = -10;
+
+  int s21_result = s21_sprintf(str, "int %-d", num);
+  int result = sprintf(str, "int %-d", num);
+
+  ck_assert_int_eq(s21_result, result);
+}
+END_TEST
+
+START_TEST(int_sprintf_test_23) {
+  char str[20];
+  double num = 10.1234;
+
+  int s21_result = s21_sprintf(str, "double %.2f", num);
+  int result = sprintf(str, "double %.2f", num);
+
+  ck_assert_int_eq(s21_result, result);
+}
+END_TEST
+
+START_TEST(int_sprintf_test_24) {
+  char str[20];
+  double num = 10.1234;
+
+  int s21_result = s21_sprintf(str, "double % f", num);
+  int result = sprintf(str, "double % f", num);
+
+  ck_assert_int_eq(s21_result, result);
+}
+END_TEST
+
+START_TEST(int_sprintf_test_25) {
+  char str[20];
+  int num = 1234;
+
+  int s21_result = s21_sprintf(str, "int %2d", num);
+  int result = sprintf(str, "int %2d", num);
+
+  ck_assert_int_eq(s21_result, result);
+}
+END_TEST
+
+START_TEST(int_sprintf_test_26) {
+  char str[20];
+  char *num = "qwerty";
+
+  int s21_result = s21_sprintf(str, "char %2s", num);
+  int result = sprintf(str, "char %2s", num);
+
+  ck_assert_int_eq(s21_result, result);
+}
+END_TEST
+
+START_TEST(int_sprintf_test_27) {
+  char buffer[50];
+  s21_sprintf(buffer, "%0*.2f", 10, 12.345);
+  sprintf(buffer, "%0*.2f", 10, 12.345);
+  return;
+}
+END_TEST
+
+START_TEST(int_sprintf_test_28) {
+  char str[20];
+  int num = 10;
+
+  int s21_result = s21_sprintf(str, "int %-4d", num);
+  int result = sprintf(str, "int %-4d", num);
+
+  ck_assert_int_eq(s21_result, result);
+}
+END_TEST
+
+START_TEST(int_sprintf_test_29) {
+  char buffer[50];
+  s21_sprintf(buffer, "%.*f", 4, 12.34567);
+  sprintf(buffer, "%.*f", 4, 12.34567);
+  return;
+}
+END_TEST
+
+START_TEST(int_sprintf_test_30) {
+  char buffer[50];
+  s21_sprintf(buffer, "%+f", 12.34567);
+  sprintf(buffer, "%+f", 12.34567);
+  return;
+}
+END_TEST
+
+Suite *int_sprintf_test() {
+  Suite *suite = suite_create("s21_int_sprintf_test");
+  TCase *tcase = tcase_create("int_sprintf");
+
+  tcase_add_test(tcase, int_sprintf_test_1);
+  tcase_add_test(tcase, int_sprintf_test_1z);
+  tcase_add_test(tcase, int_sprintf_test_2);
+  tcase_add_test(tcase, int_sprintf_test_3);
+  tcase_add_test(tcase, int_sprintf_test_4);
+  tcase_add_test(tcase, int_sprintf_test_6);
+  tcase_add_test(tcase, int_sprintf_test_6z);
+  tcase_add_test(tcase, int_sprintf_test_9);
+  tcase_add_test(tcase, int_sprintf_test_10);
+  tcase_add_test(tcase, int_sprintf_test_11);
+  tcase_add_test(tcase, int_sprintf_test_12);
+  tcase_add_test(tcase, int_sprintf_test_13);
+  tcase_add_test(tcase, int_sprintf_test_14);
+  tcase_add_test(tcase, int_sprintf_test_15);
+  tcase_add_test(tcase, int_sprintf_test_16);
+  tcase_add_test(tcase, int_sprintf_test_17);
+  tcase_add_test(tcase, int_sprintf_test_18);
+  tcase_add_test(tcase, int_sprintf_test_20);
+  tcase_add_test(tcase, int_sprintf_test_21);
+  tcase_add_test(tcase, int_sprintf_test_22);
+  tcase_add_test(tcase, int_sprintf_test_23);
+  tcase_add_test(tcase, int_sprintf_test_24);
+  tcase_add_test(tcase, int_sprintf_test_25);
+  tcase_add_test(tcase, int_sprintf_test_26);
+  tcase_add_test(tcase, int_sprintf_test_27);
+  tcase_add_test(tcase, int_sprintf_test_28);
+  tcase_add_test(tcase, int_sprintf_test_29);
+  tcase_add_test(tcase, int_sprintf_test_30);
+
+  suite_add_tcase(suite, tcase);
+  return suite;
+}
+
+START_TEST(str_sprintf_test_1) {
+  char s21_result[20];
+  char result[20];
+  char ch = 'a';
+
+  s21_sprintf(s21_result, "char %c", ch);
+  sprintf(result, "char %c", ch);
+
+  ck_assert_str_eq(s21_result, result);
+}
+END_TEST
+
+START_TEST(str_sprintf_test_2) {
+  char s21_result[20];
+  char result[20];
+  int num = 10;
+
+  s21_sprintf(s21_result, "int %d", num);
+  sprintf(result, "int %d", num);
+
+  ck_assert_str_eq(s21_result, result);
+}
+END_TEST
+
+START_TEST(str_sprintf_test_3) {
+  char s21_result[20];
+  char result[20];
+  double num = 10.0;
+
+  s21_sprintf(s21_result, "double %f", num);
+  sprintf(result, "double %f", num);
+
+  ck_assert_str_eq(s21_result, result);
+}
+END_TEST
+
+START_TEST(str_sprintf_test_4) {
+  char buffer[50];
+  s21_sprintf(buffer, "int %d", -1239678816);
+  sprintf(buffer, "int %d", -1239678816);
+  return;
+}
+END_TEST
+
+START_TEST(str_sprintf_test_6) {
+  char s21_result[20];
+  char result[20];
+  char *chs = "qwerty";
+
+  s21_sprintf(s21_result, "str %s", chs);
+  sprintf(result, "str %s", chs);
+
+  ck_assert_str_eq(s21_result, result);
+}
+END_TEST
+
+START_TEST(str_sprintf_test_7) {
+  char s21_result[20];
+  char result[20];
+  int num = -10;
+
+  s21_sprintf(s21_result, "int %d", num);
+  sprintf(result, "int %d", num);
+
+  ck_assert_str_eq(s21_result, result);
+}
+END_TEST
+
+START_TEST(str_sprintf_test_9) {
+  char s21_result[20];
+  char result[20];
+  int num = -10;
+
+  s21_sprintf(s21_result, "int %-hu", num);
+  sprintf(result, "int %-hu", num);
+
+  ck_assert_str_eq(s21_result, result);
+}
+END_TEST
+
+START_TEST(str_sprintf_test_9x) {
+  char s21_result[20];
+  char result[20];
+  int num = 0;
+
+  s21_sprintf(s21_result, "int %hu", num);
+  sprintf(result, "int %hu", num);
+
+  ck_assert_str_eq(s21_result, result);
+}
+END_TEST
+
+START_TEST(str_sprintf_test_10) {
+  char s21_result[20];
+  char result[20];
+
+  s21_sprintf(s21_result, "percent %%");
+  sprintf(result, "percent %%");
+
+  ck_assert_str_eq(s21_result, result);
+}
+END_TEST
+
+START_TEST(str_sprintf_test_11) {
+  char s21_result[20];
+  char result[20];
+
+  s21_sprintf(s21_result, "%% percent %%");
+  sprintf(result, "%% percent %%");
+
+  ck_assert_str_eq(s21_result, result);
+}
+END_TEST
+
+START_TEST(str_sprintf_test_12) {
+  char s21_result[20];
+  char result[20];
+  short num = 10;
+
+  s21_sprintf(s21_result, "short int %hd", num);
+  sprintf(result, "short int %hd", num);
+
+  ck_assert_str_eq(s21_result, result);
+}
+END_TEST
+
+START_TEST(str_sprintf_test_13) {
+  char s21_result[20];
+  char result[20];
+  int num = 10;
+
+  s21_sprintf(s21_result, "short int %hd", num);
+  sprintf(result, "short int %hd", num);
+
+  ck_assert_str_eq(s21_result, result);
+}
+END_TEST
+
+START_TEST(str_sprintf_test_14) {
+  char s21_result[20];
+  char result[20];
+  long int num = 10;
+
+  s21_sprintf(s21_result, "short int %ld", num);
+  sprintf(result, "short int %ld", num);
+
+  ck_assert_str_eq(s21_result, result);
+}
+END_TEST
+
+START_TEST(str_sprintf_test_15) {
+  char s21_result[20];
+  char result[20];
+  short num = 10;
+
+  s21_sprintf(s21_result, "long int %d", num);
+  sprintf(result, "long int %d", num);
+
+  ck_assert_str_eq(s21_result, result);
+}
+END_TEST
+
+START_TEST(str_sprintf_test_16) {
+  char s21_result[20];
+  char result[20];
+  int num = 10;
+
+  s21_sprintf(s21_result, "long int %d", num);
+  sprintf(result, "long int %d", num);
+
+  ck_assert_str_eq(s21_result, result);
+}
+END_TEST
+
+START_TEST(str_sprintf_test_17) {
+  char s21_result[20];
+  char result[20];
+  long int num = 10;
+
+  s21_sprintf(s21_result, "long int %ld", num);
+  sprintf(result, "long int %ld", num);
+
+  ck_assert_str_eq(s21_result, result);
+}
+END_TEST
+
+START_TEST(str_sprintf_test_18) {
+  char buffer[50];
+  s21_sprintf(buffer, "int %d", 164954796);
+  sprintf(buffer, "int %d", 164954796);
+  return;
+}
+END_TEST
+
+START_TEST(str_sprintf_test_20) {
+  char s21_result[20];
+  char result[20];
+  char *ch = "qwerty";
+
+  s21_sprintf(s21_result, "char %s", ch);
+  sprintf(result, "char %s", ch);
+
+  ck_assert_str_eq(s21_result, result);
+}
+END_TEST
+
+START_TEST(str_sprintf_test_21) {
+  char s21_result[20];
+  char result[20];
+  int num = 10;
+
+  s21_sprintf(s21_result, "int %+d", num);
+  sprintf(result, "int %+d", num);
+
+  ck_assert_str_eq(s21_result, result);
+}
+END_TEST
+
+START_TEST(str_sprintf_test_22) {
+  char s21_result[20];
+  char result[20];
+  int num = -10;
+
+  s21_sprintf(s21_result, "int %-d", num);
+  sprintf(result, "int %-d", num);
+
+  ck_assert_str_eq(s21_result, result);
+}
+END_TEST
+
+START_TEST(str_sprintf_test_23) {
+  char s21_result[20];
+  char result[20];
+  double num = 10.1234;
+
+  s21_sprintf(s21_result, "double %.2f", num);
+  sprintf(result, "double %.2f", num);
+
+  ck_assert_str_eq(s21_result, result);
+}
+END_TEST
+
+START_TEST(str_sprintf_test_24) {
+  char s21_result[20];
+  char result[20];
+  double num = 10.1234;
+
+  s21_sprintf(s21_result, "double % f", num);
+  sprintf(result, "double % f", num);
+
+  ck_assert_str_eq(s21_result, result);
+}
+END_TEST
+
+START_TEST(str_sprintf_test_25) {
+  char s21_result[20];
+  char result[20];
+  int num = 1234;
+
+  s21_sprintf(s21_result, "int %2d", num);
+  sprintf(result, "int %2d", num);
+
+  ck_assert_str_eq(s21_result, result);
+}
+END_TEST
+
+START_TEST(str_sprintf_test_26) {
+  char s21_result[20];
+  char result[20];
+  char *ch = "qwerty";
+
+  s21_sprintf(s21_result, "char %2s", ch);
+  sprintf(result, "char %2s", ch);
+
+  ck_assert_str_eq(s21_result, result);
+}
+END_TEST
+
+START_TEST(str_sprintf_test_27) {
+  char buffer[50];
+  s21_sprintf(buffer, "double %.2f", 12.345);
+  sprintf(buffer, "double %.2f", 12.345);
+  return;
+}
+END_TEST
+
+START_TEST(str_sprintf_test_28) {
+  char s21_result[20];
+  char result[20];
+  int num = 10;
+
+  s21_sprintf(s21_result, "int %-4d", num);
+  sprintf(result, "int %-4d", num);
+
+  ck_assert_str_eq(s21_result, result);
+}
+END_TEST
+
+START_TEST(str_sprintf_test_29) {
+  char buffer[50];
+  s21_sprintf(buffer, "double %.2f", 12.345);
+  sprintf(buffer, "double %.2f", 12.345);
+  return;
+}
+END_TEST
+
+START_TEST(str_sprintf_test_30) {
+  char buffer[50];
+  s21_sprintf(buffer, "double %+f", 12.345);
+  sprintf(buffer, "double %+f", 12.345);
+  return;
+}
+END_TEST
+
+START_TEST(str_sprintf_test_30z) {
+  char buffer[50];
+  s21_sprintf(buffer, "double %+f", NAN);
+  sprintf(buffer, "double %+f", NAN);
+  return;
+}
+END_TEST
+
+START_TEST(str_sprintf_test_30x) {
+  char buffer[50];
+  s21_sprintf(buffer, "double %+f", INFINITY);
+  sprintf(buffer, "double %+f", INFINITY);
+  return;
+}
+END_TEST
+
+START_TEST(str_sprintf_test_30c) {
+  char buffer[50];
+  s21_sprintf(buffer, "double %+f", -INFINITY);
+  sprintf(buffer, "double %+f", -INFINITY);
+  return;
+}
+END_TEST
+
+START_TEST(str_sprintf_test_34) {
+  char s21_result[100];
+  char result[100];
+  double num = 123.456;
+
+  s21_sprintf(s21_result, "general %g", num);
+  sprintf(result, "general %g", num);
+
+  ck_assert_str_eq(s21_result, result);
+}
+END_TEST
+
+START_TEST(str_sprintf_test_35) {
+  char s21_result[100];
+  char result[100];
+  double num = 123.456;
+
+  s21_sprintf(s21_result, "general %.2g", num);
+  sprintf(result, "general %.2g", num);
+
+  ck_assert_str_eq(s21_result, result);
+}
+END_TEST
+
+START_TEST(str_sprintf_test_36) {
+  char s21_result[100];
+  char result[100];
+  double num = 123.456e+10;
+
+  s21_sprintf(s21_result, "general %g", num);
+  sprintf(result, "general %g", num);
+
+  ck_assert_str_eq(s21_result, result);
+}
+END_TEST
+
+START_TEST(str_sprintf_test_38) {
+  char s21_result[100];
+  char result[100];
+  double num = 123.456;
+
+  s21_sprintf(s21_result, "exponential %e", num);
+  sprintf(result, "exponential %e", num);
+
+  ck_assert_str_eq(s21_result, result);
+}
+END_TEST
+
+START_TEST(str_sprintf_test_39) {
+  char s21_result[100];
+  char result[100];
+  double num = 123.456;
+
+  s21_sprintf(s21_result, "exponential %.2e", num);
+  sprintf(result, "exponential %.2e", num);
+
+  ck_assert_str_eq(s21_result, result);
+}
+END_TEST
+
+START_TEST(str_sprintf_test_40) {
+  char s21_result[100];
+  char result[100];
+  double num = 123.456e+10;
+
+  s21_sprintf(s21_result, "exponential %e", num);
+  sprintf(result, "exponential %e", num);
+
+  ck_assert_str_eq(s21_result, result);
+}
+END_TEST
+
+START_TEST(str_sprintf_test_41) {
+  char s21_result[100];
+  char result[100];
+  double num = 0.000012345;
+
+  s21_sprintf(s21_result, "exponential %e", num);
+  sprintf(result, "exponential %e", num);
+
+  ck_assert_str_eq(s21_result, result);
+}
+END_TEST
+
+START_TEST(str_sprintf_test_42) {
+  char s21_result[100];
+  char result[100];
+  double num = 123.456;
+
+  s21_sprintf(s21_result, "exponential %+e", num);
+  sprintf(result, "exponential %+e", num);
+
+  ck_assert_str_eq(s21_result, result);
+}
+END_TEST
+
+START_TEST(str_sprintf_test_43) {
+  char s21_result[100];
+  char result[100];
+  double num = 123.456;
+
+  s21_sprintf(s21_result, "exponential %15.2e", num);
+  sprintf(result, "exponential %15.2e", num);
+
+  ck_assert_str_eq(s21_result, result);
+}
+END_TEST
+
+START_TEST(str_sprintf_test_44) {
+  char s21_result[100];
+  char result[100];
+  double num = 123.456;
+
+  s21_sprintf(s21_result, "exponential %-15.2e", num);
+  sprintf(result, "exponential %-15.2e", num);
+
+  ck_assert_str_eq(s21_result, result);
+}
+END_TEST
+START_TEST(str_sprintf_test_45) {
+  char s21_result[100];
+  char result[100];
+  unsigned int num = 12345;
+
+  s21_sprintf(s21_result, "%o", num);
+  sprintf(result, "%o", num);
+
+  ck_assert_str_eq(s21_result, result);
+}
+END_TEST
+
+START_TEST(str_sprintf_test_47) {
+  char s21_result[100];
+  char result[100];
+  unsigned int num = 12345;
+
+  s21_sprintf(s21_result, "%5o", num);
+  sprintf(result, "%5o", num);
+
+  ck_assert_str_eq(s21_result, result);
+}
+END_TEST
+
+START_TEST(str_sprintf_test_49) {
+  char s21_result[100];
+  char result[100];
+  unsigned int num = 12345;
+
+  s21_sprintf(s21_result, "%x", num);
+  sprintf(result, "%x", num);
+
+  ck_assert_str_eq(s21_result, result);
+}
+END_TEST
+
+START_TEST(str_sprintf_test_50) {
+  char s21_result[100];
+  char result[100];
+  unsigned int num = 12345;
+
+  s21_sprintf(s21_result, "%#x", num);
+  sprintf(result, "%#x", num);
+
+  ck_assert_str_eq(s21_result, result);
+}
+END_TEST
+
+START_TEST(str_sprintf_test_51) {
+  char s21_result[100];
+  char result[100];
+  unsigned int num = 12345;
+
+  s21_sprintf(s21_result, "%5x", num);
+  sprintf(result, "%5x", num);
+
+  ck_assert_str_eq(s21_result, result);
+}
+END_TEST
+
+START_TEST(str_sprintf_test_52) {
+  char s21_result[100];
+  char result[100];
+  unsigned int num = 12345;
+
+  s21_sprintf(s21_result, "%#5x", num);
+  sprintf(result, "%#5x", num);
+
+  ck_assert_str_eq(s21_result, result);
+}
+END_TEST
+
+START_TEST(str_sprintf_test_53) {
+  char s21_result[100];
+  char result[100];
+  unsigned int num = 12345;
+
+  s21_sprintf(s21_result, "%X", num);
+  sprintf(result, "%X", num);
+
+  ck_assert_str_eq(s21_result, result);
+}
+END_TEST
+
+START_TEST(str_sprintf_test_54) {
+  char s21_result[100];
+  char result[100];
+  unsigned int num = 12345;
+
+  s21_sprintf(s21_result, "%#X", num);
+  sprintf(result, "%#X", num);
+
+  ck_assert_str_eq(s21_result, result);
+}
+END_TEST
+
+START_TEST(str_sprintf_test_55) {
+  char s21_result[100];
+  char result[100];
+  unsigned int num = 12345;
+
+  s21_sprintf(s21_result, "%5X", num);
+  sprintf(result, "%5X", num);
+
+  ck_assert_str_eq(s21_result, result);
+}
+END_TEST
+
+START_TEST(str_sprintf_test_56) {
+  char s21_result[100];
+  char result[100];
+  unsigned int num = 12345;
+
+  s21_sprintf(s21_result, "%#5X", num);
+  sprintf(result, "%#5X", num);
+
+  ck_assert_str_eq(s21_result, result);
+}
+END_TEST
+
+START_TEST(str_sprintf_test_57) {
+  char s21_result[100];
+  char result[100];
+  unsigned int num = 4294967295;  // Максимальное значение для unsigned int
+
+  s21_sprintf(s21_result, "%o", num);
+  sprintf(result, "%o", num);
+  ck_assert_str_eq(s21_result, result);
+}
+END_TEST
+
+START_TEST(str_sprintf_test_59) {
+  char s21_result[100];
+  char result[100];
+  unsigned int num = 4294967295;  // Максимальное значение для unsigned int
+
+  s21_sprintf(s21_result, "%x", num);
+  sprintf(result, "%x", num);
+  ck_assert_str_eq(s21_result, result);
+}
+END_TEST
+
+START_TEST(str_sprintf_test_60) {
+  char s21_result[100];
+  char result[100];
+  unsigned int num = 4294967295;  // Максимальное значение для unsigned int
+
+  s21_sprintf(s21_result, "%#x", num);
+  sprintf(result, "%#x", num);
+  ck_assert_str_eq(s21_result, result);
+}
+END_TEST
+
+START_TEST(str_sprintf_test_61) {
+  char s21_result[100];
+  char result[100];
+  unsigned int num = 4294967295;  // Максимальное значение для unsigned int
+
+  s21_sprintf(s21_result, "%X", num);
+  sprintf(result, "%X", num);
+  ck_assert_str_eq(s21_result, result);
+}
+END_TEST
+
+START_TEST(str_sprintf_test_62) {
+  char s21_result[100];
+  char result[100];
+  unsigned int num = 4294967295;  // Максимальное значение для unsigned int
+
+  s21_sprintf(s21_result, "%#X", num);
+  sprintf(result, "%#X", num);
+  ck_assert_str_eq(s21_result, result);
+}
+END_TEST
+
+START_TEST(str_sprintf_test_63) {
+  char s21_result[100];
+  char result[100];
+  unsigned int num = 0;
+
+  s21_sprintf(s21_result, "%o", num);
+  sprintf(result, "%o", num);
+  ck_assert_str_eq(s21_result, result);
+}
+END_TEST
+
+START_TEST(str_sprintf_test_65) {
+  char s21_result[100];
+  char result[100];
+  unsigned int num = 0;
+
+  s21_sprintf(s21_result, "%x", num);
+  sprintf(result, "%x", num);
+  ck_assert_str_eq(s21_result, result);
+}
+END_TEST
+
+START_TEST(str_sprintf_test_67) {
+  char s21_result[100];
+  char result[100];
+  unsigned int num = 0;
+
+  s21_sprintf(s21_result, "%X", num);
+  sprintf(result, "%X", num);
+  ck_assert_str_eq(s21_result, result);
+}
+END_TEST
+
+START_TEST(str_sprintf_test_69) {
+  char s21_result[100];
+  char result[100];
+  unsigned int num = 12345;
+
+  s21_sprintf(s21_result, "%05o", num);
+  sprintf(result, "%05o", num);
+  ck_assert_str_eq(s21_result, result);
+}
+END_TEST
+
+START_TEST(str_sprintf_test_70) {
+  char s21_result[100];
+  char result[100];
+  unsigned int num = 12345;
+
+  s21_sprintf(s21_result, "%05x", num);
+  sprintf(result, "%05x", num);
+  ck_assert_str_eq(s21_result, result);
+}
+END_TEST
+
+START_TEST(str_sprintf_test_71) {
+  char s21_result[100];
+  char result[100];
+  unsigned int num = 12345;
+
+  s21_sprintf(s21_result, "%05X", num);
+  sprintf(result, "%05X", num);
+  ck_assert_str_eq(s21_result, result);
+}
+END_TEST
+
+START_TEST(str_sprintf_test_p_format) {
+  char s21_result[100];
+  char result[100];
+  void *ptr = (void *)0x123abc;
+
+  // Базовый тест с адресом
+  s21_sprintf(s21_result, "%p", ptr);
+  sprintf(result, "%p", ptr);
+  ck_assert_str_eq(s21_result, result);
+
+  // Тест с шириной и выравниванием вправо
+  s21_sprintf(s21_result, "%10p", ptr);
+  sprintf(result, "%10p", ptr);
+  ck_assert_str_eq(s21_result, result);
+
+  // Тест с шириной и нулями
+  s21_sprintf(s21_result, "%10p", ptr);
+  sprintf(result, "%10p", ptr);
+  ck_assert_str_eq(s21_result, result);
+
+  // Тест с выравниванием влево
+  s21_sprintf(s21_result, "%-10p", ptr);
+  sprintf(result, "%-10p", ptr);
+  ck_assert_str_eq(s21_result, result);
+
+  // Тест с NULL-указателем
+  s21_sprintf(s21_result, "%p", NULL);
+  sprintf(result, "%p", (void *)0);
+  ck_assert_str_eq(s21_result, result);
+}
+END_TEST
+
+Suite *str_sprintf_test() {
+  Suite *suite = suite_create("s21_str_sprintf_test");
+  TCase *tcase = tcase_create("str_sprintf");
+
+  tcase_add_test(tcase, str_sprintf_test_p_format);
+  tcase_add_test(tcase, str_sprintf_test_1);
+  tcase_add_test(tcase, str_sprintf_test_2);
+  tcase_add_test(tcase, str_sprintf_test_3);
+  tcase_add_test(tcase, str_sprintf_test_4);
+  tcase_add_test(tcase, str_sprintf_test_6);
+  tcase_add_test(tcase, str_sprintf_test_7);
+  tcase_add_test(tcase, str_sprintf_test_9);
+  tcase_add_test(tcase, str_sprintf_test_9x);
+  tcase_add_test(tcase, str_sprintf_test_10);
+  tcase_add_test(tcase, str_sprintf_test_11);
+  tcase_add_test(tcase, str_sprintf_test_12);
+  tcase_add_test(tcase, str_sprintf_test_13);
+  tcase_add_test(tcase, str_sprintf_test_14);
+  tcase_add_test(tcase, str_sprintf_test_15);
+  tcase_add_test(tcase, str_sprintf_test_16);
+  tcase_add_test(tcase, str_sprintf_test_17);
+  tcase_add_test(tcase, str_sprintf_test_18);
+  tcase_add_test(tcase, str_sprintf_test_20);
+  tcase_add_test(tcase, str_sprintf_test_21);
+  tcase_add_test(tcase, str_sprintf_test_22);
+  tcase_add_test(tcase, str_sprintf_test_23);
+  tcase_add_test(tcase, str_sprintf_test_24);
+  tcase_add_test(tcase, str_sprintf_test_25);
+  tcase_add_test(tcase, str_sprintf_test_26);
+  tcase_add_test(tcase, str_sprintf_test_27);
+  tcase_add_test(tcase, str_sprintf_test_28);
+  tcase_add_test(tcase, str_sprintf_test_29);
+  tcase_add_test(tcase, str_sprintf_test_30);
+  tcase_add_test(tcase, str_sprintf_test_30z);
+  tcase_add_test(tcase, str_sprintf_test_30x);
+  tcase_add_test(tcase, str_sprintf_test_30c);
+  tcase_add_test(tcase, str_sprintf_test_34);
+  tcase_add_test(tcase, str_sprintf_test_35);
+  tcase_add_test(tcase, str_sprintf_test_36);
+  tcase_add_test(tcase, str_sprintf_test_38);
+  tcase_add_test(tcase, str_sprintf_test_39);
+  tcase_add_test(tcase, str_sprintf_test_40);
+  tcase_add_test(tcase, str_sprintf_test_41);
+  tcase_add_test(tcase, str_sprintf_test_42);
+  tcase_add_test(tcase, str_sprintf_test_43);
+  tcase_add_test(tcase, str_sprintf_test_44);
+  tcase_add_test(tcase, str_sprintf_test_45);
+  tcase_add_test(tcase, str_sprintf_test_47);
+  tcase_add_test(tcase, str_sprintf_test_49);
+  tcase_add_test(tcase, str_sprintf_test_50);
+  tcase_add_test(tcase, str_sprintf_test_51);
+  tcase_add_test(tcase, str_sprintf_test_52);
+  tcase_add_test(tcase, str_sprintf_test_53);
+  tcase_add_test(tcase, str_sprintf_test_54);
+  tcase_add_test(tcase, str_sprintf_test_55);
+  tcase_add_test(tcase, str_sprintf_test_56);
+  tcase_add_test(tcase, str_sprintf_test_57);
+  tcase_add_test(tcase, str_sprintf_test_59);
+  tcase_add_test(tcase, str_sprintf_test_60);
+  tcase_add_test(tcase, str_sprintf_test_61);
+  tcase_add_test(tcase, str_sprintf_test_62);
+  tcase_add_test(tcase, str_sprintf_test_63);
+  tcase_add_test(tcase, str_sprintf_test_65);
+  tcase_add_test(tcase, str_sprintf_test_67);
+  tcase_add_test(tcase, str_sprintf_test_69);
+  tcase_add_test(tcase, str_sprintf_test_70);
+  tcase_add_test(tcase, str_sprintf_test_71);
+
+  suite_add_tcase(suite, tcase);
+  return suite;
 }

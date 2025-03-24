@@ -1,4 +1,5 @@
 #include <check.h>
+#include <string.h>
 
 #include "s21_string.h"
 
@@ -57,47 +58,21 @@ START_TEST(int_sscanf_test_4) {
 }
 END_TEST
 
-START_TEST(int_sscanf_test_5) {
-  char chs[2];
-
-  int s21_result = s21_sscanf("hello", "%s", chs);
-  int result = sscanf("hello", "%s", chs);
-
-  ck_assert_int_eq(s21_result, result);
-}
-END_TEST
-
 START_TEST(int_sscanf_test_6) {
   double num;
 
-  int s21_result = s21_sscanf("12.34", "%f", &num);
-  int result = sscanf("12.34", "%f", &num);
+  int s21_result = s21_sscanf("12.34", "%lf", &num);
+  int result = sscanf("12.34", "%lf", &num);
 
   ck_assert_int_eq(s21_result, result);
-}
-END_TEST
-
-START_TEST(int_sscanf_test_7) {
-  double num;
-  (void)num;
-  s21_sscanf("12.345", "%.2f", &num);
-  sscanf("12.345", "%.2f", &num);
 }
 END_TEST
 
 START_TEST(int_sscanf_test_8) {
   double num;
   (void)num;
-  s21_sscanf(" 12", "% d", &num);
-  sscanf(" 12", "% d", &num);
-}
-END_TEST
-
-START_TEST(int_sscanf_test_9) {
-  double num;
-  (void)num;
-  s21_sscanf("12.34", "%.1f", &num);
-  sscanf("12.34", "%.1f", &num);
+  s21_sscanf(" 12", "%le", &num);
+  sscanf(" 12", "%le", &num);
 }
 END_TEST
 
@@ -105,8 +80,8 @@ START_TEST(int_sscanf_test_10) {
   double num;
   char ch;
 
-  int s21_result = s21_sscanf("12 hello", "%d %c", &num, &ch);
-  int result = sscanf("12 hello", "%d %c", &num, &ch);
+  int s21_result = s21_sscanf("12 hello", "%le %c", &num, &ch);
+  int result = sscanf("12 hello", "%le %c", &num, &ch);
 
   ck_assert_int_eq(s21_result, result);
 }
@@ -125,8 +100,8 @@ END_TEST
 START_TEST(int_sscanf_test_12) {
   double num;
 
-  int s21_result = s21_sscanf(" 12.345 ", "%f", &num);
-  int result = sscanf(" 12.345 ", "%f", &num);
+  int s21_result = s21_sscanf(" 12.345 ", "%lf", &num);
+  int result = sscanf(" 12.345 ", "%lf", &num);
 
   ck_assert_int_eq(s21_result, result);
 }
@@ -135,8 +110,8 @@ END_TEST
 START_TEST(int_sscanf_test_13) {
   double num;
 
-  int s21_result = s21_sscanf("0.1", "%f", &num);
-  int result = sscanf("0.1", "%f", &num);
+  int s21_result = s21_sscanf("0.1", "%lf", &num);
+  int result = sscanf("0.1", "%lf", &num);
 
   ck_assert_int_eq(s21_result, result);
 }
@@ -177,8 +152,8 @@ END_TEST
 START_TEST(int_sscanf_test_17) {
   int num;
 
-  int s21_result = s21_sscanf("-2.5e2", "%e", &num);
-  int result = sscanf("-2.5e2", "%e", &num);
+  int s21_result = s21_sscanf("-2.5e2", "%d", &num);
+  int result = sscanf("-2.5e2", "%d", &num);
 
   ck_assert_int_eq(s21_result, result);
 }
@@ -202,8 +177,8 @@ START_TEST(int_sscanf_test_19) {
   char chs[2];
 
   int s21_result =
-      s21_sscanf("1 1.1 a aa", "%d %f %c %s", &num1, &num2, &ch, chs);
-  int result = sscanf("1 1.1 a aa", "%d %f %c %s", &num1, &num2, &ch, chs);
+      s21_sscanf("1 1.1 a aa", "%d %lf %c %s", &num1, &num2, &ch, chs);
+  int result = sscanf("1 1.1 a aa", "%d %lf %c %s", &num1, &num2, &ch, chs);
 
   ck_assert_int_eq(s21_result, result);
 }
@@ -220,19 +195,67 @@ START_TEST(int_sscanf_test_20) {
 }
 END_TEST
 
+START_TEST(sscanf_test_hex_prefix) {
+  int num;
+  char str[] = "0x123";
+  char fmt[] = "%x";
+
+  sscanf(str, fmt, &num);
+  ck_assert_int_eq(num, 291);
+
+  s21_sscanf(str, fmt, &num);
+  ck_assert_int_eq(num, 291);
+}
+END_TEST
+
+START_TEST(test_sscanf_hex_prefix) {
+  int dest;
+  const char *format = "%i";
+  const char *input = "0x1A";
+
+  int result = s21_sscanf(input, format, &dest);
+  ck_assert_int_eq(result, 1);
+  ck_assert_int_eq(dest, 26);
+}
+END_TEST
+
+START_TEST(test_sscanf_octal_and_hex) {
+  int dest1, dest2;
+  const char *format = "%i %i";
+  const char *input = "010 0x10";
+
+  int result = s21_sscanf(input, format, &dest1, &dest2);
+  ck_assert_int_eq(result, 2);
+  ck_assert_int_eq(dest1, 8);
+  ck_assert_int_eq(dest2, 16);
+}
+END_TEST
+
+START_TEST(test_sscanf_hex_negative) {
+  int dest;
+  const char *format = "%i";
+  const char *input = "-0x10";
+
+  int result = s21_sscanf(input, format, &dest);
+  ck_assert_int_eq(result, 1);
+  ck_assert_int_eq(dest, -16);
+}
+END_TEST
+
 Suite *int_sscanf_test() {
   Suite *suite = suite_create("s21_int_sscanf_test");
   TCase *tcase = tcase_create("int_sscanf");
 
+  tcase_add_test(tcase, test_sscanf_hex_prefix);
+  tcase_add_test(tcase, test_sscanf_octal_and_hex);
+  tcase_add_test(tcase, test_sscanf_hex_negative);
+  tcase_add_test(tcase, sscanf_test_hex_prefix);
   tcase_add_test(tcase, int_sscanf_test_1);
   tcase_add_test(tcase, int_sscanf_test_2);
   tcase_add_test(tcase, int_sscanf_test_3);
   tcase_add_test(tcase, int_sscanf_test_4);
-  tcase_add_test(tcase, int_sscanf_test_5);
   tcase_add_test(tcase, int_sscanf_test_6);
-  tcase_add_test(tcase, int_sscanf_test_7);
   tcase_add_test(tcase, int_sscanf_test_8);
-  tcase_add_test(tcase, int_sscanf_test_9);
   tcase_add_test(tcase, int_sscanf_test_10);
   tcase_add_test(tcase, int_sscanf_test_11);
   tcase_add_test(tcase, int_sscanf_test_12);

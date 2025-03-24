@@ -37,18 +37,18 @@ void *s21_to_lower(const char *str) {
   return result;
 }
 
-void *s21_insert(const char *src, const char *str, s21_size_t start_index) {
-  char *res = NULL;
-  if (src && str && (start_index <= s21_strlen(src))) {
+void *s21_insert(const char *src, const char *str, size_t start_index) {
+  char *res = S21_NULL;
+  if (src != NULL && str != NULL) {
     s21_size_t src_len = s21_strlen(src);
     s21_size_t str_len = s21_strlen(str);
-    s21_size_t res_len = src_len + str_len + 1;
-    res = malloc(res_len * sizeof(char));
-    if (res) {
-      s21_strncpy(res, src, start_index);
-      s21_strcpy(res + start_index, str);
-      s21_strcpy(res + start_index + str_len, src + start_index);
-      res[res_len - 1] = '\0';
+    if (start_index <= src_len) {
+      res = (char *)malloc(src_len + str_len + 1);
+      if (res != NULL) {
+        s21_strncpy(res, src, start_index);
+        s21_strcpy(res + start_index, str);
+        s21_strcpy(res + start_index + str_len, src + start_index);
+      }
     }
   }
   return res;

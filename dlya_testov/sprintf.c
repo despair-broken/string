@@ -5,7 +5,75 @@ int main() {
   char std_buffer[1000] = {0};
   int test_num = 1;
 
-  int flag_huesos = 0;
+  int flag_huesos = 1;
+
+  printf("{EQTSFKPFOPAFPMA\n\n\n\n\n");
+
+  // Тест 89 : Базовый формат %
+  s21_sprintf(buffer, "Привет, указатель: %p", (void *)0x12345678);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, указатель: %p",
+           (void *)0x12345678);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 90: %p с шириной и пробелами
+  s21_sprintf(buffer, "Привет, указатель: %10p", (void *)0x12345678);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, указатель: %10p",
+           (void *)0x12345678);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 91: %p с шириной и нулями
+  s21_sprintf(buffer, "Привет, указатель: %10p", (void *)0x12345678);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, указатель: %10p",
+           (void *)0x12345678);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 92: %p с выравниванием влево
+  s21_sprintf(buffer, "Привет, указатель: %10p", (void *)0x12345678);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, указатель: %10p",
+           (void *)0x12345678);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  // Тест 93: %p с нулевым указателем
+  s21_sprintf(buffer, "Привет, указатель: %p", NULL);
+  snprintf(std_buffer, sizeof(std_buffer), "Привет, указатель: %p", NULL);
+  if (strcmp(buffer, std_buffer) == 0) {
+    printf("ACCESS: Тест %d пройден успешно\n", test_num);
+  } else {
+    printf("**FAIL: Тест %d не пройден\n", test_num);
+    printf("********Ваш вывод: %s\n", buffer);
+    printf("Стандартный вывод: %s\n", std_buffer);
+  }
+  test_num++;
+
+  printf("{EQTSFKPFOPAFPMA\n\n\n\n\n}");
 
   // // Тест 3: Вывод указателя с шириной и выравниванием по левому краю
   // s21_sprintf(buffer, "Привет, указатель: %-20p", &x);
@@ -12048,7 +12116,7 @@ void calculate_leading_zeros(int *count_zero, flags *f, int len) {
 }
 
 void handle_int(va_list factor, char *str, int *l, flags *f) {
-  char num_str[50] = {0};
+  char num_str[50];
   long long int num = 0;
   int sign = 0;
   int len = 0;
@@ -12077,7 +12145,7 @@ void handle_int(va_list factor, char *str, int *l, flags *f) {
 }
 
 void handle_unsigned(va_list factor, char *str, int *l, flags *f) {
-  char num_str[50] = {0};
+  char num_str[50];
   unsigned long long num = 0;
   int len = 0;
   int count_zero = 0;
@@ -12267,7 +12335,7 @@ void handle_hex_and_o(va_list factor, char *str, int *l, flags *f,
   get_uns_number(factor, f, &num);
   int len = 0;
   int count_zero = 0;
-  char temp_str[20] = {0};
+  char temp_str[20];
   int temp_len = get_len_and_precision_hex_and_o(num, &len, f, &count_zero,
                                                  temp_str, uppercase, value);
   if (f->minus) {
@@ -12288,8 +12356,7 @@ void handle_hex_and_o(va_list factor, char *str, int *l, flags *f,
 }
 
 void handle_p(va_list factor, char *str, int *l, flags *f) {
-  void *ptr = va_arg(factor, void *);
-  uintptr_t addr = (uintptr_t)ptr;
+  uintptr_t addr = (uintptr_t)va_arg(factor, void *);
   char buffer[40] = {0};
   int len = 0;
   buffer[len++] = '0';
@@ -12297,14 +12364,12 @@ void handle_p(va_list factor, char *str, int *l, flags *f) {
   if (addr == 0) {
     buffer[len++] = '0';
   } else {
+    int is_leading_zero = 1;
     for (int i = 15; i >= 0; --i) {
       uint8_t byte = (addr >> (i * 4)) & 0xF;
-      if ((byte != 0) || (i == 0)) {
-        if (byte < 10) {
-          buffer[len++] = '0' + byte;
-        } else {
-          buffer[len++] = 'a' + (byte - 10);
-        }
+      if (!is_leading_zero || byte != 0 || i == 0) {
+        is_leading_zero = 0;
+        buffer[len++] = hex_to_char(byte);
       }
     }
   }
@@ -12324,7 +12389,7 @@ void handle_p(va_list factor, char *str, int *l, flags *f) {
 
 void print_int_part(char *str, int *l, long double num) {
   int int_part = (int)num;
-  char int_str[50] = {0};
+  char int_str[50];
   int len = 0;
   if (int_part == 0) {
     str[(*l)++] = '0';
@@ -12360,9 +12425,9 @@ void print_frac_part(char *str, int *l, long double num, int frac_len) {
       buff_digit++;
     }
     char buff_str[20];
-    sprintf(buff_str, "%d", buff_digit);                  // ЗАМЕНИТЬ НА С21
-    print_char(str, buff_str, (int)strlen(buff_str), l);  // ЗАМЕНИТЬ НА С21
-    int len = (int)strlen(buff_str);                      // ЗАМЕНИТЬ НА С21
+    sprintf(buff_str, "%d", buff_digit);
+    print_char(str, buff_str, (int)strlen(buff_str), l);
+    int len = (int)strlen(buff_str);
     print_space(str, frac_len - len - count_zero, l);
   }
 }
@@ -12385,14 +12450,14 @@ void handle_e(va_list factor, char *str, int *l, flags *f, int uppercase) {
   } else {
     int precision = (f->precision == -100) ? 6 : f->precision;
     int exponent = get_exponent(&num);
-    char num_str[50] = {0};
+    char num_str[50];
     snprintf(num_str, sizeof(num_str), "%.*Lf", precision, num);
     int exponent_sign = (exponent >= 0) ? '+' : '-';
     exponent = abs(exponent);
-    char exponent_str[20] = {0};
+    char exponent_str[20];
     snprintf(exponent_str, sizeof(exponent_str), "%c%02d", exponent_sign,
              exponent);
-    char str_buff[50] = {0};
+    char str_buff[50];
     strcpy(str_buff, num_str);
     strcat(str_buff, uppercase ? "E" : "e");
     strcat(str_buff, exponent_str);
@@ -12435,7 +12500,6 @@ void handle_general(va_list factor, char *str, int *l, flags *f,
     print_nan_inf(num, f, str, l, uppercase);
   } else if (exponent >= -4 && exponent < f->precision) {
     f_in_g(num, f, sign, str, l);
-
   } else {
     e_in_g(&num, f, uppercase, sign, str, l);
   }
@@ -12444,14 +12508,14 @@ void handle_general(va_list factor, char *str, int *l, flags *f,
 void e_in_g(long double *num, flags *f, int uppercase, int sign, char *str,
             int *l) {
   int exponent = get_exponent(num);
-  char num_str[50] = {0};
+  char num_str[50];
   snprintf(num_str, sizeof(num_str), "%.*Lf", f->precision - 1, *num);
   int exponent_sign = (exponent >= 0) ? '+' : '-';
   exponent = abs(exponent);
-  char exponent_str[20] = {0};
+  char exponent_str[20];
   snprintf(exponent_str, sizeof(exponent_str), "%c%02d", exponent_sign,
            exponent);
-  char str_buff[50] = {0};
+  char str_buff[50];
   strcpy(str_buff, num_str);
   strcat(str_buff, uppercase ? "E" : "e");
   strcat(str_buff, exponent_str);
@@ -12495,7 +12559,7 @@ void f_in_g_ferst(flags *f, long double num, int sign, char *str, int *l) {
     flag_point = 0;
     int digit = (int)(temp * 10) % 10;
     if (digit > 5) {
-      (temp)++;
+      temp++;
     }
   }
   if (int_part == 0) {
@@ -12606,4 +12670,11 @@ void print_f_in_g_second(flags *f, int sign, char *str, int *l, int len,
     }
     print_char(str, buffZXC, len, l);
   }
+}
+
+char hex_to_char(uint8_t byte) {
+  if (byte < 10) {
+    return '0' + byte;  // Цифры 0-9 → '0'-'9'
+  }
+  return 'a' + (byte - 10);  // Буквы A-F → 'A'-'F'
 }

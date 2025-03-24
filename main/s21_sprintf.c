@@ -37,7 +37,7 @@ void initialize_flags(flags *f) {
 }
 
 void parse_flags(const char *format, int *i, flags *f) {
-  while (strchr(("-+ #0"), format[*i])) {
+  while (s21_strchr(("-+ #0"), format[*i])) {
     switch (format[*i]) {
       case '-':
         f->minus = 1;
@@ -162,9 +162,9 @@ void print_c(char *str, int *l, int flag, char c) {
 
 void handle_string(va_list factor, char *str, int *l, flags *f) {
   char *s = va_arg(factor, char *);
-  int len = strlen(s);
+  int len = s21_strlen(s);
   char new_s[len + 1];
-  strcpy(new_s, s);
+  s21_strcpy(new_s, s);
   int actual_len = len;
   if (f->precision > -1 && f->precision < actual_len) {
     actual_len = f->precision;
@@ -209,7 +209,7 @@ void get_int_number_and_sign_and_len(va_list factor, flags *f,
   } else {
     *num = va_arg(factor, int);
   }
-  if (signbit(*num)) {
+  if (signbit((float)*num)) {
     *sign = -1;
     *num = -(*num);
   } else if (f->plus) {
@@ -547,37 +547,33 @@ void handle_hex_and_o(va_list factor, char *str, int *l, flags *f,
 }
 
 void handle_p(va_list factor, char *str, int *l, flags *f) {
-  void *ptr = va_arg(factor, void *);
-  uintptr_t addr = (uintptr_t)ptr;
+  uintptr_t addr = (uintptr_t)va_arg(factor, void *);
   char buffer[40] = {0};
   int len = 0;
-  buffer[len++] = '0';
-  buffer[len++] = 'x';
   if (addr == 0) {
-    buffer[len++] = '0';
+    buffer[len++] = '(';
+    buffer[len++] = 'n';
+    buffer[len++] = 'i';
+    buffer[len++] = 'l';
+    buffer[len++] = ')';
   } else {
+    buffer[len++] = '0';
+    buffer[len++] = 'x';
+    int is_leading_zero = 1;
     for (int i = 15; i >= 0; --i) {
       uint8_t byte = (addr >> (i * 4)) & 0xF;
-      if ((byte != 0) || (i == 0)) {
-        if (byte < 10) {
-          buffer[len++] = '0' + byte;
-        } else {
-          buffer[len++] = 'a' + (byte - 10);
-        }
+      if (!is_leading_zero || byte != 0 || i == 0) {
+        is_leading_zero = 0;
+        buffer[len++] = hex_to_char(byte);
       }
     }
   }
   if (f->minus) {
     print_char(str, buffer, len, l);
-    print_zero(str, f->width - len, l);
+    print_space(str, f->width - len, l);
   } else {
-    if (f->zero) {
-      print_zero(str, f->width - len, l);
-      print_char(str, buffer, len, l);
-    } else {
-      print_space(str, f->width - len, l);
-      print_char(str, buffer, len, l);
-    }
+    print_space(str, f->width - len, l);
+    print_char(str, buffer, len, l);
   }
 }
 
@@ -618,10 +614,10 @@ void print_frac_part(char *str, int *l, long double num, int frac_len) {
     if ((int)(frac * 10) >= 5) {
       buff_digit++;
     }
-    char buff_str[20];
-    sprintf(buff_str, "%d", buff_digit);                  // ЗАМЕНИТЬ НА С21
-    print_char(str, buff_str, (int)strlen(buff_str), l);  // ЗАМЕНИТЬ НА С21
-    int len = (int)strlen(buff_str);                      // ЗАМЕНИТЬ НА С21
+    char buff_str[20] = {0};
+    s21_sprintf(buff_str, "%d", buff_digit);
+    print_char(str, buff_str, (int)s21_strlen(buff_str), l);
+    int len = (int)s21_strlen(buff_str);
     print_space(str, frac_len - len - count_zero, l);
   }
 }
@@ -652,10 +648,10 @@ void handle_e(va_list factor, char *str, int *l, flags *f, int uppercase) {
     snprintf(exponent_str, sizeof(exponent_str), "%c%02d", exponent_sign,
              exponent);
     char str_buff[50] = {0};
-    strcpy(str_buff, num_str);
-    strcat(str_buff, uppercase ? "E" : "e");
-    strcat(str_buff, exponent_str);
-    int len = strlen(str_buff);
+    s21_strcpy(str_buff, num_str);
+    s21_strncat(str_buff, uppercase ? "E" : "e", 1000);
+    s21_strncat(str_buff, exponent_str, 1000);
+    int len = s21_strlen(str_buff);
     int total_len = f->width;
     if (len > total_len) total_len = len;
     total_len -= (sign ? 2 : (f->space ? 1 : 0));
@@ -694,7 +690,6 @@ void handle_general(va_list factor, char *str, int *l, flags *f,
     print_nan_inf(num, f, str, l, uppercase);
   } else if (exponent >= -4 && exponent < f->precision) {
     f_in_g(num, f, sign, str, l);
-
   } else {
     e_in_g(&num, f, uppercase, sign, str, l);
   }
@@ -711,10 +706,10 @@ void e_in_g(long double *num, flags *f, int uppercase, int sign, char *str,
   snprintf(exponent_str, sizeof(exponent_str), "%c%02d", exponent_sign,
            exponent);
   char str_buff[50] = {0};
-  strcpy(str_buff, num_str);
-  strcat(str_buff, uppercase ? "E" : "e");
-  strcat(str_buff, exponent_str);
-  int len = strlen(str_buff);
+  s21_strcpy(str_buff, num_str);
+  s21_strncat(str_buff, uppercase ? "E" : "e", 1000);
+  s21_strncat(str_buff, exponent_str, 1000);
+  int len = s21_strlen(str_buff);
   int total_len = f->width;
   if (len > total_len) total_len = len;
   if (sign) {
@@ -754,7 +749,7 @@ void f_in_g_ferst(flags *f, long double num, int sign, char *str, int *l) {
     flag_point = 0;
     int digit = (int)(temp * 10) % 10;
     if (digit > 5) {
-      (temp)++;
+      temp++;
     }
   }
   if (int_part == 0) {
@@ -833,7 +828,8 @@ void f_in_g_second(flags *f, long double num, int sign, char *str, int *l) {
     qwe = round(qwe);
     znach_cifri = f->precision;
   }
-  char buffZXC[50] = {'0'};
+  char buffZXC[50] = {0};
+  buffZXC[0] = '0';
   buffZXC[1] = '.';
   for (int i = 2; i < 2 + ferst_zero; i++) {
     buffZXC[i] = '0';
@@ -865,4 +861,8 @@ void print_f_in_g_second(flags *f, int sign, char *str, int *l, int len,
     }
     print_char(str, buffZXC, len, l);
   }
+}
+
+char hex_to_char(uint8_t byte) {
+  return (byte < 10) ? '0' + byte : 'a' + (byte - 10);
 }

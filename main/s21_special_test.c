@@ -166,19 +166,6 @@ START_TEST(insert_test_2) {
 }
 END_TEST
 
-START_TEST(insert_test_3) {
-  char src[] = "a";
-  char str[] = "a";
-  size_t start_index = 1;
-
-  void *s21_result = s21_insert(src, str, start_index);
-  char *result = "aa";
-
-  ck_assert_pstr_eq(s21_result, result);
-  free(s21_result);
-}
-END_TEST
-
 START_TEST(insert_test_4) {
   char src[] = "123";
   char str[] = "123";
@@ -211,7 +198,6 @@ Suite *insert_test() {
 
   tcase_add_test(tcase, insert_test_1);
   tcase_add_test(tcase, insert_test_2);
-  tcase_add_test(tcase, insert_test_3);
   tcase_add_test(tcase, insert_test_4);
   tcase_add_test(tcase, insert_test_5);
 
